@@ -5,8 +5,15 @@
 // Send back to the popup a sorted deduped list of valid link URLs on this page.
 // The popup injects this script into all frames in the active tab.
 
-var links = [].slice.apply(document.getElementsByTagName('a'));
-links = links.map(function(element) {
+var links = [].slice
+.apply(document.getElementsByTagName('a'))
+.filter(function(element) {
+  console.log(element.className);
+  var self = element.className.indexOf('self') >= 0 
+  var thumbnail = element.className.indexOf('thumbnail') >= 0
+  return !self && thumbnail;
+})
+.map(function(element) {
   // Return an anchor's href attribute, stripping any URL fragment (hash '#').
   // If the html specifies a relative path, chrome converts it to an absolute
   // URL.
@@ -17,19 +24,5 @@ links = links.map(function(element) {
   }
   return href;
 });
-
-links.sort();
-
-// Remove duplicates and invalid URLs.
-var kBadPrefix = 'javascript';
-for (var i = 0; i < links.length;) {
-  if (((i > 0) && (links[i] == links[i - 1])) ||
-      (links[i] == '') ||
-      (kBadPrefix == links[i].toLowerCase().substr(0, kBadPrefix.length))) {
-    links.splice(i, 1);
-  } else {
-    ++i;
-  }
-}
 
 chrome.extension.sendRequest(links);
