@@ -1,0 +1,8 @@
+{
+  "name": "VR CV",
+  "description": "See cross view images in VR.",
+  "version": "0.1",
+  "permissions": ["<all_urls>"],
+  "browser_action": {"default_popup": "popup.html"},
+  "manifest_version": 2
+}
