@@ -8,7 +8,7 @@
 var links = [].slice
 .apply(document.getElementsByTagName('a'))
 .filter(function(element) {
-  console.log(element.className);
+  console.log("examining a. " + element.className);
   var self = element.className.indexOf('self') >= 0 
   var thumbnail = element.className.indexOf('thumbnail') >= 0
   return !self && thumbnail;

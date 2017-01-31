@@ -27,12 +27,12 @@ function showLinks() {
     
     row.appendChild(checkbox);
     row.appendChild(label)
-    row.onclick = function() {
-      checkbox.checked = !checkbox.checked;
-    }
+    row.onclick = loadImage(allLinks[i]);
+    //label.onclick = loadImage(allLinks[i]);
     linksTable.appendChild(row);
   }
 }
+
 
 // Toggle the checked state of all visible links.
 function toggleAll() {
@@ -43,7 +43,9 @@ function toggleAll() {
 }
 
 function loadImage(url) {
-  alert(url);
+  return function() {
+    alert(url);
+  }
 }
 
 // Add links to allLinks and allLinks, sort and show them.  send_links.js is
@@ -51,6 +53,7 @@ function loadImage(url) {
 // multiple times.
 chrome.extension.onRequest.addListener(function(links) {
   for (var index in links) {
+    console.log("adding " + links[index]);
     allLinks.push(links[index]);
   }
   showLinks();
