@@ -6,7 +6,6 @@
 // download URLs.
 
 var allLinks = [];
-var visibleLinks = [];
 
 // Display all visible links.
 function showLinks() {
@@ -14,7 +13,7 @@ function showLinks() {
   while (linksTable.children.length > 1) {
     linksTable.removeChild(linksTable.children[linksTable.children.length - 1])
   }
-  for (var i = 0; i < visibleLinks.length; ++i) {
+  for (var i = 0; i < allLinks.length; ++i) {
     var row = document.createElement('div');
     row.className = 'link';
     
@@ -24,7 +23,7 @@ function showLinks() {
     checkbox.id = 'check' + i;
     
     var label = document.createElement('span');
-    label.innerText = visibleLinks[i];
+    label.innerText = allLinks[i];
     
     row.appendChild(checkbox);
     row.appendChild(label)
@@ -38,70 +37,29 @@ function showLinks() {
 // Toggle the checked state of all visible links.
 function toggleAll() {
   var checked = document.getElementById('toggle_all').checked;
-  for (var i = 0; i < visibleLinks.length; ++i) {
+  for (var i = 0; i < allLinks.length; ++i) {
     document.getElementById('check' + i).checked = checked;
   }
 }
 
-// Download all visible checked links.
-function downloadCheckedLinks() {
-  for (var i = 0; i < visibleLinks.length; ++i) {
-    if (document.getElementById('check' + i).checked) {
-      chrome.downloads.download({url: visibleLinks[i]},
-                                             function(id) {
-      });
-    }
-  }
-  window.close();
+function loadImage(url) {
+  alert(url);
 }
 
-// Re-filter allLinks into visibleLinks and reshow visibleLinks.
-function filterLinks() {
-  var filterValue = document.getElementById('filter').value;
-  if (document.getElementById('regex').checked) {
-    visibleLinks = allLinks.filter(function(link) {
-      return link.match(filterValue);
-    });
-  } else {
-    var terms = filterValue.split(' ');
-    visibleLinks = allLinks.filter(function(link) {
-      for (var termI = 0; termI < terms.length; ++termI) {
-        var term = terms[termI];
-        if (term.length != 0) {
-          var expected = (term[0] != '-');
-          if (!expected) {
-            term = term.substr(1);
-            if (term.length == 0) {
-              continue;
-            }
-          }
-          var found = (-1 !== link.indexOf(term));
-          if (found != expected) {
-            return false;
-          }
-        }
-      }
-      return true;
-    });
-  }
-  showLinks();
-}
-
-// Add links to allLinks and visibleLinks, sort and show them.  send_links.js is
+// Add links to allLinks and allLinks, sort and show them.  send_links.js is
 // injected into all frames of the active tab, so this listener may be called
 // multiple times.
 chrome.extension.onRequest.addListener(function(links) {
   for (var index in links) {
     allLinks.push(links[index]);
   }
-  allLinks.sort();
-  visibleLinks = allLinks;
   showLinks();
 });
 
 // Set up event handlers and inject send_links.js into all frames in the active
 // tab.
 window.onload = function() {
+  document.getElementById('toggle_all').onchange = toggleAll;
   chrome.windows.getCurrent(function (currentWindow) {
     chrome.tabs.query({active: true, windowId: currentWindow.id},
                       function(activeTabs) {
