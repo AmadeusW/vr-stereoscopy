@@ -44,7 +44,7 @@ function toggleAll() {
 
 function loadImage(url) {
   return function() {
-    alert(url);
+    document.getElementById('image').src = url;
   }
 }
 
