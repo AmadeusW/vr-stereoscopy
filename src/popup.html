@@ -8,7 +8,9 @@
     <a-assets>
       <img id="image" src="https://i.imgur.com/mYmmbrp.jpg">
     </a-assets>
-    <a-box src="#image" position="0 2 -5" rotation="0 45 45" scale="2 2 2"></a-box>
+    <a-box src="#image" position="0 2 -5" rotation="0 45 45" scale="2 2 2">
+      <a-animation attribute="position" to="0 2.2 -5" direction="alternate" dur="2000" repeat="indefinite"></a-animation>
+  </a-box>
   </a-scene>
   <div id="links"> </div>
   <input type=checkbox checked id=toggle_all>All</input>
