@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang=en>
+<head>
+    <meta charset=utf-8>
+    <title>VR cross view</title>
+    <link rel="stylesheet" type="text/css" href="style.css" media="screen" />
+    <script src="https://aframe.io/releases/0.4.0/aframe.min.js"></script>
+    <script src="vrcv.js"></script>
+</head>
+<body>
+
+  <a-scene>
+    <a-assets>
+      <img id="image" src="../test.jpg">
+    </a-assets>
+    <a-box src="#image" position="0 2 -5" rotation="0 45 45" scale="2 2 2">
+      <a-animation attribute="position" to="0 2.2 -5" direction="alternate" dur="2000" repeat="indefinite"></a-animation>
+  </a-box>
+  </a-scene>
+  <div id="links"> </div>
+  <input type=checkbox checked id=toggle_all>All</input>
+
+</body>
+<script>initialize();</script>
+</html>
