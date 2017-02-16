@@ -6,7 +6,8 @@ Roadmap:
 - [X] display image in AFrame
 - [X] display image in VR
 - [X] attach image to camera
-- [ ] source of images
+- [ ] pan image with head motion
+- [ ] provide source of images
 - [ ] display thumbnails to choose
 - [ ] navigation
 
