@@ -1,5 +1,5 @@
 var baseX = 0;
-var baseY = 1;
+var baseY = 0.1;
 var baseZ = -2.3;
 var deltaX = 0;
 var deltaY = 0;
@@ -18,7 +18,7 @@ window.addEventListener("keydown", function(e){
         render();
     }
     if(e.keyCode === 38) { // up
-        deltaY -= step;
+        deltaY += step;
         render();
     }
     if(e.keyCode === 40) { // down
@@ -33,5 +33,5 @@ function render()
     var positionL = (baseX + deltaX) + " " + (baseY + deltaY) + " " + (baseZ + deltaZ) + " ";
     console.log(positionL + "; " + positionR);
     document.getElementById("leftPlane").setAttribute("position", positionL)
-    document.getElementById("rightPlane").setAttribute("position", positionL)
+    document.getElementById("rightPlane").setAttribute("position", positionR)
 }
