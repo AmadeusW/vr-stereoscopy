@@ -8,3 +8,5 @@ roadmap:
 - [x] display image
 - [ ] display image in AFrame
 - [ ] display image in VR
+
+todo: Give credit to https://github.com/oscarmarinmiro/aframe-stereo-component
