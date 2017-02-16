@@ -1,6 +1,12 @@
+// Base position of images
 var baseX = 0;
 var baseY = 0.1;
 var baseZ = -2.3;
+// Offset controlled by user's head
+var panX = 0;
+var panY = 0;
+var panZ = 0;
+// Per-eye offset for each image
 var deltaX = 0;
 var deltaY = 0;
 var deltaZ = 0;
@@ -29,8 +35,8 @@ window.addEventListener("keydown", function(e){
 
 function render()
 {
-    var positionR = baseX + " " + baseY + " " + baseZ + " ";
-    var positionL = (baseX + deltaX) + " " + (baseY + deltaY) + " " + (baseZ + deltaZ) + " ";
+    var positionR = (baseX + panX) + " " + (baseY + panY) + " " + (baseZ + panZ) + " ";
+    var positionL = (baseX + panX + deltaX) + " " + (baseY + panY + deltaY) + " " + (baseZ + panZ + deltaZ) + " ";
     console.log(positionL + "; " + positionR);
     document.getElementById("leftPlane").setAttribute("position", positionL)
     document.getElementById("rightPlane").setAttribute("position", positionR)
