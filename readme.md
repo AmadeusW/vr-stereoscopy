@@ -11,5 +11,5 @@ Roadmap:
 - [ ] navigation
 
 Credits:
-[oscarmarinmiro/aframe-stereo-component](https://github.com/oscarmarinmiro/aframe-stereo-component)
-[aframevr/aframe](https://github.com/aframevr/aframe)
+- [oscarmarinmiro/aframe-stereo-component](https://github.com/oscarmarinmiro/aframe-stereo-component)
+- [aframevr/aframe](https://github.com/aframevr/aframe)
