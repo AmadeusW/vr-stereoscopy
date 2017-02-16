@@ -1,12 +1,15 @@
 # Virtual Reality Cross View
-## Chrome extension
+See *cross view* images without crossing your eyes
 
-roadmap:
-- [x] find links on website
-- [ ] transform urls to images
-- [ ] display thumbnails as single images
+Roadmap:
 - [x] display image
-- [ ] display image in AFrame
-- [ ] display image in VR
+- [X] display image in AFrame
+- [X] display image in VR
+- [X] attach image to camera
+- [ ] source of images
+- [ ] display thumbnails to choose
+- [ ] navigation
 
-todo: Give credit to https://github.com/oscarmarinmiro/aframe-stereo-component
+Credits:
+[oscarmarinmiro/aframe-stereo-component](https://github.com/oscarmarinmiro/aframe-stereo-component)
+[aframevr/aframe](https://github.com/aframevr/aframe)
