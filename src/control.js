@@ -5,7 +5,6 @@ var positionHead = [0, 0, 0]; // raw value for head's position
 var positionOrigin = [0, 0, 0]; // origin head position
 var positionOffset = [0, 0, 0]; // Both-eye offset controlled by user's head
 var positionOffsetFactor = [1, -1, 1]; // how user's head motion translates into offset
-// TODO User defined origin for the camera position
 
 render();
 
