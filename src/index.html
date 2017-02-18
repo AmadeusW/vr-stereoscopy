@@ -7,6 +7,7 @@
     <script src="https://aframe.io/releases/0.3.2/aframe.min.js"></script>
     <script src="lib/aframe-stereo-component.min.js"></script>
     <script src="lib/aframe-draw-component.min.js"></script>
+    <script src="stereopaint.js"></script>
   </head>
   <body>
     <a-scene>
@@ -15,7 +16,7 @@
         <img id="rightImage" src="images/l.jpg" />
       </a-assets>
 
-      <a-entity position="0 1 -2" geometry="primitive: box" paint="text: Hello">
+      <a-entity position="0 1 -2" geometry="primitive: box" stereopaint="url: http://orig00.deviantart.net/8afe/f/2012/092/1/4/parish_church_st__georg_3d_____cross_eye_hdr_by_zour-d4upy31.jpg">
 </a-entity>
 
       <a-camera id="camera" position="0 0 0" cursor-color="black" stereocam="eye:left;">

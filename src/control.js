@@ -6,25 +6,6 @@ var positionOrigin = [0, 0, 0]; // origin head position
 var positionOffset = [0, 0, 0]; // Both-eye offset controlled by user's head
 var positionOffsetFactor = [1, -1, 1]; // how user's head motion translates into offset
 
-// todo: draw on canvas component
-AFRAME.registerComponent("paint", {
-    dependencies: ["draw"],
-
-    update: function() {
-        console.log("custom render")
-        var draw = this.el.components.draw; //get access to the draw component
-        var ctx = draw.ctx;
-        var canvas = draw.canvas;
-        ctx.fillStyle = "#AFC5FF";
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
-        ctx.fillStyle = "blue";
-        ctx.fillRect(68, 68, 120, 120);
-        ctx.fillStyle = "white";
-        ctx.font = "36px Georgia";
-        ctx.fillText(this.data.text, 80, 140);
-        draw.render(); //tell it to update the texture
-    }
-});
 
 render();
 const scene = document.querySelector('a-scene');
