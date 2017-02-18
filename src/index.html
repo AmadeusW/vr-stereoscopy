@@ -6,6 +6,7 @@
     <meta name="description" content="Hello, World! - A-Frame">
     <script src="https://aframe.io/releases/0.3.2/aframe.min.js"></script>
     <script src="lib/aframe-stereo-component.min.js"></script>
+    <script src="lib/aframe-draw-component.min.js"></script>
   </head>
   <body>
     <a-scene>
@@ -13,6 +14,10 @@
         <img id="leftImage" src="images/r.jpg" />
         <img id="rightImage" src="images/l.jpg" />
       </a-assets>
+
+      <a-entity position="0 1 -2" geometry="primitive: box" square="text: Hello">
+</a-entity>
+
       <a-camera id="camera" position="0 0 0" cursor-color="black" stereocam="eye:left;">
         <a-plane id="leftPlane"  position="0 1.5 -2.3" width="4" height="4" src="#leftImage" stereo="eye: left"></a-plane>
         <a-plane id="rightPlane" position="0 1.5 -2.3" width="4" height="4" src="#rightImage" stereo="eye: right"></a-plane>

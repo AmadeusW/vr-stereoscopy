@@ -43,6 +43,7 @@ dynamic.onload = function() {
     document.getElementById('canvasR').setAttribute("width", canvasWidth);
     document.getElementById('canvasR').setAttribute("height", canvasHeight);
 
+    // todo: fill canvas with dark gray color
     document.getElementById('canvasL').getContext('2d').drawImage(
         dynamic, 
         imageL[0], imageL[1], imageL[2], imageL[3],
