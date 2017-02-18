@@ -7,6 +7,8 @@ Roadmap:
 - [X] display image in VR
 - [X] attach image to camera
 - [X] pan image with head motion
+- [ ] pan image with head rotation instead
+- [ ] dynamically crop images from web
 - [ ] provide source of images
 - [ ] display thumbnails to choose
 - [ ] navigation
