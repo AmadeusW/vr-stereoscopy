@@ -1,8 +1,12 @@
-var canvas = document.getElementById('canvas'),
-context = canvas.getContext('2d');
-var dynamic = new Image();
-dynamic.src = 'images/l.jpg';        
-dynamic.onload = function() {
+var dynamicL = new Image();
+dynamicL.src = 'images/l.jpg';
+dynamicL.onload = function() {
     console.log("loaded");
-    context.drawImage(dynamic, 0, 0, 512, 512);
+    document.getElementById('canvasL').getContext('2d').drawImage(dynamicL, 0, 0, 256, 512);
+}
+var dynamicL = new Image();
+dynamicL.src = 'images/r.jpg'; 
+dynamicL.onload = function() {
+    console.log("loaded");
+    document.getElementById('canvasR').getContext('2d').drawImage(dynamicL, 0, 0, 256, 512);
 }
