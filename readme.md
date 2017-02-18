@@ -16,3 +16,4 @@ Roadmap:
 Credits:
 - [oscarmarinmiro/aframe-stereo-component](https://github.com/oscarmarinmiro/aframe-stereo-component)
 - [aframevr/aframe](https://github.com/aframevr/aframe)
+- [Sample image](http://zour.deviantart.com/art/Parish-church-St-Georg-3D-Cross-Eye-HDR-293463757)
