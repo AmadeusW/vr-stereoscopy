@@ -1,5 +1,16 @@
 var crop = false; // if false, split image in two. if true, use a cropping algorithm
 var dynamic = new Image();
+
+
+window.addEventListener("keydown", function(e){
+    if(e.keyCode === 37) { // left
+        dynamic.src = scenes[0].url;
+    }
+    if(e.keyCode === 39) { // right
+        dynamic.src = scenes[1].url;
+    }
+});
+
 dynamic.src = 'http://orig00.deviantart.net/8afe/f/2012/092/1/4/parish_church_st__georg_3d_____cross_eye_hdr_by_zour-d4upy31.jpg';
 dynamic.onload = function() {
     console.log("loaded");
