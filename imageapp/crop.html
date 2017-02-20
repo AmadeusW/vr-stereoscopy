@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Experiments</title>
+  </head>
+  <body>
+      <section display="flex" flex-direction="column">
+          <div><label for="url">Image URL:</label><input type="text" placeholder="http://" id="url"></input></div>
+          <div><label for="credit">Image credit:</label><input type="text" placeholder="http://" id="credit"></input></div>
+          <div><label for="title">Title:</label><input type="text" placeholder="Untitled" id="title"></input></div>
+          <div><label for="tags">Tags:</label><input type="text" placeholder="tag1, tag2" id="tags"></input></div>
+      </section>
+    <canvas id="mainCanvas" width="256" height="256"></canvas>
+    <section display="flex" flex-direction="row">
+          <div><label for="cropTop">crop top:</label><input type="number" placeholder="0" id="cropTop"></input></div>
+          <div><label for="cropBottom">crop bottom:</label><input type="number" placeholder="0" id="cropBottom"></input></div>
+          <div><label for="crop1Left">crop 1 left:</label><input type="number" placeholder="0" id="crop1Left"></input></div>
+          <div><label for="crop1Right">crop 1 right:</label><input type="number" placeholder="0" id="crop1Right"></input></div>
+          <div><label for="crop2Left">crop 1 left:</label><input type="number" placeholder="0" id="crop2Left"></input></div>
+          <div><label for="crop2Right">crop 2 right:</label><input type="number" placeholder="0" id="crop2Right"></input></div>
+          <input type="button" value="Go!"></input>
+      </section>
+  </body>
+</html>
