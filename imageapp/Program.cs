@@ -6,7 +6,11 @@ namespace imageapp
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            if (args.Length < 1) {
+                throw new ArgumentException("First argument must be the file path");
+            }
+            var path = args[0];
+            Console.WriteLine($"Processing {path}");
         }
     }
 }
