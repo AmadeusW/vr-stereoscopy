@@ -1,8 +1,13 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>netcoreapp1.0</TargetFramework>
   </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="ImageSharp.Formats.Jpeg" Version="1.0.0-alpha2-00090" />
+    <PackageReference Include="ImageSharp.Processing" Version="1.0.0-alpha2-00078" />
+  </ItemGroup>
 
 </Project>

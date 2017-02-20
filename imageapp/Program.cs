@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ImageSharp;
+using System;
 
 namespace imageapp
 {
@@ -11,6 +12,13 @@ namespace imageapp
             }
             var path = args[0];
             Console.WriteLine($"Processing {path}");
+
+            using (Image image = new Image(path))
+            {
+                image.Resize(image.Width / 2, image.Height / 2)
+                     .Grayscale()
+                     .Save("bar.jpg"); // automatic encoder selected based on extension.
+            }
         }
     }
 }
