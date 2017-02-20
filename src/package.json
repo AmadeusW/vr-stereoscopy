@@ -14,8 +14,5 @@
     "aframe"
   ],
   "author": "Amadeusz Wieczorek",
-  "license": "MIT",
-  "dependencies": {
-    "aframe-draw-component": "^1.5.0"
-  }
+  "license": "MIT"
 }

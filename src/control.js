@@ -6,7 +6,6 @@ var positionOrigin = [0, 0, 0]; // origin head position
 var positionOffset = [0, 0, 0]; // Both-eye offset controlled by user's head
 var positionOffsetFactor = [1, -1, 1]; // how user's head motion translates into offset
 
-
 render();
 const scene = document.querySelector('a-scene');
 if (scene.hasLoaded) {
@@ -15,7 +14,6 @@ if (scene.hasLoaded) {
     scene.addEventListener('loaded', subscribeToEvents);
 }
 
-// Functions
 function render() {
     var positionR = (positionBase[0] + positionOffset[0]) + " " + (positionBase[1] + positionOffset[1]) + " " + (positionBase[2] + positionOffset[2]);
     var positionL = (positionBase[0] + positionOffset[0] + eyeDelta[0])
@@ -24,12 +22,6 @@ function render() {
 
     document.getElementById("leftPlane").setAttribute("position", positionL)
     document.getElementById("rightPlane").setAttribute("position", positionR)
-}
-
-function resetPosition() {
-    positionOrigin[0] = positionHead[0];
-    positionOrigin[1] = positionHead[1];
-    positionOrigin[2] = positionHead[2];
 }
 
 function subscribeToEvents() {
@@ -57,6 +49,12 @@ function subscribeToEvents() {
             render();
         }
     });
+}
+
+function resetPosition() {
+    positionOrigin[0] = positionHead[0];
+    positionOrigin[1] = positionHead[1];
+    positionOrigin[2] = positionHead[2];
 }
 
 window.addEventListener("keydown", function(e){
