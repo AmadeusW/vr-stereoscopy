@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 
 namespace imageapp
@@ -16,29 +17,34 @@ namespace imageapp
             var path = args[0];
             Console.WriteLine($"Processing {path}");
 
-            using (Image image = new Image(path))
+            var directory = Path.GetDirectoryName(path);
+            foreach (var file in Directory.EnumerateFiles(directory, "*.jpg"))
             {
-                var imageL = new Image(image).Crop(new Rectangle(0, 0, image.Width / 2, image.Height));
-                var imageR = new Image(image).Crop(new Rectangle(image.Width / 2, 0, image.Width / 2, image.Height));
+                var filename = Path.GetFileNameWithoutExtension(file);
+                using (Image image = new Image(file))
+                {
+                    var imageL = new Image(image).Crop(new Rectangle(0, 0, image.Width / 2, image.Height));
+                    var imageR = new Image(image).Crop(new Rectangle(image.Width / 2, 0, image.Width / 2, image.Height));
 
-                Console.WriteLine("cropUp");
-                var cropUp = findMargin(imageL, searchY: 1);
-                Console.WriteLine("cropDown");
-                var cropDown = findMargin(imageL, searchY: -1);
-                Console.WriteLine("crop1Left");
-                var crop1Left = findMargin(imageL, searchX: 1);
-                Console.WriteLine("crop1Right");
-                var crop1Right = findMargin(imageR, searchX: -1);
-                Console.WriteLine("crop2Left");
-                var crop2Left = findMargin(imageL, searchX: 1);
-                Console.WriteLine("crop2Right");
-                var crop2Right = findMargin(imageR, searchX: -1);
+                    Console.WriteLine("cropUp");
+                    var cropUp = findMargin(imageL, searchY: 1);
+                    Console.WriteLine("cropDown");
+                    var cropDown = findMargin(imageL, searchY: -1);
+                    Console.WriteLine("crop1Left");
+                    var crop1Left = findMargin(imageL, searchX: 1);
+                    Console.WriteLine("crop1Right");
+                    var crop1Right = findMargin(imageR, searchX: -1);
+                    Console.WriteLine("crop2Left");
+                    var crop2Left = findMargin(imageL, searchX: 1);
+                    Console.WriteLine("crop2Right");
+                    var crop2Right = findMargin(imageR, searchX: -1);
 
-                imageL = imageL.Crop(new Rectangle(crop1Left, cropUp, imageL.Width - crop1Left - crop1Right, imageL.Height - cropUp - cropDown));
-                imageR = imageR.Crop(new Rectangle(crop1Left, cropUp, imageR.Width - crop2Left - crop2Right, imageR.Height - cropUp - cropDown));
+                    imageL = imageL.Crop(new Rectangle(crop1Left, cropUp, imageL.Width - crop1Left - crop1Right, imageL.Height - cropUp - cropDown));
+                    imageR = imageR.Crop(new Rectangle(crop1Left, cropUp, imageR.Width - crop2Left - crop2Right, imageR.Height - cropUp - cropDown));
 
-                imageL.Save("left.jpg");
-                imageR.Save("right.jpg");
+                    imageL.Save(file + "_l.jpg");
+                    imageR.Save(file + "_r.jpg");
+                }
             }
         }
 
