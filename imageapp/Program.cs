@@ -1,5 +1,6 @@
 ﻿using ImageSharp;
 using ImageSharp.Formats;
+using ImageSharp.Processing;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -51,6 +52,13 @@ namespace imageapp
 
             imageL = imageL.Crop(new Rectangle(crop1Left, cropUp, imageL.Width - crop1Left - crop1Right, imageL.Height - cropUp - cropDown));
             imageR = imageR.Crop(new Rectangle(crop1Left, cropUp, imageR.Width - crop2Left - crop2Right, imageR.Height - cropUp - cropDown));
+
+            // Find smallest power of 2 that is larger that each of image dimensions
+            var newWidth = (int)Math.Pow(2, Math.Ceiling(Math.Log(Math.Max(imageL.Width, imageR.Width), 2)));
+            var newHeight = (int)Math.Pow(2, Math.Ceiling(Math.Log(Math.Max(imageL.Height, imageR.Height), 2)));
+
+            imageL = imageL.Resize(new ResizeOptions { Mode = ResizeMode.BoxPad, Size = new Size(newWidth, newHeight) });
+            imageR = imageR.Resize(new ResizeOptions { Mode = ResizeMode.BoxPad, Size = new Size(newWidth, newHeight) });
 
             using (var stream = new FileStream($"out/{filename}.L.jpg", FileMode.Create))
             {
