@@ -1,6 +1,0 @@
-D:\vrcv\crawler\RedditCrawler\bin\Debug\netcoreapp1.0\RedditCrawler.deps.json
-D:\vrcv\crawler\RedditCrawler\bin\Debug\netcoreapp1.0\RedditCrawler.runtimeconfig.json
-D:\vrcv\crawler\RedditCrawler\bin\Debug\netcoreapp1.0\RedditCrawler.runtimeconfig.dev.json
-D:\vrcv\crawler\RedditCrawler\bin\Debug\netcoreapp1.0\RedditCrawler.dll
-D:\vrcv\crawler\RedditCrawler\obj\Debug\netcoreapp1.0\RedditCrawler.csprojResolveAssemblyReference.cache
-D:\vrcv\crawler\RedditCrawler\obj\Debug\netcoreapp1.0\RedditCrawler.AssemblyInfo.cs
