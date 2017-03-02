@@ -1,33 +1,43 @@
-﻿using RedditSharp;
+﻿using Microsoft.Extensions.Configuration;
+using RedditSharp;
 using System;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace RedditCrawler
 {
     class Program
     {
+        static public IConfigurationRoot Configuration { get; set; }
         static void Main(string[] args)
         {
-            GetPosts();
+            Configure();
+            GetPosts().Wait();
         }
 
-        private static void GetPosts()
+        private static void Configure()
         {
-            var webAgent = new BotWebAgent("BotUsername", "BotPass", "ClientID", "ClientSecret", "RedirectUri");
+            var builder = new ConfigurationBuilder()
+                .AddJsonFile(@"D:\vrcv.json");
+            Configuration = builder.Build();
+        }
+
+        private static async Task GetPosts()
+        {
+            var webAgent = new BotWebAgent(Configuration["username"], Configuration["password"], Configuration["token"], Configuration["secret"], Configuration["url"]);
             //This will check if the access token is about to expire before each request and automatically request a new one for you
             //"false" means that it will NOT load the logged in user profile so reddit.User will be null
             var reddit = new Reddit(webAgent, false);
-            var subreddit = reddit.GetSubreddit("/r/example");
-            subreddit.Subscribe();
-            foreach (var post in subreddit.New.Take(25))
-            {
-                if (post.Title == "What is my karma?")
-                {
-                    // Note: This is an example. Bots are not permitted to cast votes automatically.
-                    post.Upvote();
-                    var comment = post.Comment(string.Format("You have {0} link karma!", post.Author.LinkKarma));
-                    comment.Distinguish(DistinguishType.Moderator);
-                }
-            }
+            //var reddit = new Reddit("kHw4KMboW8wUEA");
+            await reddit.InitOrUpdateUserAsync();
+            var authenticated = reddit.User != null;
+            if (!authenticated)
+                Console.WriteLine("Invalid token");
+
+            var subreddit = await reddit.GetSubredditAsync("/r/example");
+            await subreddit.GetTop(RedditSharp.Things.FromTime.Month).Take(25).ForEachAsync(post => {
+                Console.WriteLine(post.Title);
+            });
         }
     }
 }
