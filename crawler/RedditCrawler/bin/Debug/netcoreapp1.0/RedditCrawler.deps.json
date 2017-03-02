@@ -1,7 +1,7 @@
 {
   "runtimeTarget": {
     "name": ".NETCoreApp,Version=v1.0",
-    "signature": "6270d2962fa2b8641edf6fb5ae38dcfdf9bff557"
+    "signature": "2ca92ca4baddf52a3c43331eb71ee7d9abd8ea5f"
   },
   "compilationOptions": {},
   "targets": {
@@ -9,10 +9,107 @@
       "redditcrawler/1.0.0": {
         "dependencies": {
           "Microsoft.Extensions.Configuration.Json": "1.1.0",
-          "RedditSharp": "2.0.0-CI00020"
+          "RedditSharp": "2.0.0-CI00020",
+          "imageapp": "1.0.0"
         },
         "runtime": {
           "RedditCrawler.dll": {}
+        }
+      },
+      "imagesharp/1.0.0-alpha2-00117": {
+        "dependencies": {
+          "System.Buffers": "4.3.0",
+          "System.Collections": "4.3.0",
+          "System.Diagnostics.Debug": "4.3.0",
+          "System.Diagnostics.Tools": "4.3.0",
+          "System.IO": "4.3.0",
+          "System.IO.Compression": "4.3.0",
+          "System.IO.FileSystem": "4.3.0",
+          "System.Linq": "4.3.0",
+          "System.ObjectModel": "4.3.0",
+          "System.Resources.ResourceManager": "4.3.0",
+          "System.Runtime.CompilerServices.Unsafe": "4.3.0",
+          "System.Runtime.Extensions": "4.3.0",
+          "System.Runtime.InteropServices": "4.3.0",
+          "System.Runtime.Numerics": "4.3.0",
+          "System.Text.Encoding.Extensions": "4.3.0",
+          "System.Threading": "4.3.0",
+          "System.Threading.Tasks": "4.3.0"
+        },
+        "runtime": {
+          "lib/netstandard1.3/ImageSharp.dll": {}
+        }
+      },
+      "imagesharp.formats.jpeg/1.0.0-alpha2-00117": {
+        "dependencies": {
+          "ImageSharp": "1.0.0-alpha2-00117",
+          "System.Buffers": "4.3.0",
+          "System.Collections": "4.3.0",
+          "System.Diagnostics.Debug": "4.3.0",
+          "System.Diagnostics.Tools": "4.3.0",
+          "System.IO": "4.3.0",
+          "System.IO.Compression": "4.3.0",
+          "System.Linq": "4.3.0",
+          "System.ObjectModel": "4.3.0",
+          "System.Resources.ResourceManager": "4.3.0",
+          "System.Runtime.CompilerServices.Unsafe": "4.3.0",
+          "System.Runtime.Extensions": "4.3.0",
+          "System.Runtime.InteropServices": "4.3.0",
+          "System.Runtime.Numerics": "4.3.0",
+          "System.Text.Encoding.Extensions": "4.3.0",
+          "System.Threading": "4.3.0",
+          "System.Threading.Tasks": "4.3.0"
+        },
+        "runtime": {
+          "lib/netstandard1.1/ImageSharp.Formats.Jpeg.dll": {}
+        }
+      },
+      "imagesharp.formats.png/1.0.0-alpha2-00113": {
+        "dependencies": {
+          "ImageSharp": "1.0.0-alpha2-00117",
+          "System.Buffers": "4.3.0",
+          "System.Collections": "4.3.0",
+          "System.Diagnostics.Debug": "4.3.0",
+          "System.Diagnostics.Tools": "4.3.0",
+          "System.IO": "4.3.0",
+          "System.IO.Compression": "4.3.0",
+          "System.Linq": "4.3.0",
+          "System.ObjectModel": "4.3.0",
+          "System.Resources.ResourceManager": "4.3.0",
+          "System.Runtime.CompilerServices.Unsafe": "4.3.0",
+          "System.Runtime.Extensions": "4.3.0",
+          "System.Runtime.InteropServices": "4.3.0",
+          "System.Runtime.Numerics": "4.3.0",
+          "System.Text.Encoding.Extensions": "4.3.0",
+          "System.Threading": "4.3.0",
+          "System.Threading.Tasks": "4.3.0"
+        },
+        "runtime": {
+          "lib/netstandard1.1/ImageSharp.Formats.Png.dll": {}
+        }
+      },
+      "imagesharp.processing/1.0.0-alpha2-00105": {
+        "dependencies": {
+          "ImageSharp": "1.0.0-alpha2-00117",
+          "System.Buffers": "4.3.0",
+          "System.Collections": "4.3.0",
+          "System.Diagnostics.Debug": "4.3.0",
+          "System.Diagnostics.Tools": "4.3.0",
+          "System.IO": "4.3.0",
+          "System.IO.Compression": "4.3.0",
+          "System.Linq": "4.3.0",
+          "System.ObjectModel": "4.3.0",
+          "System.Resources.ResourceManager": "4.3.0",
+          "System.Runtime.CompilerServices.Unsafe": "4.3.0",
+          "System.Runtime.Extensions": "4.3.0",
+          "System.Runtime.InteropServices": "4.3.0",
+          "System.Runtime.Numerics": "4.3.0",
+          "System.Text.Encoding.Extensions": "4.3.0",
+          "System.Threading": "4.3.0",
+          "System.Threading.Tasks": "4.3.0"
+        },
+        "runtime": {
+          "lib/netstandard1.1/ImageSharp.Processing.dll": {}
         }
       },
       "microsoft.extensions.configuration/1.1.0": {
@@ -1198,6 +1295,16 @@
         "runtime": {
           "lib/netstandard1.3/System.Xml.XDocument.dll": {}
         }
+      },
+      "imageapp/1.0.0": {
+        "dependencies": {
+          "ImageSharp.Formats.Jpeg": "1.0.0-alpha2-00117",
+          "ImageSharp.Formats.Png": "1.0.0-alpha2-00113",
+          "ImageSharp.Processing": "1.0.0-alpha2-00105"
+        },
+        "runtime": {
+          "imageapp.dll": {}
+        }
       }
     }
   },
@@ -1206,6 +1313,34 @@
       "type": "project",
       "serviceable": false,
       "sha512": ""
+    },
+    "imagesharp/1.0.0-alpha2-00117": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-BGHhqZ+zc8mtM29XcZ2654pOVqIK/yAGtauFYhOl+KEcRSU18iF69bkTFNGSeAOzsxK2kZm/XPZS3dInq7ULUw==",
+      "path": "imagesharp/1.0.0-alpha2-00117",
+      "hashPath": "imagesharp.1.0.0-alpha2-00117.nupkg.sha512"
+    },
+    "imagesharp.formats.jpeg/1.0.0-alpha2-00117": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-FvIUVafOWdSfenmigTXKDCfcwwrofvDnWThvpj6Lv/ljvKNlob9QggCrtksgzZGUGtKQ0Yk72ojQbCAanUrF8A==",
+      "path": "imagesharp.formats.jpeg/1.0.0-alpha2-00117",
+      "hashPath": "imagesharp.formats.jpeg.1.0.0-alpha2-00117.nupkg.sha512"
+    },
+    "imagesharp.formats.png/1.0.0-alpha2-00113": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-TvtK/k+40P3A1E4rEalUQAsLN9/TFUTP8MmC0U6272YV+R4oIFcnJM52c8cHpkwpIcYZSVYg0f7xDGF/NdVQvg==",
+      "path": "imagesharp.formats.png/1.0.0-alpha2-00113",
+      "hashPath": "imagesharp.formats.png.1.0.0-alpha2-00113.nupkg.sha512"
+    },
+    "imagesharp.processing/1.0.0-alpha2-00105": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-gHZSs6QKMktWT+VGhBvFC9RuYqklvXYMuQ1n2BPIF6TWLqsN6UKoRsdag3SCSanRJm+X8fMzbK6Nr1t+EuSxFw==",
+      "path": "imagesharp.processing/1.0.0-alpha2-00105",
+      "hashPath": "imagesharp.processing.1.0.0-alpha2-00105.nupkg.sha512"
     },
     "microsoft.extensions.configuration/1.1.0": {
       "type": "package",
@@ -1871,6 +2006,11 @@
       "sha512": "sha512-zRpPmEIyYqEI4qkw6M40KIWtv7RiqsSZiG3uEbI6ES2qGHNEwGN47SIH8ziobEvE6mgOOX/KrzLw+9XKQVwjeg==",
       "path": "system.xml.xdocument/4.3.0",
       "hashPath": "system.xml.xdocument.4.3.0.nupkg.sha512"
+    },
+    "imageapp/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
     }
   }
 }

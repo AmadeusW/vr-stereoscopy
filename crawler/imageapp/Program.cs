@@ -7,9 +7,9 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 
-namespace imageapp
+namespace StereoscopyVR.ImageApp
 {
-    class Program
+    public class Program
     {
         static void Main(string[] args)
         {
@@ -22,13 +22,24 @@ namespace imageapp
             Directory.CreateDirectory("out");
             foreach (var file in Directory.EnumerateFiles(directory, "*.jpg").Union(Directory.EnumerateFiles(directory, "*.png")))
             {
-                Console.WriteLine($"Processing {file}");
-                var filename = Path.GetFileNameWithoutExtension(file);
+                ProcessFile(file);
+            }
+        }
 
+        public static void ProcessFile(string file)
+        {
+            Console.WriteLine($"Processing {file}");
+            var filename = Path.GetFileNameWithoutExtension(file);
+            try
+            {
                 using (Image image = new Image(file))
                 {
                     Work(image, filename);
                 }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine($"Error processing {file}: {e.Message}");
             }
         }
 

@@ -2,10 +2,12 @@
 using RedditSharp;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
 
-namespace RedditCrawler
+namespace StereoscopyVR.RedditCrawler
 {
     class Program
     {
@@ -13,7 +15,36 @@ namespace RedditCrawler
         static void Main(string[] args)
         {
             Configure();
-            GetPosts().Wait();
+            DoWork().Wait();
+        }
+
+        private static async Task DoWork()
+        {
+            var posts = await GetPosts();
+            string location = "drop";
+            Directory.CreateDirectory(location);
+            string location2 = "out";
+            Directory.CreateDirectory(location2);
+            foreach (var post in posts.Where(n => n.ImageUrl != null))
+            {
+                var filePath = Path.Combine(location, post.Link + ".img");
+                await DownloadAsync(post, filePath);
+                ImageApp.Program.ProcessFile(filePath);
+            }
+        }
+
+        private static async Task DownloadAsync(CrossViewPost post, string filePath)
+        {
+            using (var client = new HttpClient())
+            {
+                var request = new HttpRequestMessage(HttpMethod.Get, post.ImageUrl);
+                using (var response = await client.SendAsync(request))
+                using (var fileStream = new FileStream(filePath, FileMode.Create))
+                {
+                    var dataStream = await response.Content.ReadAsStreamAsync();
+                    await dataStream.CopyToAsync(fileStream);
+                }
+            }
         }
 
         private static void Configure()

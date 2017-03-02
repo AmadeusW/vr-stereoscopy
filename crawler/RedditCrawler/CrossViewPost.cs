@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace RedditCrawler
+namespace StereoscopyVR.RedditCrawler
 {
     class CrossViewPost
     {
@@ -20,7 +20,7 @@ namespace RedditCrawler
         {
             Url = url;
             Title = title;
-            Link = link;
+            Link = new Uri(link).PathAndQuery.Trim('/');
             Score = score;
             UploadDate = uploadDate;
             CrawlDate = DateTime.UtcNow;
