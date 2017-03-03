@@ -1,5 +1,6 @@
 # Virtual Reality Cross View
 See stereoscopic and *cross view* images in VR
+[Source code](https://github.com/AmadeusW/vr-stereoscopy/)
 
 ## Demo
 [Early demo](http://amadeusw.com/vr-stereoscopy/webui/)
@@ -25,6 +26,11 @@ Controls:
 - [ ] use azure table storage for image data
 - [ ] display thumbnails
 - [ ] navigation by gaze
+- [x] data source: imgur
+- [x] data source: reddit images
+- [ ] data source: imgur albums
+- [ ] data source: flickr
+- [ ] data source: deviantart
 
 ## Credits:
 - [oscarmarinmiro/aframe-stereo-component](https://github.com/oscarmarinmiro/aframe-stereo-component)
