@@ -1,17 +1,18 @@
 # Virtual Reality Cross View
-See stereoscopic images in VR
+See stereoscopic and *cross view* images in VR
 
-This means *cross view* images without crossing your eyes
-
+## Demo
 [Early demo](http://amadeusw.com/vr-stereoscopy/webui/)
+
 Controls:
 * T - enable\disable slideshow
 * N - next
 * Space - next
 * P - preview
 * arrow keys - adjustments for single eye
+* R - reset head position
 
-Roadmap:
+## Roadmap:
 - [x] display image
 - [x] display image in AFrame
 - [x] display image in VR
@@ -25,7 +26,7 @@ Roadmap:
 - [ ] display thumbnails
 - [ ] navigation by gaze
 
-Credits:
+## Credits:
 - [oscarmarinmiro/aframe-stereo-component](https://github.com/oscarmarinmiro/aframe-stereo-component)
 - [aframevr/aframe](https://github.com/aframevr/aframe)
 - [Sample image](http://zour.deviantart.com/art/Parish-church-St-Georg-3D-Cross-Eye-HDR-293463757)
