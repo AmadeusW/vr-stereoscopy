@@ -39,13 +39,18 @@ namespace StereoscopyVR.RedditCrawler
             }
             else if (Url.Host == "imgur.com" || Url.Host == "i.imgur.com")
             {
+                if (Url.PathAndQuery.StartsWith("/a/"))
+                {
+                    // This is an album. Generate multiple images instead
+                    ImageUrl = null; // for now
+                }
                 if (Url.PathAndQuery.EndsWith(".jpg") || Url.PathAndQuery.EndsWith(".png"))
                 {
                     ImageUrl = Url;
                 }
                 else
                 {
-                    ImageUrl = new Uri(Url.ToString() + ".jpg"); // just a guess
+                    ImageUrl = new Uri(Url.ToString() + ".jpg"); // just a guess. Can we know for sure?
                 }
             }
             else
