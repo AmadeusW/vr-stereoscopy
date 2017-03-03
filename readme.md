@@ -13,20 +13,19 @@ Controls:
 
 Roadmap:
 - [x] display image
-- [X] display image in AFrame
-- [X] display image in VR
-- [X] attach image to camera
-- [] pan image with head motion
-- [ ] pan image with head rotation instead
-- [X] dynamically crop images from web
+- [x] display image in AFrame
+- [x] display image in VR
+- [x] attach image to camera
+- [ ] pan image with head motion
+- [ ] pan image with head rotation
+- [ ] change image with horizontal head rotation
+- [x] dynamically crop images from web
 - [ ] use azure blob storage for images
 - [ ] use azure table storage for image data
-- [ ] provide source of images
-- [ ] display thumbnails to choose
-- [ ] navigation
+- [ ] display thumbnails
+- [ ] navigation by gaze
 
 Credits:
 - [oscarmarinmiro/aframe-stereo-component](https://github.com/oscarmarinmiro/aframe-stereo-component)
-- [maxkrieger/aframe-draw-component](https://github.com/maxkrieger/aframe-draw-component)
 - [aframevr/aframe](https://github.com/aframevr/aframe)
 - [Sample image](http://zour.deviantart.com/art/Parish-church-St-Georg-3D-Cross-Eye-HDR-293463757)
