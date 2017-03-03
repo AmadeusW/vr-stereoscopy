@@ -20,7 +20,7 @@ namespace StereoscopyVR.RedditCrawler
         {
             Url = url;
             Title = title;
-            Link = new Uri(link).PathAndQuery.Trim('/');
+            Link = link.Contains("/") ? new Uri(link).PathAndQuery.Trim('/') : link;
             Score = score;
             UploadDate = uploadDate;
             CrawlDate = DateTime.UtcNow;
@@ -37,7 +37,7 @@ namespace StereoscopyVR.RedditCrawler
                 ImageUrl = null;
                 // TODO: https://www.flickr.com/services/api/flickr.photos.getSizes.html
             }
-            else if (Url.Host == "imgur.com")
+            else if (Url.Host == "imgur.com" || Url.Host == "i.imgur.com")
             {
                 if (Url.PathAndQuery.EndsWith(".jpg") || Url.PathAndQuery.EndsWith(".png"))
                 {
