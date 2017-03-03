@@ -30,13 +30,22 @@ function render() {
         /*
         document.getElementById("leftImage").src = "images/" + imageId + ".L.jpg";
         document.getElementById("rightImage").src = "images/" + imageId + ".R.jpg";
-        document.getElementById("leftPlane").setAttribute("")
-        document.getElementById("rightPlane").setAttribute("")
-        document.getElementById("leftPlane").setAttribute("#leftImage")
-        document.getElementById("rightPlane").setAttribute("#rightImage")
+
+        document.getElementById("leftPlane").setAttribute("src", "#leftImage")
+        document.getElementById("rightPlane").setAttribute("src", "#rightImage")
         */
+
+        console.log("New position: " + "0 0 -" + scenes[currentImage].W)
+
+        document.getElementById("leftPlane").setAttribute("width", Math.pow(2, scenes[currentImage].W))
+        document.getElementById("leftPlane").setAttribute("height", Math.pow(2, scenes[currentImage].H))
+        document.getElementById("rightPlane").setAttribute("width", Math.pow(2, scenes[currentImage].W))
+        document.getElementById("rightPlane").setAttribute("height", Math.pow(2, scenes[currentImage].H))
+        positionBase[2] = -Math.pow(1.9, scenes[currentImage].W); // this will update the distance
+
         document.getElementById("leftPlane").setAttribute("src", "images/" + imageId + ".L.jpg")
         document.getElementById("rightPlane").setAttribute("src", "images/" + imageId + ".R.jpg")
+
         loadedImage = currentImage;
     }
     var positionR = (positionBase[0] + positionOffset[0]) + " " + (positionBase[1] + positionOffset[1]) + " " + (positionBase[2] + positionOffset[2]);
