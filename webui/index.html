@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Hello, World! - A-Frame</title>
+    <meta name="description" content="Hello, World! - A-Frame">
+    <script src="https://aframe.io/releases/0.3.2/aframe.min.js"></script>
+    <script src="lib/aframe-stereo-component.min.js"></script>
+  </head>
+  <body>
+    <a-scene>
+      <a-assets>
+        <img id="leftImage" src="images/r.jpg" />
+        <img id="rightImage" src="images/l.jpg" />
+      </a-assets>
+      <a-camera id="camera" position="0 0 0" cursor-color="black" stereocam="eye:left;">
+        <a-plane id="leftPlane"  position="0 0 -4" width="9" height="9" src="#leftImage" stereo="eye: right"></a-plane>
+        <a-plane id="rightPlane" position="0 0 -4" width="9" height="9" src="#rightImage" stereo="eye: left"></a-plane>
+      </a-camera>
+      <!-- TODO: Add thumbnails here -->
+      <a-sky color="#000"></a-sky>
+      <a-light type="ambient"></a-light>
+    </a-scene>
+  </body>
+  <script src="images/posts.json"></script>
+  <script src="control.js"></script>
+</html>
