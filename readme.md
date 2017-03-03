@@ -1,11 +1,11 @@
 # Virtual Reality Cross View
 See stereoscopic and *cross view* images in VR
+
 [Source code](https://github.com/AmadeusW/vr-stereoscopy/)
 
 ## Demo
 [Early demo](http://amadeusw.com/vr-stereoscopy/webui/)
 
-Controls:
 * T - enable\disable slideshow
 * N - next
 * Space - next
@@ -31,6 +31,10 @@ Controls:
 - [ ] data source: imgur albums
 - [ ] data source: flickr
 - [ ] data source: deviantart
+- [ ] separate data of scraped images from data of processed images
+- [ ] scrape top images with score over a threshold
+- [ ] scrape weekly top images with score over a threshold
+
 
 ## Credits:
 - [oscarmarinmiro/aframe-stereo-component](https://github.com/oscarmarinmiro/aframe-stereo-component)
