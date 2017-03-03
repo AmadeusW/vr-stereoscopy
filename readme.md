@@ -1,14 +1,26 @@
 # Virtual Reality Cross View
-See *cross view* images without crossing your eyes
+See stereoscopic images in VR
+
+This means *cross view* images without crossing your eyes
+
+[Early demo](http://amadeusw.com/vr-stereoscopy/webui/)
+Controls:
+* T - enable\disable slideshow
+* N - next
+* Space - next
+* P - preview
+* arrow keys - adjustments for single eye
 
 Roadmap:
 - [x] display image
 - [X] display image in AFrame
 - [X] display image in VR
 - [X] attach image to camera
-- [X] pan image with head motion
+- [] pan image with head motion
 - [ ] pan image with head rotation instead
-- [ ] dynamically crop images from web
+- [X] dynamically crop images from web
+- [ ] use azure blob storage for images
+- [ ] use azure table storage for image data
 - [ ] provide source of images
 - [ ] display thumbnails to choose
 - [ ] navigation
