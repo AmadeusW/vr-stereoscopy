@@ -26,8 +26,15 @@ function render() {
     {
         var imageId = scenes[currentImage].Link;
         console.log("Loading new image: " + imageId);
+        // Unfortunately changing asset doesn't seem to update the texture
+        /*
         document.getElementById("leftImage").src = "images/" + imageId + ".L.jpg";
         document.getElementById("rightImage").src = "images/" + imageId + ".R.jpg";
+        document.getElementById("leftPlane").setAttribute("")
+        document.getElementById("rightPlane").setAttribute("")
+        document.getElementById("leftPlane").setAttribute("#leftImage")
+        document.getElementById("rightPlane").setAttribute("#rightImage")
+        */
         document.getElementById("leftPlane").setAttribute("src", "images/" + imageId + ".L.jpg")
         document.getElementById("rightPlane").setAttribute("src", "images/" + imageId + ".R.jpg")
         loadedImage = currentImage;
