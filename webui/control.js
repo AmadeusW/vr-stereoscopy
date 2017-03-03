@@ -5,8 +5,15 @@ var positionHead = [0, 0, 0]; // raw value for head's position
 var positionOrigin = [0, 0, 0]; // origin head position
 var positionOffset = [0, 0, 0]; // Both-eye offset controlled by user's head
 var positionOffsetFactor = [1, -1, 1]; // how user's head motion translates into offset
+var loadedImage = 0;
+var currentImage = 0;
+var lastImage = 0;
+var timeoutId;
 
 render();
+// Load data
+console.log(JSON.stringify(scenes));
+lastImage = scenes.length - 1;
 const scene = document.querySelector('a-scene');
 if (scene.hasLoaded) {
     subscribeToEvents();
@@ -15,6 +22,16 @@ if (scene.hasLoaded) {
 }
 
 function render() {
+    if (loadedImage != currentImage)
+    {
+        var imageId = scenes[currentImage].Link;
+        console.log("Loading new image: " + imageId);
+        document.getElementById("leftImage").src = "images/" + imageId + ".L.jpg";
+        document.getElementById("rightImage").src = "images/" + imageId + ".R.jpg";
+        document.getElementById("leftPlane").setAttribute("src", "images/" + imageId + ".L.jpg")
+        document.getElementById("rightPlane").setAttribute("src", "images/" + imageId + ".R.jpg")
+        loadedImage = currentImage;
+    }
     var positionR = (positionBase[0] + positionOffset[0]) + " " + (positionBase[1] + positionOffset[1]) + " " + (positionBase[2] + positionOffset[2]);
     var positionL = (positionBase[0] + positionOffset[0] + eyeDelta[0])
              + " " + (positionBase[1] + positionOffset[1] + eyeDelta[1])
@@ -25,6 +42,7 @@ function render() {
 }
 
 function subscribeToEvents() {
+    setTimer();
     const p = document.querySelector("#camera");
     p.addEventListener('componentchanged', function (evt) {
         //console.log(evt.detail.name);
@@ -78,4 +96,52 @@ window.addEventListener("keydown", function(e){
         resetPosition();
         render();
     }
+    if(e.keyCode === 84) { // t
+        if (timeoutId == null) {
+            console.log("Enable timer");
+            setTimer();
+        } else {
+            console.log("Disable timer");
+            window.clearTimeout(timeoutId);
+            timeoutId = null;
+        }
+    }
+    if(e.keyCode === 78) { // n
+        nextImage();
+    }
+    if(e.keyCode === 32) { // space
+        nextImage();
+    }
+    if(e.keyCode === 80) { // p
+        previousImage();
+    }
 });
+
+function setTimer() {
+    timeoutId = window.setTimeout(nextImageByTimer, 5000);
+}
+
+function nextImageByTimer() {
+    nextImage();
+    setTimer();
+}
+
+function nextImage() {
+    console.log("Next image");
+    if (currentImage < lastImage) {
+        currentImage++;
+    } else {
+        currentImage = 0;
+    }
+    render();
+}
+
+function previousImage() {
+    console.log("Previous image");
+    if (currentImage > 0) {
+        currentImage--;
+    } else {
+        currentImage = lastImage;
+    }
+    render();
+}
