@@ -8,7 +8,7 @@ var rotationHead = [0, 0, 0]; // raw value for head's rotation
 var rotationOrigin = [0, 0, 0]; // origin head rotation
 var rotationOffset = [0, 0, 0]; // Both-eye offset controlled by user's head rotation
 var positionOffsetFactor = [0, 0, 0]; // how user's head position translates into image offset
-var rotationOffsetFactor = [5, -3, 0]; // how user's head rotation translates into image offset
+var rotationOffsetFactor = [4, -4, 0]; // how user's head rotation translates into image offset
 var loadedImage = 0;
 var currentImage = 0;
 var lastImage = 0;
@@ -45,7 +45,7 @@ function render() {
         document.getElementById("leftPlane").setAttribute("height", Math.pow(2, scenes[currentImage].H))
         document.getElementById("rightPlane").setAttribute("width", Math.pow(2, scenes[currentImage].W))
         document.getElementById("rightPlane").setAttribute("height", Math.pow(2, scenes[currentImage].H))
-        positionBase[2] = -Math.pow(1.9, scenes[currentImage].W); // this will update the distance
+        positionBase[2] = -Math.pow(1.88, scenes[currentImage].W); // this will update the distance
 
         document.getElementById("leftPlane").setAttribute("src", "images/" + imageId + ".L.jpg")
         document.getElementById("rightPlane").setAttribute("src", "images/" + imageId + ".R.jpg")
@@ -72,7 +72,7 @@ function subscribeToEvents() {
             //console.log('Rotation from ', evt.detail.oldData, 'to', evt.detail.newData, '!');
             rotationHead[0] = evt.detail.newData.y;
             rotationHead[1] = evt.detail.newData.x;
-            rotationHead[2] = evt.detail.newData.z;
+            rotationHead[2] = evt.detail.newData.z; // TODO: consider using as image plane rotation
             rotationOffset[0] = (rotationHead[0] - rotationOrigin[0]) * rotationOffsetFactor[0];
             rotationOffset[1] = (rotationHead[1] - rotationOrigin[1]) * rotationOffsetFactor[1];
             rotationOffset[2] = (rotationHead[2] - rotationOrigin[2]) * rotationOffsetFactor[2];
