@@ -3,8 +3,12 @@ var eyeDelta = [0, 0, 0]; // Per-eye offset for each image
 var eyeDeltaStep = 0.05;
 var positionHead = [0, 0, 0]; // raw value for head's position
 var positionOrigin = [0, 0, 0]; // origin head position
-var positionOffset = [0, 0, 0]; // Both-eye offset controlled by user's head
-var positionOffsetFactor = [1, -1, 1]; // how user's head motion translates into offset
+var positionOffset = [0, 0, 0]; // Both-eye offset controlled by user's head position
+var rotationHead = [0, 0, 0]; // raw value for head's rotation
+var rotationOrigin = [0, 0, 0]; // origin head rotation
+var rotationOffset = [0, 0, 0]; // Both-eye offset controlled by user's head rotation
+var positionOffsetFactor = [0, 0, 0]; // how user's head position translates into image offset
+var rotationOffsetFactor = [5, -3, 0]; // how user's head rotation translates into image offset
 var loadedImage = 0;
 var currentImage = 0;
 var lastImage = 0;
@@ -48,10 +52,12 @@ function render() {
 
         loadedImage = currentImage;
     }
-    var positionR = (positionBase[0] + positionOffset[0]) + " " + (positionBase[1] + positionOffset[1]) + " " + (positionBase[2] + positionOffset[2]);
-    var positionL = (positionBase[0] + positionOffset[0] + eyeDelta[0])
-             + " " + (positionBase[1] + positionOffset[1] + eyeDelta[1])
-             + " " + (positionBase[2] + positionOffset[2] + eyeDelta[2]);
+    var positionR = (positionBase[0] + positionOffset[0] + rotationOffset[0])
+             + " " + (positionBase[1] + positionOffset[1] + rotationOffset[1]) 
+             + " " + (positionBase[2] + positionOffset[2] + rotationOffset[2]);
+    var positionL = (positionBase[0] + positionOffset[0] + rotationOffset[0] + eyeDelta[0])
+             + " " + (positionBase[1] + positionOffset[1] + rotationOffset[1] + eyeDelta[1])
+             + " " + (positionBase[2] + positionOffset[2] + rotationOffset[2] + eyeDelta[2]);
 
     document.getElementById("leftPlane").setAttribute("position", positionL)
     document.getElementById("rightPlane").setAttribute("position", positionR)
@@ -64,24 +70,25 @@ function subscribeToEvents() {
         //console.log(evt.detail.name);
         if (evt.detail.name === 'rotation') {
             //console.log('Rotation from ', evt.detail.oldData, 'to', evt.detail.newData, '!');
-            /*
-            panX = evt.detail.newData.x * 0.1;
-            panY = evt.detail.newData.y * 0.1;
-            panZ = evt.detail.newData.z * 0.1;
+            rotationHead[0] = evt.detail.newData.y;
+            rotationHead[1] = evt.detail.newData.x;
+            rotationHead[2] = evt.detail.newData.z;
+            rotationOffset[0] = (rotationHead[0] - rotationOrigin[0]) * rotationOffsetFactor[0];
+            rotationOffset[1] = (rotationHead[1] - rotationOrigin[1]) * rotationOffsetFactor[1];
+            rotationOffset[2] = (rotationHead[2] - rotationOrigin[2]) * rotationOffsetFactor[2];
             render();
-            */
         }
+        /*
         if (evt.detail.name === 'position') {
             //console.log('Movement from', evt.detail.oldData, 'to', evt.detail.newData, '!');
             positionHead[0] = evt.detail.newData.x;
             positionHead[1] = evt.detail.newData.y;
             positionHead[2] = evt.detail.newData.z;
-
             positionOffset[0] = (positionHead[0] - positionOrigin[0]) * positionOffsetFactor[0];
             positionOffset[1] = (positionHead[1] - positionOrigin[1]) * positionOffsetFactor[1];
             positionOffset[2] = (positionHead[2] - positionOrigin[2]) * positionOffsetFactor[2];
             render();
-        }
+        }*/
     });
 }
 
@@ -89,6 +96,9 @@ function resetPosition() {
     positionOrigin[0] = positionHead[0];
     positionOrigin[1] = positionHead[1];
     positionOrigin[2] = positionHead[2];
+    rotationOrigin[0] = rotationHead[0];
+    rotationOrigin[1] = rotationHead[1];
+    rotationOrigin[2] = rotationHead[2];
 }
 
 window.addEventListener("keydown", function(e){
