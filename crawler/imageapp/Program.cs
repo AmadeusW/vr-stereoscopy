@@ -80,9 +80,12 @@ namespace StereoscopyVR.ImageApp
                 thumbnailR.SaveAsJpeg(stream, new JpegEncoderOptions { Quality = 80 });
             }
 
+            // If image size is greater than 1024, shrink it 
             // Increase size of images to a nearest power of 2
             var newWidth = (int)Math.Pow(2, Math.Ceiling(Math.Log(Math.Max(imageL.Width, imageR.Width), 2)));
             var newHeight = (int)Math.Pow(2, Math.Ceiling(Math.Log(Math.Max(imageL.Height, imageR.Height), 2)));
+            newWidth = Math.Min(1024, newWidth);
+            newHeight = Math.Min(1024, newHeight);
             imageL = imageL.Resize(new ResizeOptions { Mode = ResizeMode.BoxPad, Size = new Size(newWidth, newHeight) });
             imageR = imageR.Resize(new ResizeOptions { Mode = ResizeMode.BoxPad, Size = new Size(newWidth, newHeight) });
 
