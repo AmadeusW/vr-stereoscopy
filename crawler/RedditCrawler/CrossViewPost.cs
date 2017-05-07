@@ -14,7 +14,7 @@ namespace StereoscopyVR.RedditCrawler
         public DateTime CrawlDate { get; }
 
         public string ShortLink => "http://redd.it/" + Link;
-        public Uri[] ImageUrls { get; private set; }
+        public Uri ImageUrl { get; private set; }
 
         public CrossViewPost(Uri url, string title, string link, int score, DateTime uploadDate)
         {
@@ -30,11 +30,11 @@ namespace StereoscopyVR.RedditCrawler
         {
             if (Url.Host == "i.redd.it")
             {
-                ImageUrls = new Uri[] { Url };
+                ImageUrl = Url;
             }
             else if (Url.Host == "www.flickr.com")
             {
-                ImageUrls = new Uri[] { };
+                ImageUrl = Url;
                 // TODO: https://www.flickr.com/services/api/flickr.photos.getSizes.html
             }
             else if (Url.Host == "imgur.com" || Url.Host == "i.imgur.com")
@@ -42,20 +42,20 @@ namespace StereoscopyVR.RedditCrawler
                 if (Url.PathAndQuery.StartsWith("/a/"))
                 {
                     // This is an album. Generate multiple images instead
-                    ImageUrls = new Uri[] { };
+                    ImageUrl = Url;
                 }
                 if (Url.PathAndQuery.EndsWith(".jpg") || Url.PathAndQuery.EndsWith(".png"))
                 {
-                    ImageUrls = new Uri[] { Url };
+                    ImageUrl = Url;
                 }
                 else
                 {
-                    ImageUrls = new Uri[] { new Uri(Url.ToString() + ".jpg") }; // just a guess. Can we know for sure?
+                    ImageUrl = new Uri(Url.ToString() + ".jpg") ; // just a guess. Can we know for sure?
                 }
             }
             else
             {
-                ImageUrls = new Uri[] { };
+                ImageUrl = null;
             }
         }
     }
