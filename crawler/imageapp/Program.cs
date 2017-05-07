@@ -32,7 +32,7 @@ namespace StereoscopyVR.ImageApp
             var filename = Path.GetFileNameWithoutExtension(file);
             try
             {
-                using (Image image = new Image(file))
+                using (Image<Rgba32> image = Image.Load(file))
                 {
                     Work(image, filename);
                 }
@@ -43,10 +43,10 @@ namespace StereoscopyVR.ImageApp
             }
         }
 
-        private static void Work(Image image, string filename)
+        private static void Work(Image<Rgba32> image, string filename)
         {
-            var imageL = new Image(image).Crop(new Rectangle(0, 0, image.Width / 2, image.Height));
-            var imageR = new Image(image).Crop(new Rectangle(image.Width / 2, 0, image.Width / 2, image.Height));
+            var imageL = new Image<Rgba32>(image).Crop(new Rectangle(0, 0, image.Width / 2, image.Height));
+            var imageR = new Image<Rgba32>(image).Crop(new Rectangle(image.Width / 2, 0, image.Width / 2, image.Height));
 
             Console.WriteLine("cropUp");
             var cropUp = findMargin(imageL, searchY: 1);
@@ -65,10 +65,10 @@ namespace StereoscopyVR.ImageApp
             imageR = imageR.Crop(new Rectangle(crop1Left, cropUp, imageR.Width - crop2Left - crop2Right, imageR.Height - cropUp - cropDown));
 
             // Get thumbnails
-            var thumbnailL = new Image(imageL as Image)
+            var thumbnailL = new Image<Rgba32>(imageL)
                 .Resize(new ResizeOptions { Mode = ResizeMode.Max, Size = new Size(128, 128) })
                 .Resize(new ResizeOptions { Mode = ResizeMode.BoxPad, Size = new Size(128, 128) });
-            var thumbnailR = new Image(imageR as Image)
+            var thumbnailR = new Image<Rgba32>(imageR)
                 .Resize(new ResizeOptions { Mode = ResizeMode.Max, Size = new Size(128, 128) })
                 .Resize(new ResizeOptions { Mode = ResizeMode.BoxPad, Size = new Size(128, 128) });
             using (var stream = new FileStream($"out/{filename}.T.L.jpg", FileMode.Create))
@@ -99,7 +99,7 @@ namespace StereoscopyVR.ImageApp
             }
         }
 
-        private static int findMargin(Image<Color> image, int searchX = 0, int searchY = 0)
+        private static int findMargin(Image<Rgba32> image, int searchX = 0, int searchY = 0)
         {
             Debug.WriteLine($"findMargin: {searchX}, {searchY}");
             if (searchX == 0 && searchY == 0)
@@ -155,7 +155,7 @@ namespace StereoscopyVR.ImageApp
                 foreach (var point in searchPoints)
                 {
                     var searchPoint = point;
-                    Color firstColor = pixels[point.X, point.Y];
+                    var firstColor = pixels[point.X, point.Y];
 
                     // Traverse into the picture. Stop when color differs
                     int verifyLength = searchY == 0 ? image.Height : image.Width; // If first pass was horizontal, traverse vertically
@@ -178,7 +178,7 @@ namespace StereoscopyVR.ImageApp
             }
         }
 
-        public static bool AlmostEquals(Color a, Color b)
+        public static bool AlmostEquals(Rgba32 a, Rgba32 b)
         {
             if (a.R - b.R > 9 || a.R - b.R < -9) return false;
             if (a.G - b.G > 9 || a.G - b.G < -9) return false;

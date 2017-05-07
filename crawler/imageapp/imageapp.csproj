@@ -7,9 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="ImageSharp.Formats.Jpeg" Version="1.0.0-alpha2-00117" />
-    <PackageReference Include="ImageSharp.Formats.Png" Version="1.0.0-alpha2-00113" />
-    <PackageReference Include="ImageSharp.Processing" Version="1.0.0-alpha2-00105" />
+    <PackageReference Include="ImageSharp" Version="1.0.0-alpha9-00021" />
   </ItemGroup>
 
 </Project>
