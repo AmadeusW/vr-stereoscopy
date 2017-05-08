@@ -14,10 +14,24 @@
         <img id="rightImage" src="images/l.jpg" />
       </a-assets>
       <a-camera id="camera" position="0 0 0" cursor-color="black" stereocam="eye:left;">
-        <a-plane id="leftPlane"  position="0 0 -4" width="9" height="9" src="#leftImage" stereo="eye: right"></a-plane>
-        <a-plane id="rightPlane" position="0 0 -4" width="9" height="9" src="#rightImage" stereo="eye: left"></a-plane>
+        <!-- TODO: See if I can group a-frame elements with http elements -->
+        <div id="mainPlane">
+          <a-plane id="leftPlane"  position="0 0 -4" width="9" height="9" src="#leftImage" stereo="eye: right"></a-plane>
+          <a-plane id="rightPlane" position="0 0 -4" width="9" height="9" src="#rightImage" stereo="eye: left"></a-plane>
+        </div>
+        <div id="menuPane">
+          <a-entity id="title" position="0 0 -3"></a-plane> <!-- TODO: Make it a text -->
+          <div id="category1">
+            <a-plane id="category1L"  position="1 0 -3" width="9" height="9" src="images/5w2nrt.T.L.jpg" stereo="eye: right"></a-plane>
+            <a-plane id="category1R"  position="1 0 -3" width="9" height="9" src="images/5w2nrt.T.R.jpg" stereo="eye: left"></a-plane>
+            <a-entity id="category1Title" position="0 0 -3"></a-plane> <!-- TODO: Make it a text -->
+          </div>
+        </div>
+        <div id="scrollPane">
+          <a-entity id="scrollL"  position="-3 0 -3" width="9" height="9"></a-plane>
+          <a-entity id="scrollR"  position="3 0 -3" width="9" height="9"></a-plane>
+        </div>
       </a-camera>
-      <!-- TODO: Add thumbnails here -->
       <a-sky color="#000"></a-sky>
       <a-light type="ambient"></a-light>
     </a-scene>
