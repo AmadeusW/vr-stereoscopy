@@ -22,7 +22,7 @@ See stereoscopic and *cross view* images in VR
 - [ ] pan image with head rotation
 - [ ] change image with horizontal head rotation
 - [x] dynamically crop images from web
-- [ ] use azure blob storage for images
+- [ ] use azure blob storage for images. Allow CORS
 - [ ] use azure table storage for image data
 - [ ] display thumbnails
 - [ ] navigation by gaze
