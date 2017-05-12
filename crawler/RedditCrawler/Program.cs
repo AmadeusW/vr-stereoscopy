@@ -112,7 +112,7 @@ namespace StereoscopyVR.RedditCrawler
         private static void Configure()
         {
             var builder = new ConfigurationBuilder()
-                .AddJsonFile(@"D:\vrcv.json");
+                .AddJsonFile(@"C:\Users\amadeusz\OneDrive\current\vrcv.json");
             Configuration = builder.Build();
         }
 
