@@ -51,7 +51,7 @@ namespace StereoscopyVR.RedditCrawler
             }
 
             Console.WriteLine("Fetching image URLs");
-            GetImageUrls(posts);
+            await GetImageUrls(posts);
 
             Console.WriteLine("Do you want to process images? (y, enter)");
             if (Console.ReadLine().ToLowerInvariant() == "y")
@@ -63,11 +63,11 @@ namespace StereoscopyVR.RedditCrawler
             Console.ReadLine();
         }
 
-        private static void GetImageUrls(IEnumerable<CrossViewPost> posts)
+        private static async Task GetImageUrls(IEnumerable<CrossViewPost> posts)
         {
             foreach (var post in posts)
             {
-                post.TryGetImageUrl();
+                await post.TryGetImageUrl();
                 if (post.ImageUrl == null)
                 {
                     Console.WriteLine($"Not supported domain {post.Url.Host}: [{post.Score}] {post.Title}");
@@ -118,7 +118,7 @@ namespace StereoscopyVR.RedditCrawler
 
         private static async Task<IEnumerable<CrossViewPost>> GetPosts()
         {
-            var webAgent = new BotWebAgent(Configuration["username"], Configuration["password"], Configuration["token"], Configuration["secret"], Configuration["url"]);
+            var webAgent = new BotWebAgent(Configuration["reddit-username"], Configuration["reddit-password"], Configuration["reddit-token"], Configuration["reddit-secret"], Configuration["reddit-url"]);
             //This will check if the access token is about to expire before each request and automatically request a new one for you
             //"false" means that it will NOT load the logged in user profile so reddit.User will be null
             var reddit = new Reddit(webAgent, false);

@@ -1,6 +1,8 @@
-﻿using System;
+﻿using StereoscopyVR.RedditCrawler.Endpoints;
+using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace StereoscopyVR.RedditCrawler
 {
@@ -26,7 +28,7 @@ namespace StereoscopyVR.RedditCrawler
             CrawlDate = DateTime.UtcNow;
         }
 
-        internal void TryGetImageUrl()
+        internal async Task TryGetImageUrl()
         {
             if (Url.Host == "i.redd.it")
             {
@@ -39,6 +41,11 @@ namespace StereoscopyVR.RedditCrawler
             }
             else if (Url.Host == "imgur.com" || Url.Host == "i.imgur.com")
             {
+                var query = Url.PathAndQuery.TrimStart('/');
+                if (query.IndexOf('.') > -1)
+                    query = query.Substring(0, query.IndexOf('.'));
+
+                var details = Imgur.GetDetails(query);
                 if (Url.PathAndQuery.StartsWith("/a/"))
                 {
                     // This is an album. Generate multiple images instead
