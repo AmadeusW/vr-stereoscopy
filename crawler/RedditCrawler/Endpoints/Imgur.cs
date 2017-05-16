@@ -17,9 +17,10 @@ namespace StereoscopyVR.RedditCrawler.Endpoints
                 {
                     var settings = new RefitSettings()
                     {
+                        //AuthorizationHeaderValueGetter = () => Task.FromResult("Client-ID 123"),
                         AuthorizationHeaderValueGetter = () => Task.FromResult("Client-ID " + Program.Configuration["imgur-token"]),
                     };
-                    _imgurApi = RestService.For<IImgurApi>("https://api.imgur.com/3/", settings);
+                    _imgurApi = RestService.For<IImgurApi>("https://api.imgur.com/3/");//, settings);
                 }
                 return _imgurApi;
             }
@@ -28,15 +29,24 @@ namespace StereoscopyVR.RedditCrawler.Endpoints
         internal async static Task GetDetails(string hash)
         {
             // todo: check if this is an album
-            var albumImages = await ImgurApi.GetAlbumImages(hash);
-            Console.WriteLine("Hello World!");
+            try
+            {
+                var albumImages = await ImgurApi.GetAlbumImages(hash, "Client-ID " + Program.Configuration["imgur - token"]);
+                Console.WriteLine("Hello World!");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+            }
         }
     }
 
     public interface IImgurApi
     {
+        //[Headers("Authorization: Client-ID 123")]
+        //[Headers("Authorization: Client-ID " + Program.Configuration["imgur-token"])]
         [Get("/album/{hash}/images")]
-        Task<IEnumerable<Image>> GetAlbumImages(string hash);
+        Task<List<Image>> GetAlbumImages(string hash, [Header("Authorization")] string authorization);
     }
 
     public class Image

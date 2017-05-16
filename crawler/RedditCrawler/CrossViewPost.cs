@@ -41,13 +41,13 @@ namespace StereoscopyVR.RedditCrawler
             }
             else if (Url.Host == "imgur.com" || Url.Host == "i.imgur.com")
             {
-                var query = Url.PathAndQuery.TrimStart('/');
-                if (query.IndexOf('.') > -1)
-                    query = query.Substring(0, query.IndexOf('.'));
-
-                var details = Imgur.GetDetails(query);
                 if (Url.PathAndQuery.StartsWith("/a/"))
                 {
+                    var query = Url.PathAndQuery.Substring(3); // remove /a/
+                    if (query.IndexOf('.') > -1)
+                        query = query.Substring(0, query.IndexOf('.'));
+
+                    var details = Imgur.GetDetails(query);
                     // This is an album. Generate multiple images instead
                     ImageUrl = Url;
                 }
