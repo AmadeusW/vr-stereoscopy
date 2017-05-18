@@ -67,14 +67,21 @@ namespace StereoscopyVR.RedditCrawler
         {
             foreach (var post in posts)
             {
-                await post.TryGetImageUrl();
-                if (post.ImageUrl == null)
+                try
                 {
-                    Console.WriteLine($"Not supported domain {post.Url.Host}: [{post.Score}] {post.Title}");
+                    await post.TryGetImageUrl();
+                    if (post.ImageUrl != null)
+                    {
+                        Console.WriteLine($"OK: [{post.Score}] {post.Title}");
+                    }
+                    else
+                    {
+                        Console.WriteLine($"Not supported domain {post.Url.Host}: [{post.Score}] {post.Title}");
+                    }
                 }
-                else
+                catch (Exception ex)
                 {
-                    Console.WriteLine($"OK: [{post.Score}] {post.Title}");
+                    Console.WriteLine($"Error at {post.Url.Host}: {ex}");
                 }
             }
         }

@@ -3,11 +3,31 @@ using System.Collections.Generic;
 using System.Text;
 using Refit;
 using System.Threading.Tasks;
+using StereoscopyVR.RedditCrawler.Data;
+using System.Linq;
 
 namespace StereoscopyVR.RedditCrawler.Endpoints
 {
-    internal static class Flickr
+    internal class Flickr : IOriginalImageSource
     {
+        public async Task<OriginalImage> GetOriginalData(string id)
+        {
+            try
+            {
+                var albumImages = await FlickrApi.GetAlbumImages(id, Program.Configuration["flickr-token"]);
+                Console.WriteLine("Flickr: " + albumImages.ToString());
+                return new OriginalImage
+                {
+                    Url = albumImages.sizes.size.First(n => n.label == "Original").source
+                };
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+                throw;
+            }
+        }
+
         static IFlickrApi _flickrApi;
         static IFlickrApi FlickrApi
         {
@@ -15,28 +35,9 @@ namespace StereoscopyVR.RedditCrawler.Endpoints
             {
                 if (_flickrApi == null)
                 {
-                    var settings = new RefitSettings()
-                    {
-                        //AuthorizationHeaderValueGetter = () => Task.FromResult("Client-ID 123"),
-                        AuthorizationHeaderValueGetter = () => Task.FromResult("Client-ID " + Program.Configuration["flickr-token"]),
-                    };
-                    _flickrApi = RestService.For<IFlickrApi>("https://api.flickr.com/services");//, settings);
+                    _flickrApi = RestService.For<IFlickrApi>("https://api.flickr.com/services");
                 }
                 return _flickrApi;
-            }
-        }
-
-        internal async static Task GetDetails(string photoId)
-        {
-            // todo: check if this is an album
-            try
-            {
-                var albumImages = await FlickrApi.GetAlbumImages(photoId, Program.Configuration["flickr-token"]);
-                Console.WriteLine("Flickr: " + albumImages.ToString());
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex);
             }
         }
     }
@@ -44,20 +45,20 @@ namespace StereoscopyVR.RedditCrawler.Endpoints
     public interface IFlickrApi
     {
         [Get("/rest?method=flickr.photos.getSizes&api_key={api_key}&photo_id={photo_id}&format=json&nojsoncallback=1")]
-        Task<ImageSizes> GetAlbumImages(string photo_id, string api_key);
+        Task<FlickrGetSizesResponse> GetAlbumImages(string photo_id, string api_key);
     }
 
-    public class ImageSizes
+    public class FlickrGetSizesResponse
     {
-        public AllSizes sizes { get; set; }
+        public FlickrAllSizes sizes { get; set; }
     }
     
-    public class AllSizes
+    public class FlickrAllSizes
     {
-        public RawImageData[] size { get; set; }
+        public FlickrRawImage[] size { get; set; }
     }
 
-    public class RawImageData
+    public class FlickrRawImage
     {
         public string label { get; set; }
         public string source { get; set; }

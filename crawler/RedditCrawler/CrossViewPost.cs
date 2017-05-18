@@ -20,6 +20,8 @@ namespace StereoscopyVR.RedditCrawler
         public Uri ImageUrl { get; private set; }
 
         static Regex flickrRegex = new Regex(@"photos\/[^\/]+\/(\d+)\/.*");
+        static IOriginalImageSource flickrEndpoint = new Flickr();
+        static IOriginalImageSource imgurEndpoint = new Imgur();
 
         public CrossViewPost(Uri url, string title, string link, int score, DateTime uploadDate)
         {
@@ -42,7 +44,8 @@ namespace StereoscopyVR.RedditCrawler
                 ImageUrl = Url;
                 var query = Url.PathAndQuery.TrimEnd('/');
                 var photoId = flickrRegex.Match(query).Groups[1].Value;
-                var details = Flickr.GetDetails(photoId);
+                var details = await flickrEndpoint.GetOriginalData(photoId);
+                ImageUrl = new Uri(details.Url);
             }
             else if (Url.Host == "imgur.com" || Url.Host == "i.imgur.com")
             {
@@ -52,9 +55,9 @@ namespace StereoscopyVR.RedditCrawler
                     if (query.IndexOf('.') > -1)
                         query = query.Substring(0, query.IndexOf('.'));
 
-                    var details = Imgur.GetDetails(query);
-                    // This is an album. Generate multiple images instead
-                    ImageUrl = Url;
+                    var details = await imgurEndpoint.GetOriginalData(query);
+                    // TODO: This is an album. Generate multiple images instead
+                    ImageUrl = new Uri(details.Url);
                 }
                 if (Url.PathAndQuery.EndsWith(".jpg") || Url.PathAndQuery.EndsWith(".png"))
                 {

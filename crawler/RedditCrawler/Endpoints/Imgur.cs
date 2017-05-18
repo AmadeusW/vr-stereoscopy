@@ -3,11 +3,23 @@ using System.Collections.Generic;
 using System.Text;
 using Refit;
 using System.Threading.Tasks;
+using StereoscopyVR.RedditCrawler.Data;
 
 namespace StereoscopyVR.RedditCrawler.Endpoints
 {
-    internal static class Imgur
+    internal class Imgur : IOriginalImageSource
     {
+        public async Task<OriginalImage> GetOriginalData(string id)
+        {
+            // TODO: Check if this is an album
+            var albumImages = await ImgurApi.GetAlbumImages(id, "Client-ID " + Program.Configuration["imgur-token"]);
+            Console.WriteLine("Hello World!");
+            return new OriginalImage
+            {
+                Url = albumImages.ToString()
+            };
+        }
+
         static IImgurApi _imgurApi;
         static IImgurApi ImgurApi
         {
@@ -23,20 +35,6 @@ namespace StereoscopyVR.RedditCrawler.Endpoints
                     _imgurApi = RestService.For<IImgurApi>("https://api.imgur.com/3/");//, settings);
                 }
                 return _imgurApi;
-            }
-        }
-
-        internal async static Task GetDetails(string hash)
-        {
-            // todo: check if this is an album
-            try
-            {
-                var albumImages = await ImgurApi.GetAlbumImages(hash, "Client-ID " + Program.Configuration["imgur - token"]);
-                Console.WriteLine("Hello World!");
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex);
             }
         }
     }
