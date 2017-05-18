@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
+using System.Text.RegularExpressions;
 
 namespace StereoscopyVR.RedditCrawler
 {
@@ -17,6 +18,8 @@ namespace StereoscopyVR.RedditCrawler
 
         public string ShortLink => "http://redd.it/" + Link;
         public Uri ImageUrl { get; private set; }
+
+        static Regex flickrRegex = new Regex(@"photos\/[^\/]+\/(\d+)\/.*");
 
         public CrossViewPost(Uri url, string title, string link, int score, DateTime uploadDate)
         {
@@ -37,7 +40,9 @@ namespace StereoscopyVR.RedditCrawler
             else if (Url.Host == "www.flickr.com")
             {
                 ImageUrl = Url;
-                // TODO: https://www.flickr.com/services/api/flickr.photos.getSizes.html
+                var query = Url.PathAndQuery.TrimEnd('/');
+                var photoId = flickrRegex.Match(query).Groups[1].Value;
+                var details = Flickr.GetDetails(photoId);
             }
             else if (Url.Host == "imgur.com" || Url.Host == "i.imgur.com")
             {
