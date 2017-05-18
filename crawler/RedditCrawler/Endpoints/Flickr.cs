@@ -31,8 +31,8 @@ namespace StereoscopyVR.RedditCrawler.Endpoints
             // todo: check if this is an album
             try
             {
-                var albumImages = await FlickrApi.GetAlbumImages(photoId, "Client-ID " + Program.Configuration["flickr-token"]);
-                Console.WriteLine("Hello World!");
+                var albumImages = await FlickrApi.GetAlbumImages(photoId, Program.Configuration["flickr-token"]);
+                Console.WriteLine("Flickr: " + albumImages.ToString());
             }
             catch (Exception ex)
             {
@@ -43,8 +43,8 @@ namespace StereoscopyVR.RedditCrawler.Endpoints
 
     public interface IFlickrApi
     {
-        [Get("/rest?method=flickr.photos.getSizes&api_key={api_key}&photo_id=&{photo_id}&format=json")]
-        Task<ImageSizes> GetAlbumImages(string photo_id, string api_key);
+        [Get("/rest?method=flickr.photos.getSizes&api_key={api_key}&photo_id={photo_id}&format=json")]
+        Task<string> GetAlbumImages(string photo_id, string api_key);
     }
 
     public class ImageSizes
