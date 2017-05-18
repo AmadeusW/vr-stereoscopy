@@ -43,8 +43,8 @@ namespace StereoscopyVR.RedditCrawler.Endpoints
 
     public interface IFlickrApi
     {
-        [Get("/rest?method=flickr.photos.getSizes&api_key={api_key}&photo_id={photo_id}&format=json")]
-        Task<string> GetAlbumImages(string photo_id, string api_key);
+        [Get("/rest?method=flickr.photos.getSizes&api_key={api_key}&photo_id={photo_id}&format=json&nojsoncallback=1")]
+        Task<ImageSizes> GetAlbumImages(string photo_id, string api_key);
     }
 
     public class ImageSizes
