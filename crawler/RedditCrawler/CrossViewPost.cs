@@ -35,6 +35,8 @@ namespace StereoscopyVR.RedditCrawler
 
         internal async Task TryGetImageUrl()
         {
+            ImageUrl = null;
+
             if (Url.Host == "i.redd.it")
             {
                 ImageUrl = Url;
@@ -45,7 +47,9 @@ namespace StereoscopyVR.RedditCrawler
                 var query = Url.PathAndQuery.TrimEnd('/');
                 var photoId = flickrRegex.Match(query).Groups[1].Value;
                 var details = await flickrEndpoint.GetOriginalData(photoId);
-                ImageUrl = new Uri(details.Url);
+
+                if (details != null)
+                    ImageUrl = new Uri(details.Url);
             }
             else if (Url.Host == "imgur.com" || Url.Host == "i.imgur.com")
             {
@@ -68,10 +72,6 @@ namespace StereoscopyVR.RedditCrawler
                 {
                     ImageUrl = new Uri(Url.ToString() + ".jpg") ; // just a guess. Can we know for sure?
                 }
-            }
-            else
-            {
-                ImageUrl = null;
             }
         }
     }

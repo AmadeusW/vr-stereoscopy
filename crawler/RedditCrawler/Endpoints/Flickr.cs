@@ -15,10 +15,18 @@ namespace StereoscopyVR.RedditCrawler.Endpoints
             try
             {
                 var albumImages = await FlickrApi.GetAlbumImages(id, Program.Configuration["flickr-token"]);
-                Console.WriteLine("Flickr: " + albumImages.ToString());
+                var match = albumImages.sizes.size.FirstOrDefault(n => n.label == "Original");
+                if (match == null)
+                {
+                    match = albumImages.sizes.size.FirstOrDefault(n => n.label == "Large");
+                    if (match == null)
+                    {
+                        return null;
+                    }
+                }
                 return new OriginalImage
                 {
-                    Url = albumImages.sizes.size.First(n => n.label == "Original").source
+                    Url = match.source
                 };
             }
             catch (Exception ex)
