@@ -57,6 +57,7 @@ namespace StereoscopyVR.RedditCrawler
 
                     var details = await imgurEndpoint.GetOriginalData(query);
                     // TODO: This is an album. Generate multiple images instead
+                    // or perhaps I should ignore albums...
                     ImageUrl = new Uri(details.Url);
                 }
                 if (Url.PathAndQuery.EndsWith(".jpg") || Url.PathAndQuery.EndsWith(".png"))

@@ -13,10 +13,9 @@ namespace StereoscopyVR.RedditCrawler.Endpoints
         {
             // TODO: Check if this is an album
             var albumImages = await ImgurApi.GetAlbumImages(id, "Client-ID " + Program.Configuration["imgur-token"]);
-            Console.WriteLine("Hello World!");
             return new OriginalImage
             {
-                Url = albumImages.ToString()
+                Url = albumImages.data[0].link.ToString()
             };
         }
 
@@ -44,10 +43,15 @@ namespace StereoscopyVR.RedditCrawler.Endpoints
         //[Headers("Authorization: Client-ID 123")]
         //[Headers("Authorization: Client-ID " + Program.Configuration["imgur-token"])]
         [Get("/album/{hash}/images")]
-        Task<List<Image>> GetAlbumImages(string hash, [Header("Authorization")] string authorization);
+        Task<ImgurData> GetAlbumImages(string hash, [Header("Authorization")] string authorization);
     }
 
-    public class Image
+    public class ImgurData
+    {
+        public List<ImgurImage> data { get; set; }
+    }
+
+    public class ImgurImage
     {
         public string id { get; set; }
         public string title { get; set; }
