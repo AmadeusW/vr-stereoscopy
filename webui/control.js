@@ -14,6 +14,7 @@ var currentImage = 0;
 var lastImage = 0;
 var timeoutId;
 
+showMenu();
 render();
 // Load data
 console.log(JSON.stringify(scenes));
