@@ -13,7 +13,8 @@
         <img id="leftImage" src="images/r.jpg" />
         <img id="rightImage" src="images/l.jpg" />
       </a-assets>
-      <a-camera id="camera" position="0 0 0" cursor-color="black" stereocam="eye:left;">
+      <a-camera id="camera" position="0 0 0" stereocam="eye:left;">
+        <a-cursor></a-cursor>
         <!-- TODO: See if I can group a-frame elements with http elements -->
         <div id="mainPlane">
           <a-plane id="leftPlane"  position="0 0 -4" width="9" height="9" src="#leftImage" stereo="eye: right"></a-plane>
