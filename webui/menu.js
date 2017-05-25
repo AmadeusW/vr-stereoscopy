@@ -17,7 +17,7 @@ function showMenu() {
     var template = document.querySelector("#category1");
     var category = template.cloneNode(/*deep:*/true);
     category.setAttribute("id", "category2");
-    menu.appendChild(category);
     var title = category.querySelector(".title");
     title.setAttribute("value", "Second category");
+    menu.appendChild(category);
 }
