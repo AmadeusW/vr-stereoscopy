@@ -13,32 +13,33 @@
         <!-- <img id="sampleAsset" src="ui/img.png" /> -->
       </a-assets>
 
-      <!-- Stereo picture -->
-      <a-entity id="mainPane">
-        <a-plane id="leftPlane"  position="0 0 -4" width="9" height="9" src="images/5w2nrt.L.jpg" stereo="eye: right"></a-plane>
-        <a-plane id="rightPlane" position="0 0 -4" width="9" height="9" src="images/5w2nrt.R.jpg" stereo="eye: left"></a-plane>
-      </a-entity>
-
       <a-camera id="camera" position="0 0 0" stereocam="eye:left;">
         <a-cursor></a-cursor>
 
-        <!-- Navigation in slideshow mode -->
-        <a-entity id="scrollPane">
-          <a-plane id="scrollL"  position="-3 0 -3" width="9" height="9"></a-plane>
-          <a-plane id="scrollR"  position="3 0 -3" width="9" height="9"></a-plane>
+        <!-- Stereo picture -->
+        <a-entity id="mainPane">
+          <a-plane id="leftPlane"  position="0 0 -4" width="9" height="9" src="images/5w2nrt.L.jpg" stereo="eye: right"></a-plane>
+          <a-plane id="rightPlane" position="0 0 -4" width="9" height="9" src="images/5w2nrt.R.jpg" stereo="eye: left"></a-plane>
         </a-entity>
 
-        <!-- Menu -->
-        <a-entity id="menuPane" visible="false">
-          <a-text id="menuTitle" position="0 0 -3"></a-text>
-          <a-entity id="category1">
-            <a-plane class="thumbL"  position="1 0 -3" width="9" height="9" src="images/5w2nrt.T.L.jpg" stereo="eye: right"></a-plane>
-            <a-plane class="thumbR"  position="1 0 -3" width="9" height="9" src="images/5w2nrt.T.R.jpg" stereo="eye: left"></a-plane>
-            <a-text class="title" position="0 0 -3" color="red" value="Sample category"></a-text>
-          </a-entity>
-        </a-entity>
-        
       </a-camera>
+
+      <!-- Navigation in slideshow mode -->
+      <a-entity id="scrollPane" position="0 1 -3">
+        <a-box id="scrollL"  position="3 0 0" scale=".2 .3 .1"></a-box>
+        <a-box id="scrollR"  position="-3 0 0" scale=".2 .3 .1"></a-box>
+      </a-entity>
+
+      <!-- Menu -->
+      <a-entity id="menuPane" visible="false" position="0 2 -3">
+        <a-text id="menuTitle" position="0 0.5 0"></a-text>
+        <a-entity id="category1">
+          <a-plane class="thumbL"  position="0 -0.8 0" width=".3" height=".3" src="images/5w2nrt.T.L.jpg" stereo="eye: right"></a-plane>
+          <a-plane class="thumbR"  position="0 -0.8 0" width=".3" height=".3" src="images/5w2nrt.T.R.jpg" stereo="eye: left"></a-plane>
+          <a-text class="title" position="0 0.2 0" scale="0.3 0.3 0.3" color="red" value="Sample category"></a-text>
+        </a-entity>
+      </a-entity>
+        
       <a-sky color="#000"></a-sky>
       <a-light type="ambient"></a-light>
     </a-scene>
