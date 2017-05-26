@@ -15,24 +15,29 @@
       </a-assets>
       <a-camera id="camera" position="0 0 0" stereocam="eye:left;">
         <a-cursor></a-cursor>
-        <!-- TODO: See if I can group a-frame elements with http elements -->
-        <div id="mainPane">
-          <a-text id="sample" position="0 1 -3" value="Sample text"></a-text>
-          <a-plane id="leftPlane"  position="0 0 -4" width="9" height="9" src="#leftImage" stereo="eye: right"></a-plane>
-          <a-plane id="rightPlane" position="0 0 -4" width="9" height="9" src="#rightImage" stereo="eye: left"></a-plane>
-        </div>
-        <a-entity id="menuPane" visible="false">
-          <a-text id="menuTitle" position="0 0 -3"></a-text>
-          <div id="category1">
-            <a-plane class="thumbL"  position="1 0 -3" width="9" height="9" src="images/5w2nrt.T.L.jpg" stereo="eye: right"></a-plane>
-            <a-plane class="thumbR"  position="1 0 -3" width="9" height="9" src="images/5w2nrt.T.R.jpg" stereo="eye: left"></a-plane>
-            <a-text class="title" position="0 0 -3" value="Sample category"></a-text>
-          </div>
+
+        <!-- Stereo picture -->
+        <a-entity id="mainPane">
+          <a-plane id="leftPlane"  position="0 0 -4" width="9" height="9" src="#leftImage"></a-plane>
+          <a-plane id="rightPlane" position="0 0 -4" width="9" height="9" src="#rightImage"></a-plane>
         </a-entity>
-        <div id="scrollPane">
+
+        <!-- Navigation in slideshow mode -->
+        <a-entity id="scrollPane">
           <a-plane id="scrollL"  position="-3 0 -3" width="9" height="9"></a-plane>
           <a-plane id="scrollR"  position="3 0 -3" width="9" height="9"></a-plane>
-        </div>
+        </a-entity>
+
+        <!-- Menu -->
+        <a-entity id="menuPane" visible="false">
+          <a-text id="menuTitle" position="0 0 -3"></a-text>
+          <a-entity id="category1">
+            <a-plane class="thumbL"  position="1 0 -3" width="9" height="9" src="images/5w2nrt.T.L.jpg"></a-plane>
+            <a-plane class="thumbR"  position="1 0 -3" width="9" height="9" src="images/5w2nrt.T.R.jpg"></a-plane>
+            <a-text class="title" position="0 0 -3" color="red" value="Sample category"></a-text>
+          </a-entity>
+        </a-entity>
+        
       </a-camera>
       <a-sky color="#000"></a-sky>
       <a-light type="ambient"></a-light>
