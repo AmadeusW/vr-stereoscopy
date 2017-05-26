@@ -10,17 +10,17 @@
   <body>
     <a-scene>
       <a-assets>
-        <img id="leftImage" src="images/r.jpg" />
-        <img id="rightImage" src="images/l.jpg" />
+        <!-- <img id="sampleAsset" src="ui/img.png" /> -->
       </a-assets>
+
+      <!-- Stereo picture -->
+      <a-entity id="mainPane">
+        <a-plane id="leftPlane"  position="0 0 -4" width="9" height="9" src="images/5w2nrt.L.jpg" stereo="eye: right"></a-plane>
+        <a-plane id="rightPlane" position="0 0 -4" width="9" height="9" src="images/5w2nrt.R.jpg" stereo="eye: left"></a-plane>
+      </a-entity>
+
       <a-camera id="camera" position="0 0 0" stereocam="eye:left;">
         <a-cursor></a-cursor>
-
-        <!-- Stereo picture -->
-        <a-entity id="mainPane">
-          <a-plane id="leftPlane"  position="0 0 -4" width="9" height="9" src="#leftImage" stereo="eye: right"></a-plane>
-          <a-plane id="rightPlane" position="0 0 -4" width="9" height="9" src="#rightImage" stereo="eye: left"></a-plane>
-        </a-entity>
 
         <!-- Navigation in slideshow mode -->
         <a-entity id="scrollPane">
