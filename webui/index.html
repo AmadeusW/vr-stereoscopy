@@ -17,6 +17,7 @@
         <a-cursor></a-cursor>
         <!-- TODO: See if I can group a-frame elements with http elements -->
         <div id="mainPane">
+          <a-text id="sample" position="0 1 -3" value="Sample text"></a-text>
           <a-plane id="leftPlane"  position="0 0 -4" width="9" height="9" src="#leftImage" stereo="eye: right"></a-plane>
           <a-plane id="rightPlane" position="0 0 -4" width="9" height="9" src="#rightImage" stereo="eye: left"></a-plane>
         </div>
@@ -27,10 +28,10 @@
             <a-plane class="thumbR"  position="1 0 -3" width="9" height="9" src="images/5w2nrt.T.R.jpg" stereo="eye: left"></a-plane>
             <a-text class="title" position="0 0 -3" value="Sample category"></a-text>
           </div>
-        </div>
+        </a-entity>
         <div id="scrollPane">
-          <a-entity id="scrollL"  position="-3 0 -3" width="9" height="9"></a-plane>
-          <a-entity id="scrollR"  position="3 0 -3" width="9" height="9"></a-plane>
+          <a-plane id="scrollL"  position="-3 0 -3" width="9" height="9"></a-plane>
+          <a-plane id="scrollR"  position="3 0 -3" width="9" height="9"></a-plane>
         </div>
       </a-camera>
       <a-sky color="#000"></a-sky>
