@@ -97,19 +97,23 @@
 	          // Check if material is a video from html tag (object3D.material.map instanceof THREE.VideoTexture does not
 	          // always work
 
-	          if(this.el.getAttribute("material")!==null && 'src' in this.el.getAttribute("material") && this.el.getAttribute("material").src !== "") {
-	            var src = this.el.getAttribute("material").src;
-	            // If src is a string, treat it like a selector, for aframe <= v0.3
-	            if ((toString.call(src) == '[object String]'
-	                 && document.querySelector(src) !== null
-	                 && document.querySelector(src).tagName === "VIDEO")
-	                ||
-	                // If src is a video element , just get the tagName
-	                ('tagName' in src
-	                 && src.tagName === "VIDEO")) {
-	              this.material_is_a_video = true;
-	            }
-	          }
+						if(this.el.getAttribute("material")!==null && 'src' in this.el.getAttribute("material") && this.el.getAttribute("material").src !== "") {
+							var src = this.el.getAttribute("material").src;
+							// If src is a string, treat it like a selector, for aframe <= v0.3
+							if (toString.call(src) == '[object String]') {
+								// try/catch to validate selector as we might have a string that is actually the
+								// asset path replaced by the a-assets system IE <a-entity material="src:#imgID">
+								// may get translated to "/assets/image.jpg"
+								try {
+									if (document.querySelector(src).tagName === "VIDEO"
+										|| 'tagName' in src && src.tagName === "VIDEO") {
+										// If src is a video element , just get the tagName
+											this.material_is_a_video = true;
+									}
+								} catch(e) {
+								}
+							}
+						}
 
 	          var object3D = this.el.object3D.children[0];
 
