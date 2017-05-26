@@ -5,7 +5,7 @@
     <title>VR Stereoscopy</title>
     <meta name="description" content="Watch stereoscopic images in your VR headset">
     <script src="lib/aframe.min.js"></script>
-    <script src="lib/aframe-stereo-component.min.js"></script>
+    <script src="lib/aframe-stereo-component.js"></script>
   </head>
   <body>
     <a-scene>
@@ -18,8 +18,8 @@
 
         <!-- Stereo picture -->
         <a-entity id="mainPane">
-          <a-plane id="leftPlane"  position="0 0 -4" width="9" height="9" src="#leftImage"></a-plane>
-          <a-plane id="rightPlane" position="0 0 -4" width="9" height="9" src="#rightImage"></a-plane>
+          <a-plane id="leftPlane"  position="0 0 -4" width="9" height="9" src="#leftImage" stereo="eye: right"></a-plane>
+          <a-plane id="rightPlane" position="0 0 -4" width="9" height="9" src="#rightImage" stereo="eye: left"></a-plane>
         </a-entity>
 
         <!-- Navigation in slideshow mode -->
@@ -32,8 +32,8 @@
         <a-entity id="menuPane" visible="false">
           <a-text id="menuTitle" position="0 0 -3"></a-text>
           <a-entity id="category1">
-            <a-plane class="thumbL"  position="1 0 -3" width="9" height="9" src="images/5w2nrt.T.L.jpg"></a-plane>
-            <a-plane class="thumbR"  position="1 0 -3" width="9" height="9" src="images/5w2nrt.T.R.jpg"></a-plane>
+            <a-plane class="thumbL"  position="1 0 -3" width="9" height="9" src="images/5w2nrt.T.L.jpg" stereo="eye: right"></a-plane>
+            <a-plane class="thumbR"  position="1 0 -3" width="9" height="9" src="images/5w2nrt.T.R.jpg" stereo="eye: left"></a-plane>
             <a-text class="title" position="0 0 -3" color="red" value="Sample category"></a-text>
           </a-entity>
         </a-entity>
