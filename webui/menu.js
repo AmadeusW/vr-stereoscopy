@@ -1,11 +1,8 @@
 function showMenu() {
     var menu = document.querySelector("#menuPane");
-
-    document.querySelector("#menuTitle").setAttribute("value", "Welcome");
     var template = document.querySelector("#categoryTemplate");
 
     for (var categoryId = 0; categoryId < categories.length; categoryId++) {
-
         var category = template.cloneNode(/*deep:*/true);
         category.setAttribute("id", "category" + categoryId);
         category.setAttribute("position", categoryId + " 0 0");
