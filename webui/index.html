@@ -33,7 +33,7 @@
       <!-- Menu -->
       <a-entity id="menuPane" visible="false" position="0 2 -3">
         <a-text id="menuTitle" position="0 0.5 0"></a-text>
-        <a-entity id="category1">
+        <a-entity id="categoryTemplate">
           <a-plane class="thumbL"  position="0 -0.8 0" width=".3" height=".3" src="images/5w2nrt.T.L.jpg" stereo="eye: right"></a-plane>
           <a-plane class="thumbR"  position="0 -0.8 0" width=".3" height=".3" src="images/5w2nrt.T.R.jpg" stereo="eye: left"></a-plane>
           <a-text class="title" position="0 0.2 0" scale="0.3 0.3 0.3" color="red" value="Sample category"></a-text>
@@ -44,6 +44,7 @@
       <a-light type="ambient"></a-light>
     </a-scene>
   </body>
+  <script src="images/categories.json"></script>
   <script src="images/posts.json"></script>
   <script src="menu.js"></script>
   <script src="control.js"></script>
