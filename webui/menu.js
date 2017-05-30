@@ -28,4 +28,19 @@ function showMenu() {
             setAttribute("src", "images/" + categories[categoryId].Thumbnail + ".T.R.jpg");
         menu.appendChild(category);
     }
+    goToCategory(0); //xxx: experiment
+}
+
+function goToCategory(categoryId) {
+    // todo: actually go to category. for now just testing loading JSON
+    console.log("goToCategory");
+    getJSON('images/posts.json',
+        function(err, data) {
+            if (err != null) {
+                console.log('Error accessing image data: ' + err);
+            } else {
+                console.log('Image data: ' + data);
+            }
+        }
+    );
 }
