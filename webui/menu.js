@@ -29,6 +29,7 @@ function showMenu(categories) {
             menu.appendChild(sub);
         }
     }
+    menu.setAttribute("visible", true);
 }
 
 async function initializeMenu() {
