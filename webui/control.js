@@ -17,7 +17,7 @@ var timeoutId;
 initializeMenu();
 render();
 // Load data
-console.log(JSON.stringify(scenes));
+
 lastImage = scenes.length - 1;
 const scene = document.querySelector('a-scene');
 if (scene.hasLoaded) {

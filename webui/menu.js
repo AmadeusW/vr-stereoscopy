@@ -36,19 +36,17 @@ function initializeMenu() {
         function(err, data) {
             console.log(data);
             showMenu(data.categories);
+            goToCategory(data.categories[0].Subcategories[0].Feed);
         }
     );
 }
 
-function goToCategory(categoryId) {
+function goToCategory(feed) {
     // todo: actually go to category. for now just testing loading JSON
-    getJSON('images/posts.json',
+    getJSON('images/' + feed,
         function(err, data) {
-            if (err != null) {
-                console.log('Error accessing image data: ' + err);
-            } else {
-                console.log('Image data: ' + data);
-            }
+            console.info(":: Go to category: " + feed)
+            console.log(data);
         }
     );
 }
