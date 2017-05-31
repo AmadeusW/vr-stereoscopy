@@ -19,8 +19,9 @@ function showMenu(categories) {
             var sub = template.cloneNode(/*deep:*/true);
             sub.setAttribute("id", "category" + categoryId + "sub" + subId);
             sub.setAttribute("position", categoryId + " " + (-1 - subId) + " 0");
-            var subTitle = sub.querySelector(".title");
-            subTitle.setAttribute("value", categories[categoryId].Subcategories[subId].DisplayName);
+            sub.setAttribute("visible", true);
+            sub.querySelector(".title")
+                .setAttribute("value", categories[categoryId].Subcategories[subId].DisplayName);
             sub.querySelector(".thumbL").
                 setAttribute("src", "images/" + categories[categoryId].Subcategories[subId].Thumbnail + ".T.L.jpg");
             sub.querySelector(".thumbR").
