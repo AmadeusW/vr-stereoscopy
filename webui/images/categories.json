@@ -1,12 +1,13 @@
-const categories = [
+{
+    "categories": [
     {
         "DisplayName": "Best of Reddit", "Thumbnail": "5wa98g", "Subcategories": [
             { "DisplayName": "May 2017", "Thumbnail": "5wa98g", "Feed": "posts.json" },
-            { "DisplayName": "June 2017", "Thumbnail": "5x3cge", "Feed": "posts.json" },
+            { "DisplayName": "June 2017", "Thumbnail": "5x3cge", "Feed": "posts.json" }
     ]},
     {
         "DisplayName": "Author's photos", "Thumbnail": "5wa98g", "Subcategories": [
             { "DisplayName": "West Coast", "Thumbnail": "5wa98g", "Feed": "posts.json" },
-            { "DisplayName": "Japan", "Thumbnail": "5x3cge", "Feed": "posts.json" },
+            { "DisplayName": "Japan", "Thumbnail": "5x3cge", "Feed": "posts.json" }
     ]}
-]
+]}

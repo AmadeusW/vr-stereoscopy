@@ -5,15 +5,15 @@ var getJSON = function(url, callback) {
     xhr.responseType = 'json';
     xhr.onload = function() {
       var status = xhr.status;
-      if (status == 200) {
+      if (status == 200 && xhr.response != null) {
         console.log("success");
-        console.log(xhr);
         callback(null, xhr.response);
       } else {
-        console.log("error: " + status);
+        console.log("error!");
+        console.log(xhr);
         callback(status);
       }
     };
     console.log("sending...");
-    xhr.send();
+    xhr.send(null);
 };

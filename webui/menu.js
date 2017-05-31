@@ -1,4 +1,4 @@
-function showMenu() {
+function showMenu(categories) {
     var menu = document.querySelector("#menuPane");
 
     if (menu === null) {
@@ -28,12 +28,20 @@ function showMenu() {
             setAttribute("src", "images/" + categories[categoryId].Thumbnail + ".T.R.jpg");
         menu.appendChild(category);
     }
-    goToCategory(0); //xxx: experiment
+}
+
+function initializeMenu() {
+    // todo: actually go to category. for now just testing loading JSON
+    getJSON('images/categories.json',
+        function(err, data) {
+            console.log(data);
+            showMenu(data.categories);
+        }
+    );
 }
 
 function goToCategory(categoryId) {
     // todo: actually go to category. for now just testing loading JSON
-    console.log("goToCategory");
     getJSON('images/posts.json',
         function(err, data) {
             if (err != null) {
