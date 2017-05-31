@@ -6,14 +6,12 @@ var getJSON = function(url, callback) {
     xhr.onload = function() {
       var status = xhr.status;
       if (status == 200 && xhr.response != null) {
-        console.log("success");
         callback(null, xhr.response);
       } else {
-        console.log("error!");
+        console.error("Connectivity error.");
         console.log(xhr);
         callback(status);
       }
     };
-    console.log("sending...");
     xhr.send(null);
 };
