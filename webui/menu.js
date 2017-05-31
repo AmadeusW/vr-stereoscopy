@@ -16,7 +16,6 @@ function showMenu(categories) {
     var template = document.querySelector("#categoryTemplate");
 
     for (var categoryId = 0; categoryId < categories.length; categoryId++) {
-
         var category = template.cloneNode(/*deep:*/true);
         category.setAttribute("id", "category" + categoryId);
         category.setAttribute("position", categoryId + " 0 0");
@@ -27,6 +26,19 @@ function showMenu(categories) {
         category.querySelector(".thumbR").
             setAttribute("src", "images/" + categories[categoryId].Thumbnail + ".T.R.jpg");
         menu.appendChild(category);
+
+        for (var subId = 0; subId < categories[categoryId].Subcategories.length; subId++) {
+            var sub = template.cloneNode(/*deep:*/true);
+            sub.setAttribute("id", "category" + categoryId + "sub" + subId);
+            sub.setAttribute("position", categoryId + " " + (-1 - subId) + " 0");
+            var subTitle = sub.querySelector(".title");
+            subTitle.setAttribute("value", categories[categoryId].Subcategories[subId].DisplayName);
+            sub.querySelector(".thumbL").
+                setAttribute("src", "images/" + categories[categoryId].Subcategories[subId].Thumbnail + ".T.L.jpg");
+            sub.querySelector(".thumbR").
+                setAttribute("src", "images/" + categories[categoryId].Subcategories[subId].Thumbnail + ".T.R.jpg");
+            menu.appendChild(sub);
+        }
     }
 }
 
