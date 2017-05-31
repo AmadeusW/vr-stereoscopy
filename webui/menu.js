@@ -30,23 +30,14 @@ function showMenu(categories) {
     }
 }
 
-function initializeMenu() {
-    // todo: actually go to category. for now just testing loading JSON
-    getJSON('images/categories.json',
-        function(err, data) {
-            console.log(data);
-            showMenu(data.categories);
-            goToCategory(data.categories[0].Subcategories[0].Feed);
-        }
-    );
+async function initializeMenu() {
+    var data = httpGet('images/categories.json', 'json');
+    var categories = (await data).categories;
+    return categories;
 }
 
-function goToCategory(feed) {
-    // todo: actually go to category. for now just testing loading JSON
-    getJSON('images/' + feed,
-        function(err, data) {
-            console.info(":: Go to category: " + feed)
-            console.log(data);
-        }
-    );
+async function initializeCategory(feed) {
+    var data = httpGet('images/' + feed, 'json');
+    var scenes = (await data).scenes;
+    return scenes;
 }

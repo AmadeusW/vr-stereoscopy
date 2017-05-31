@@ -1,17 +1,23 @@
-var getJSON = function(url, callback) {
-    /* from https://stackoverflow.com/questions/12460378/how-to-get-json-from-url-in-javascript */
-    var xhr = new XMLHttpRequest();
-    xhr.open('GET', url, true);
-    xhr.responseType = 'json';
-    xhr.onload = function() {
-      var status = xhr.status;
-      if (status == 200 && xhr.response != null) {
-        callback(null, xhr.response);
-      } else {
-        console.error("Connectivity error.");
-        console.log(xhr);
-        callback(status);
-      }
-    };
-    xhr.send(null);
-};
+function httpGet(url, responseType="") {
+    // from http://2ality.com/2016/10/async-function-tips.html
+    return new Promise(
+        function (resolve, reject) {
+            const request = new XMLHttpRequest();
+            request.onload = function () {
+                if (this.status === 200) {
+                    // Success
+                    resolve(this.response);
+                } else {
+                    // Something went wrong (404 etc.)
+                    reject(new Error(this.statusText));
+                }
+            };
+            request.onerror = function () {
+                reject(new Error(
+                    'XMLHttpRequest Error: '+this.statusText));
+            };
+            request.open('GET', url);
+            request.responseType = responseType;
+            request.send();
+        });
+}
