@@ -19,7 +19,7 @@ See stereoscopic and *cross view* images in VR
 - [x] display image in VR
 - [x] attach image to camera
 - [ ] pan image with head motion
-- [ ] pan image with head rotation
+- [x] pan image with head rotation
 - [ ] change image with horizontal head rotation
 - [x] dynamically crop images from web
 - [ ] use azure blob storage for images. Allow CORS
@@ -28,8 +28,8 @@ See stereoscopic and *cross view* images in VR
 - [ ] navigation by gaze
 - [x] data source: imgur
 - [x] data source: reddit images
-- [ ] data source: imgur albums
-- [ ] data source: flickr
+- [x] data source: imgur albums
+- [x] data source: flickr
 - [ ] data source: deviantart
 - [ ] separate data of scraped images from data of processed images
 - [ ] scrape top images with score over a threshold
