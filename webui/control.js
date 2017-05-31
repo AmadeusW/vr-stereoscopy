@@ -14,16 +14,25 @@ var currentImage = 0;
 var lastImage = 0;
 var timeoutId;
 
-showMenu();
-render();
-// Load data
-console.log(JSON.stringify(scenes));
-lastImage = scenes.length - 1;
-const scene = document.querySelector('a-scene');
-if (scene.hasLoaded) {
-    subscribeToEvents();
-} else {
-    scene.addEventListener('loaded', subscribeToEvents);
+initialize();
+
+async function initialize() {
+    initializeAFrame();
+    var categories = initializeMenu();
+    showMenu(await categories);
+    scenes = await initializeCategory((await categories)[0].Subcategories[0].Feed)
+    lastImage = scenes.length - 1;
+
+    render();
+}
+
+function initializeAFrame() {
+    const scene = document.querySelector('a-scene');
+    if (scene.hasLoaded) {
+        subscribeToEvents();
+    } else {
+        scene.addEventListener('loaded', subscribeToEvents);
+    }
 }
 
 function render() {
