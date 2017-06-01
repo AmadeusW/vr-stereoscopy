@@ -11,6 +11,8 @@ var positionOffsetFactor = [0, 0, 0]; // how user's head position translates int
 var rotationOffsetFactor = [4, -4, 0]; // how user's head rotation translates into image offset
 var loadedImage = 0;
 var currentImage = 0;
+var currentThumbL = 0;
+var currentThumbR = 0;
 var lastImage = 0;
 var timeoutId;
 
@@ -22,6 +24,8 @@ async function initialize() {
     showMenu(await categories);
     scenes = await initializeCategory((await categories)[0].Subcategories[0].Feed)
     lastImage = scenes.length - 1;
+    currentThumbR = 1;
+    currentThumbL = lastImage;
 
     render();
 }
@@ -163,21 +167,25 @@ function nextImageByTimer() {
 }
 
 function nextImage() {
-    console.log("Next image");
-    if (currentImage < lastImage) {
-        currentImage++;
-    } else {
-        currentImage = 0;
-    }
+    console.info("Next image");
+    currentImage = getNextIndex(currentImage);
+    currentThumbR = getNextIndex(currentThumbR);
+    currentThumbL = getNextIndex(currentThumbL);
     render();
 }
 
 function previousImage() {
-    console.log("Previous image");
-    if (currentImage > 0) {
-        currentImage--;
-    } else {
-        currentImage = lastImage;
-    }
+    console.info("Next image");
+    currentImage = getPreviousIndex(currentImage);
+    currentThumbR = getPreviousIndex(currentThumbR);
+    currentThumbL = getPreviousIndex(currentThumbL);
     render();
+}
+
+function getNextIndex(value) {
+    return value < lastImage ? value++ : 0;
+}
+
+function getPreviousIndex(value) {
+    return value > 0 ? value-- : lastImage;
 }
