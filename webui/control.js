@@ -152,6 +152,10 @@ window.addEventListener("keydown", function(e){
         }
     }
     if(e.keyCode === 78) { // n
+        var elements = document.querySelectorAll(".categoryThumb");
+        for (var i = 0; i < elements.length; i++) {
+            elements[i].emit("grow");
+        };
         nextImage();
     }
     if(e.keyCode === 32) { // space

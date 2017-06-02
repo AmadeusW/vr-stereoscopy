@@ -13,7 +13,6 @@ function showMenu(categories) {
             .setAttribute("src", "images/" + categories[categoryId].Thumbnail + ".T.L.jpg");
         category.querySelector(".thumbR")
             .setAttribute("src", "images/" + categories[categoryId].Thumbnail + ".T.R.jpg");
-        category.querySelector(".categoryThumb").emit("grow");
         menu.appendChild(category);
 
         for (var subId = 0; subId < categories[categoryId].Subcategories.length; subId++) {
