@@ -62,14 +62,15 @@ https://github.com/ngokevin/kframe/tree/master/components/animation/ -->
       <a-entity id="menuPane" visible="false" position="0 2 -3">
         <a-text id="menuTitle" position="0 0.5 0" value="Stereoscopy in VR"></a-text>
         <a-entity id="categoryTemplate" class="ui" visible="false">
-          <a-plane class="thumbL" class="ui" position="0 -0.8 0" width=".3" height=".3" src="images/5w2nrt.T.L.jpg" stereo="eye: right"></a-plane>
-          <a-plane class="thumbR" class="ui" position="0 -0.8 0" width=".3" height=".3" src="images/5w2nrt.T.R.jpg" stereo="eye: left"></a-plane>
+          <a-entity id="categoryThumb" scale=".5 .5 0">
+            <a-plane class="thumbL" class="ui" position="0 -0.8 0" src="images/5w2nrt.T.L.jpg" stereo="eye: right"></a-plane>
+            <a-plane class="thumbR" class="ui" position="0 -0.8 0" src="images/5w2nrt.T.R.jpg" stereo="eye: left"></a-plane>
+            <a-animation begin="grow" easing="ease-out" attribute="scale"
+              fill="forwards" to=".7 .7 .7" dur="200"></a-animation>
+            <a-animation begin="shrink" easing="ease-out" attribute="scale"
+              fill="forwards" to=".5 .5 .5" dur="300"></a-animation>
+          </a-entity>
           <a-text class="title" position="0 0.2 0" scale="0.3 0.3 0.3" color="red" value="Sample category"></a-text>
-          <!-- TODO: apply animation only to a-planes
-          <a-animation begin="fusing" easing="ease-out" attribute="scale"
-            fill="forwards" to="1.2 1.2 1.2" dur="200"></a-animation>
-          <a-animation begin="mouseleave" easing="ease-out" attribute="scale"
-            fill="forwards" to="1 1 1" dur="300"></a-animation> -->
         </a-entity>
       </a-entity>
         
