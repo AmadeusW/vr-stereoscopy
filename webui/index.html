@@ -36,25 +36,25 @@ https://github.com/ngokevin/kframe/blob/master/components/animation/examples/eve
 https://github.com/ngokevin/kframe/tree/master/components/animation/ -->
       <!-- Navigation in slideshow mode -->
       <a-entity id="scrollPane" position="0 1 -3">
-        <a-entity id="scrollR" class="ui" position="3 0 0" rotation="0 0 -90" scale="0.3 0.5 0.3" geometry="primitive: cone; radiusBottom: 0.4; radiusTop: 0" color="limegreen">
+        <a-entity id="scrollR" class="ui" position="4 .1 0.4" rotation="0 0 -90" scale="0.3 0.5 0.3" geometry="primitive: cone; radiusBottom: 0.4; radiusTop: 0" color="limegreen">
           <a-animation begin="fusing" easing="ease-out" attribute="scale"
             fill="forwards" to="0.5 0.7 0.5" dur="200"></a-animation>
           <a-animation begin="mouseleave" easing="ease-out" attribute="scale"
             fill="forwards" to="0.3 0.5 0.3" dur="300"></a-animation>
         </a-entity>
-        <a-entity id="scrollRThumb" class="ui" position="3 0 0">
-          <a-plane id="scrollRThumbL" class="ui" width=".3" height=".3" src="images/5w2nrt.T.L.jpg" stereo="eye: right"></a-plane>
-          <a-plane id="scrollRThumbR" class="ui" width=".3" height=".3" src="images/5w2nrt.T.R.jpg" stereo="eye: left"></a-plane>
+        <a-entity id="scrollRThumb" class="ui" position="3.5 0 0">
+          <a-plane id="scrollRThumbL" class="ui" width=".5" height=".5" src="images/5w2nrt.T.L.jpg" stereo="eye: right"></a-plane>
+          <a-plane id="scrollRThumbR" class="ui" width=".5" height=".5" src="images/5w2nrt.T.R.jpg" stereo="eye: left"></a-plane>
         </a-entity>
-        <a-entity id="scrollL" class="ui" position="-3 0 0" rotation="0 0 90" scale="0.3 0.5 0.3" geometry="primitive: cone; radiusBottom: 0.4; radiusTop: 0">
+        <a-entity id="scrollL" class="ui" position="-4 .1 0.4" rotation="0 0 90" scale="0.3 0.5 0.3" geometry="primitive: cone; radiusBottom: 0.4; radiusTop: 0">
           <a-animation begin="fusing" easing="ease-out" attribute="scale"
             fill="forwards" to="0.5 0.7 0.5" dur="200"></a-animation>
           <a-animation begin="mouseleave" easing="ease-out" attribute="scale"
             fill="forwards" to="0.3 0.5 0.3" dur="300"></a-animation>
         </a-entity>
-        <a-entity id="scrollLThumb" class="ui" position="-3 0 0">
-          <a-plane id="scrollLThumbL" class="ui" width=".3" height=".3" src="images/5w2nrt.T.L.jpg" stereo="eye: right"></a-plane>
-          <a-plane id="scrollLThumbR" class="ui" width=".3" height=".3" src="images/5w2nrt.T.R.jpg" stereo="eye: left"></a-plane>
+        <a-entity id="scrollLThumb" class="ui" position="-3.5 0 0">
+          <a-plane id="scrollLThumbL" class="ui" width=".5" height=".5" src="images/5w2nrt.T.L.jpg" stereo="eye: right"></a-plane>
+          <a-plane id="scrollLThumbR" class="ui" width=".5" height=".5" src="images/5w2nrt.T.R.jpg" stereo="eye: left"></a-plane>
         </a-entity>
       </a-entity>
 
