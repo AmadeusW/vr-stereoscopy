@@ -64,6 +64,11 @@ function render() {
         document.getElementById("leftPlane").setAttribute("src", "images/" + imageId + ".L.jpg")
         document.getElementById("rightPlane").setAttribute("src", "images/" + imageId + ".R.jpg")
 
+        document.getElementById("scrollLThumbL").setAttribute("src", "images/" + scenes[currentThumbL].Link + ".L.jpg")
+        document.getElementById("scrollLThumbR").setAttribute("src", "images/" + scenes[currentThumbL].Link + ".R.jpg")
+        document.getElementById("scrollRThumbL").setAttribute("src", "images/" + scenes[currentThumbR].Link + ".L.jpg")
+        document.getElementById("scrollRThumbR").setAttribute("src", "images/" + scenes[currentThumbR].Link + ".R.jpg")
+
         loadedImage = currentImage;
     }
     var positionR = (positionBase[0] + positionOffset[0] + rotationOffset[0])
@@ -183,9 +188,9 @@ function previousImage() {
 }
 
 function getNextIndex(value) {
-    return value < lastImage ? value++ : 0;
+    return value < lastImage ? ++value : 0;
 }
 
 function getPreviousIndex(value) {
-    return value > 0 ? value-- : lastImage;
+    return value > 0 ? --value : lastImage;
 }
