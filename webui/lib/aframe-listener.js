@@ -4,7 +4,6 @@
     obj.emit('grow');
   };
   var deselect = function(obj) {
-    console.log(obj.data); // undefined
     var data = obj.getAttribute('listener'); // because this.data doesn't work...
     console.log('Deselect. My params: ', data.params);
     obj.emit('shrink');
@@ -12,8 +11,9 @@
 
 AFRAME.registerComponent('listener', {
   schema: {
-    callback: {type: 'string', default: "a"},
-    params: {type: 'string', default: "x"}
+    event: {type: 'string' },
+    callback: {type: 'string', default: null},
+    params: {type: 'array', default: []}
   },
   init: function () {
     this.el.addEventListener('click', function (ev) {
