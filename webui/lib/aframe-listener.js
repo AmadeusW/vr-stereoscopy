@@ -1,3 +1,15 @@
+  var select = function(obj) {
+    var data = obj.getAttribute('listener'); // because this.data doesn't work...
+    console.log('Select. My params: ', data.params);
+    obj.emit('grow');
+  };
+  var deselect = function(obj) {
+    console.log(obj.data); // undefined
+    var data = obj.getAttribute('listener'); // because this.data doesn't work...
+    console.log('Deselect. My params: ', data.params);
+    obj.emit('shrink');
+  };
+
 AFRAME.registerComponent('listener', {
   schema: {
     callback: {type: 'string', default: "a"},
@@ -5,13 +17,18 @@ AFRAME.registerComponent('listener', {
   },
   init: function () {
     this.el.addEventListener('click', function (ev) {
-      console.log(this.data); // undefined
-      var data = this.getAttribute('listener'); // because this.data doesn't work...
-      console.log('My params: ', data.params);
-      this.emit('grow'); // lets see
+      /*
+      var fn = window[callback];
+if(typeof fn === 'function') {
+    fn(this, params);
+}*/
+      select(this);
+    });
+    this.el.addEventListener('mouseenter', function (ev) {
+      select(this);
+    });
+    this.el.addEventListener('mouseleave', function (ev) { /* todo: does it cover the case of fusing? */
+      deselect(this);
     });
   },
-  update: function () {
-    console.info(this.data); // works here
-  }
 });
