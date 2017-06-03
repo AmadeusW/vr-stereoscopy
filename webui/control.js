@@ -96,7 +96,7 @@ function render() {
 }
 
 function subscribeToEvents() {
-    setTimer();
+    //setTimer();
     const p = document.querySelector("#camera");
     p.addEventListener('componentchanged', function (evt) {
         //console.log(evt.detail.name);
