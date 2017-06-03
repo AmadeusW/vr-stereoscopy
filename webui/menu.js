@@ -25,6 +25,9 @@ function buildMenu(categories) {
             .setAttribute("src", "images/" + categories[categoryId].Thumbnail + ".T.L.jpg");
         category.querySelector(".thumbR")
             .setAttribute("src", "images/" + categories[categoryId].Thumbnail + ".T.R.jpg");
+        category.querySelector(".categoryThumb")
+            .setAttribute("listener__click", "event: click; callback: onConfirm; params: "+categoryId+", -1");
+
         menu.appendChild(category);
 
         for (var subId = 0; subId < categories[categoryId].Subcategories.length; subId++) {
@@ -38,6 +41,9 @@ function buildMenu(categories) {
                 setAttribute("src", "images/" + categories[categoryId].Subcategories[subId].Thumbnail + ".T.L.jpg");
             sub.querySelector(".thumbR").
                 setAttribute("src", "images/" + categories[categoryId].Subcategories[subId].Thumbnail + ".T.R.jpg");
+            sub.querySelector(".categoryThumb")
+                .setAttribute("listener__click", "event: click; callback: onConfirm; params: "+categoryId+", "+subId);
+
             menu.appendChild(sub);
         }
     }
@@ -59,11 +65,24 @@ function onDeselect(sender, params) {
     sender.emit('shrink');
 };
 
-function onConfirm(sender, params) {
+function onNavigate(sender, params) {
     if (params[0] == 'r') {
         nextImage();
     } else if (params[0] == 'l') {
         previousImage();
+    }
+}
+
+function onConfirm(sender, params) {
+    var category = parseInt(params[0]);
+    var subcategory = parseInt(params[1]);
+    if (category > -1) {
+        if (subcategory > -1) {
+            // We are in subcategory. Display images
+            goToCategory(category, subcategory);
+            hideMenu();
+        }
+        // We are in category. Display a subcategory?
     }
 }
 

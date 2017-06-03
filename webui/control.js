@@ -15,6 +15,7 @@ var currentThumbL = 0;
 var currentThumbR = 0;
 var lastImage = 0;
 var timeoutId;
+var allCategories = [];
 
 initialize();
 
@@ -26,7 +27,14 @@ async function initialize() {
     lastImage = scenes.length - 1;
     currentThumbR = 1;
     currentThumbL = lastImage;
+    allCategories = await categories;
     showMenu();
+    render();
+}
+
+async function goToCategory(categoryId, subcategoryId) {
+    scenes = await initializeCategory((allCategories)[categoryId].Subcategories[subcategoryId].Feed)
+    console.log("Going to ", categoryId, subcategoryId, "; Loaded scenes: ", scenes);
     render();
 }
 
