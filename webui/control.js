@@ -1,4 +1,4 @@
-var positionBase = [0, 0.1, -2.3]; // Base position of images
+var positionBase = [0, 0, -9]; // Base position of images
 var eyeDelta = [0, 0, 0]; // Per-eye offset for each image
 var eyeDeltaStep = 0.05;
 var positionHead = [0, 0, 0]; // raw value for head's position

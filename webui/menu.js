@@ -43,7 +43,7 @@ function buildMenu(categories) {
     }
 }
 
-function showMenu() { 
+function showMenu() {
     document.querySelector("#menuPane").setAttribute("visible", true);
 }
 
