@@ -60,7 +60,6 @@ function onDeselect(sender, params) {
 };
 
 function onConfirm(sender, params) {
-    console.log("confirm", params)
     if (params[0] == 'r') {
         nextImage();
     } else if (params[0] == 'l') {
