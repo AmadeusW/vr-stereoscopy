@@ -81,7 +81,7 @@ function onConfirm(sender, params) {
         if (subcategory > -1) {
             // We are in subcategory. Display images
             goToCategory(category, subcategory);
-            //hideMenu();
+            hideMenu(); // TODO: show menu by looking up or down
         }
         // We are in category. Display a subcategory?
     }
