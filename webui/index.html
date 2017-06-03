@@ -15,7 +15,7 @@
         <!-- <img id="sampleAsset" src="ui/img.png" /> -->
       </a-assets>
 
-      <a-camera id="camera" position="0 0 0" stereocam="eye:left;">
+      <a-camera id="camera" position="0 0 0" stereocam="eye:left;" wasd-controls="enabled: false">
         <a-cursor fuse="true" color="yellow" fuseTimeout="1000" raycaster="objects: .ui"> <!-- todo: see why FAR nor OBJECTS don't work -->
           <a-animation begin="click" easing="ease-in" attribute="scale"
              fill="backwards" to="1 1 1" dur="100"></a-animation>
