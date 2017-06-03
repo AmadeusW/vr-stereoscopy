@@ -36,12 +36,30 @@
 https://github.com/ngokevin/kframe/blob/master/components/animation/examples/events/index.html
 https://github.com/ngokevin/kframe/tree/master/components/animation/ -->
       <!-- Navigation in slideshow mode -->
-      <a-entity id="scrollPane" position="0 1.7 -5">
-        <a-entity id="scrollRThumb" class="ui" position="6 0 0" rotation="0 -45 0">
+      <a-entity id="scrollPane" position="0 1.7 -4.5">
+        <a-entity id="scrollRThumb" class="ui" position="6 0 0" rotation="0 -45 0"
+          listener__click="event: click; callback: onConfirm; params: [1, 2, 3]"
+          listener__enter="event: mouseenter; callback: onSelect; params: [1, 2, 3]"
+          listener__leave="event: mouseleave; callback: onDeselect; params: [1, 2, 3]"
+          >
+          <a-animation begin="grow" easing="ease-out" attribute="scale"
+            fill="forwards" to="1.2 1.2 1.2" dur="200"></a-animation>
+          <a-animation begin="shrink" easing="ease-out" attribute="scale"
+            fill="forwards" to="1 1 1" dur="300"></a-animation>
+          <a-plane id="scrollRThumbZone" class="ui" position="2 0 -0.1" width="10" height="20" color="#000" opacity="0.01"></a-plane>
           <a-plane id="scrollRThumbL" class="ui" width="1" height="1" src="images/5w2nrt.T.L.jpg" stereo="eye: right"></a-plane>
           <a-plane id="scrollRThumbR" class="ui" width="1" height="1" src="images/5w2nrt.T.R.jpg" stereo="eye: left"></a-plane>
         </a-entity>
-        <a-entity id="scrollLThumb" class="ui" position="-6 0 0" rotation="0 45 0">
+        <a-entity id="scrollLThumb" class="ui" position="-6 0 0" rotation="0 45 0"
+          listener__click="event: click; callback: onConfirm; params: [1, 2, 3]"
+          listener__enter="event: mouseenter; callback: onSelect; params: [1, 2, 3]"
+          listener__leave="event: mouseleave; callback: onDeselect; params: [1, 2, 3]"
+          >
+          <a-animation begin="grow" easing="ease-out" attribute="scale"
+            fill="forwards" to="1.2 1.2 1.2" dur="200"></a-animation>
+          <a-animation begin="shrink" easing="ease-out" attribute="scale"
+            fill="forwards" to="1 1 1" dur="300"></a-animation>
+          <a-plane id="scrollLThumbZone" class="ui" position="-2 0 -0.1" width="10" height="20" color="#000" opacity="0.01"></a-plane>
           <a-plane id="scrollLThumbL" class="ui" width="1" height="1" src="images/5w2nrt.T.L.jpg" stereo="eye: right"></a-plane>
           <a-plane id="scrollLThumbR" class="ui" width="1" height="1" src="images/5w2nrt.T.R.jpg" stereo="eye: left"></a-plane>
         </a-entity>
