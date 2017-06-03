@@ -184,7 +184,7 @@ function nextImage() {
 }
 
 function previousImage() {
-    console.info("Next image");
+    console.info("Previous image");
     currentImage = getPreviousIndex(currentImage);
     currentThumbR = getPreviousIndex(currentThumbR);
     currentThumbL = getPreviousIndex(currentThumbL);

@@ -38,9 +38,9 @@ https://github.com/ngokevin/kframe/tree/master/components/animation/ -->
       <!-- Navigation in slideshow mode -->
       <a-entity id="scrollPane" position="0 1.7 -4.5">
         <a-entity id="scrollRThumb" class="ui" position="6 0 0" rotation="0 -45 0"
-          listener__click="event: click; callback: onConfirm; params: [1, 2, 3]"
-          listener__enter="event: mouseenter; callback: onSelect; params: [1, 2, 3]"
-          listener__leave="event: mouseleave; callback: onDeselect; params: [1, 2, 3]"
+          listener__click="event: click; callback: onConfirm; params: r"
+          listener__enter="event: mouseenter; callback: onSelect; params: 1, 2, 3"
+          listener__leave="event: mouseleave; callback: onDeselect; params: 1, 2, 3"
           >
           <a-animation begin="grow" easing="ease-out" attribute="scale"
             fill="forwards" to="1.2 1.2 1.2" dur="200"></a-animation>
@@ -51,9 +51,9 @@ https://github.com/ngokevin/kframe/tree/master/components/animation/ -->
           <a-plane id="scrollRThumbR" class="ui" width="1" height="1" src="images/5w2nrt.T.R.jpg" stereo="eye: left"></a-plane>
         </a-entity>
         <a-entity id="scrollLThumb" class="ui" position="-6 0 0" rotation="0 45 0"
-          listener__click="event: click; callback: onConfirm; params: [1, 2, 3]"
-          listener__enter="event: mouseenter; callback: onSelect; params: [1, 2, 3]"
-          listener__leave="event: mouseleave; callback: onDeselect; params: [1, 2, 3]"
+          listener__click="event: click; callback: onConfirm; params: l"
+          listener__enter="event: mouseenter; callback: onSelect; params: 1, 2, 3"
+          listener__leave="event: mouseleave; callback: onDeselect; params: 1, 2, 3"
           >
           <a-animation begin="grow" easing="ease-out" attribute="scale"
             fill="forwards" to="1.2 1.2 1.2" dur="200"></a-animation>
