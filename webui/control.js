@@ -21,12 +21,12 @@ initialize();
 async function initialize() {
     initializeAFrame();
     var categories = initializeMenu();
-    showMenu(await categories);
+    buildMenu(await categories);
     scenes = await initializeCategory((await categories)[0].Subcategories[0].Feed)
     lastImage = scenes.length - 1;
     currentThumbR = 1;
     currentThumbL = lastImage;
-
+    showMenu();
     render();
 }
 

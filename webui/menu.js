@@ -1,4 +1,16 @@
-function showMenu(categories) {
+async function initializeMenu() {
+    var data = httpGet('images/categories.json', 'json');
+    var categories = (await data).categories;
+    return categories;
+}
+
+async function initializeCategory(feed) {
+    var data = httpGet('images/' + feed, 'json');
+    var scenes = (await data).scenes;
+    return scenes;
+}
+
+function buildMenu(categories) {
     var menu = document.querySelector("#menuPane");
     var template = document.querySelector("#categoryTemplate");
 
@@ -29,25 +41,32 @@ function showMenu(categories) {
             menu.appendChild(sub);
         }
     }
-    menu.setAttribute("visible", true);
 }
 
-async function initializeMenu() {
-    var data = httpGet('images/categories.json', 'json');
-    var categories = (await data).categories;
-    return categories;
+function showMenu() { 
+    document.querySelector("#menuPane").setAttribute("visible", true);
 }
 
-async function initializeCategory(feed) {
-    var data = httpGet('images/' + feed, 'json');
-    var scenes = (await data).scenes;
-    return scenes;
+function hideMenu() {
+    document.querySelector("#menuPane").setAttribute("visible", false);
 }
 
-function select(sender, params) {
+function onSelect(sender, params) {
     sender.emit('grow');
 };
 
-function deselect(sender, params) {
+function onDeselect(sender, params) {
     sender.emit('shrink');
 };
+
+function onConfirm(sender, params) {
+
+}
+
+function onShowMenu(sender, params) {
+    showMenu();
+}
+
+function onHideMenu(sender, params) {
+    hideMenu();
+}

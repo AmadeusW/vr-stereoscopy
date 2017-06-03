@@ -57,9 +57,9 @@ https://github.com/ngokevin/kframe/tree/master/components/animation/ -->
         </a-text>
         <a-entity id="categoryTemplate" class="ui" visible="false">
           <a-entity class="categoryThumb" class="ui" scale=".5 .5 0"
-            listener__click="event: click; callback: select; params: [1, 2, 3]" 
-            listener__enter="event: mouseenter; callback: select; params: [1, 2, 3]" 
-            listener__leave="event: mouseleave; callback: deselect; params: [1, 2, 3]" 
+            listener__click="event: click; callback: onConfirm; params: [1, 2, 3]"
+            listener__enter="event: mouseenter; callback: onSelect; params: [1, 2, 3]"
+            listener__leave="event: mouseleave; callback: onDeselect; params: [1, 2, 3]"
             >
             <a-plane class="thumbL" class="ui" position="0 -0.8 0" src="images/5w2nrt.T.L.jpg" stereo="eye: right"></a-plane>
             <a-plane class="thumbR" class="ui" position="0 -0.8 0" src="images/5w2nrt.T.R.jpg" stereo="eye: left"></a-plane>
