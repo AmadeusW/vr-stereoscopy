@@ -9,7 +9,7 @@ var rotationOrigin = [0, 0, 0]; // origin head rotation
 var rotationOffset = [0, 0, 0]; // Both-eye offset controlled by user's head rotation
 var positionOffsetFactor = [0, 0, 0]; // how user's head position translates into image offset
 var rotationOffsetFactor = [4, -4, 0]; // how user's head rotation translates into image offset
-var loadedImage = 0;
+var loadedImage = -1;
 var currentImage = 0;
 var currentThumbL = 0;
 var currentThumbR = 0;
@@ -29,6 +29,7 @@ async function initialize() {
     await goToCategory(0, 0); // Initial category to display
     //scenes = await initializeCategory((await categories)[0].Subcategories[0].Feed)
     showMenu();
+    showImage();
     render();
 }
 
@@ -52,19 +53,15 @@ function initializeAFrame() {
     }
 }
 
+function showImage() {
+    document.getElementById("mainPane").setAttribute("visible", true);
+}
+
 function render() {
     if (loadedImage != currentImage)
     {
         var imageId = scenes[currentImage].Link;
         console.log("Loading new image: " + imageId);
-        // Unfortunately changing asset doesn't seem to update the texture
-        /*
-        document.getElementById("leftImage").src = "images/" + imageId + ".L.jpg";
-        document.getElementById("rightImage").src = "images/" + imageId + ".R.jpg";
-
-        document.getElementById("leftPlane").setAttribute("src", "#leftImage")
-        document.getElementById("rightPlane").setAttribute("src", "#rightImage")
-        */
         console.log("New position: " + "0 0 -" + scenes[currentImage].W)
 
         document.getElementById("leftPlane").setAttribute("width", Math.pow(2, scenes[currentImage].W))
