@@ -30,16 +30,9 @@ namespace StereoscopyVR.ImageApp
         {
             Console.WriteLine($"Processing {file}");
             var filename = Path.GetFileNameWithoutExtension(file);
-            try
+            using (Image<Rgba32> image = Image.Load(file))
             {
-                using (Image<Rgba32> image = Image.Load(file))
-                {
-                    Work(image, filename);
-                }
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine($"Error processing {file}: {e.Message}");
+                Work(image, filename);
             }
         }
 

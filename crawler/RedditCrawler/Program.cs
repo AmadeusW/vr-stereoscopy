@@ -34,19 +34,21 @@ namespace StereoscopyVR.RedditCrawler
                 Console.WriteLine("Downloading data from Reddit...");
                 posts = await GetPosts();
                 Console.WriteLine("Writing data to disk...");
-                using (StreamWriter file = File.CreateText(Path.Combine(SaveLocation, PostsFile)))
+                using (StreamWriter file = File.CreateText(Path.Combine(DownloadLocation, PostsFile)))
                 {
                     var serializer = new JsonSerializer();
-                    serializer.Serialize(file, posts);
+                    var collection = new SceneCollection() { scenes = posts };
+                    serializer.Serialize(file, collection);
                 }
             }
             else
             {
                 Console.WriteLine("Reading data from disk...");
-                using (StreamReader file = File.OpenText(Path.Combine(SaveLocation, PostsFile)))
+                using (StreamReader file = File.OpenText(Path.Combine(DownloadLocation, PostsFile)))
                 {
                     var serializer = new JsonSerializer();
-                    posts = (IEnumerable<CrossViewPost>)serializer.Deserialize(file, typeof(IEnumerable<CrossViewPost>));
+                    var collection = (SceneCollection)serializer.Deserialize(file, typeof(SceneCollection));
+                    posts = collection.scenes;
                 }
             }
 
@@ -56,7 +58,13 @@ namespace StereoscopyVR.RedditCrawler
             Console.WriteLine("Do you want to process images? (y, enter)");
             if (Console.ReadLine().ToLowerInvariant() == "y")
             {
-                await DoWork(posts);
+                var goodPosts = await DoWork(posts);
+                using (StreamWriter file = File.CreateText(Path.Combine(SaveLocation, PostsFile)))
+                {
+                    var serializer = new JsonSerializer();
+                    var collection = new SceneCollection() { scenes = posts };
+                    serializer.Serialize(file, collection);
+                }
             }
 
             Console.WriteLine("All done. Hit Enter to exit.");
@@ -92,14 +100,24 @@ namespace StereoscopyVR.RedditCrawler
 
         }
 
-        private static async Task DoWork(IEnumerable<CrossViewPost> posts)
+        private static async Task<IEnumerable<CrossViewPost>> DoWork(IEnumerable<CrossViewPost> posts)
         {
+            List<CrossViewPost> goodPosts = new List<CrossViewPost>();
             foreach (var post in posts.Where(n => n.ImageUrl != null))
             {
                 var filePath = Path.Combine(DownloadLocation, post.Link + ".img");
                 await DownloadAsync(post, filePath);
-                ImageApp.Program.ProcessFile(filePath);
+                try
+                {
+                    ImageApp.Program.ProcessFile(filePath);
+                    goodPosts.Add(post);
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine($"Error processing {filePath}: {e.Message}");
+                }
             }
+            return goodPosts;
         }
 
         private static async Task DownloadAsync(CrossViewPost post, string filePath)
@@ -137,7 +155,7 @@ namespace StereoscopyVR.RedditCrawler
 
             var subreddit = await reddit.GetSubredditAsync("/r/crossview");
             var posts = new List<CrossViewPost>();
-            await subreddit.GetTop(RedditSharp.Things.FromTime.Week).Take(25).ForEachAsync(post => {
+            await subreddit.GetTop(RedditSharp.Things.FromTime.Month).Take(50).ForEachAsync(post => {
                 var data = new CrossViewPost(post.Url, post.Title, post.Shortlink, post.Score, post.CreatedUTC);
                 Console.WriteLine(post.Title);
                 posts.Add(data);

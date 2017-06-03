@@ -1,0 +1,13 @@
+{
+    "categories": [
+    {
+        "DisplayName": "Best of Reddit", "Thumbnail": "69l8tj", "Subcategories": [
+            { "DisplayName": "May 2017", "Thumbnail": "69l8tj", "Feed": "201705/posts.json" },
+            { "DisplayName": "Prototype", "Thumbnail": "5wa98g", "Feed": "firstBatch/posts.json" }
+    ]},
+    {
+        "DisplayName": "Author's photos", "Thumbnail": "5w9tlj", "Subcategories": [
+            { "DisplayName": "West Coast", "Thumbnail": "5w9tlj", "Feed": "posts.json" },
+            { "DisplayName": "Japan", "Thumbnail": "5x4cge", "Feed": "posts.json" }
+    ]}
+]}

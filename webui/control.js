@@ -16,6 +16,7 @@ var currentThumbR = 0;
 var lastImage = 0;
 var timeoutId;
 var allCategories = [];
+var imagePathPrefix = "";
 
 initialize();
 
@@ -23,18 +24,22 @@ async function initialize() {
     initializeAFrame();
     var categories = initializeMenu();
     buildMenu(await categories);
-    scenes = await initializeCategory((await categories)[0].Subcategories[0].Feed)
-    lastImage = scenes.length - 1;
-    currentThumbR = 1;
-    currentThumbL = lastImage;
     allCategories = await categories;
+    console.log(allCategories);
+    await goToCategory(0, 0); // Initial category to display
+    //scenes = await initializeCategory((await categories)[0].Subcategories[0].Feed)
     showMenu();
     render();
 }
 
 async function goToCategory(categoryId, subcategoryId) {
-    scenes = await initializeCategory((allCategories)[categoryId].Subcategories[subcategoryId].Feed)
-    console.log("Going to ", categoryId, subcategoryId, "; Loaded scenes: ", scenes);
+    // TODO: I need a proper framework instead of storing data in global variables
+    scenes = await initializeCategory((allCategories)[categoryId].Subcategories[subcategoryId].Feed);
+    imagePathPrefix = (allCategories)[categoryId].Subcategories[subcategoryId].ImagePathPrefix;
+    lastImage = scenes.length - 1;
+    currentThumbR = 1;
+    currentThumbL = lastImage;
+    console.log("Going to ", categoryId, subcategoryId, "; Loaded scenes: ", scenes, "; Prefix: ", imagePathPrefix);
     render();
 }
 
@@ -60,7 +65,7 @@ function render() {
         document.getElementById("leftPlane").setAttribute("src", "#leftImage")
         document.getElementById("rightPlane").setAttribute("src", "#rightImage")
         */
-
+// TODO TODO TODO - W DOESN'T EXIST IN THE JSON. FIX THE CSHARP CODE
         console.log("New position: " + "0 0 -" + scenes[currentImage].W)
 
         document.getElementById("leftPlane").setAttribute("width", Math.pow(2, scenes[currentImage].W))
@@ -69,13 +74,13 @@ function render() {
         document.getElementById("rightPlane").setAttribute("height", Math.pow(2, scenes[currentImage].H))
         positionBase[2] = -Math.pow(1.88, scenes[currentImage].W); // this will update the distance
 
-        document.getElementById("leftPlane").setAttribute("src", "images/" + imageId + ".L.jpg")
-        document.getElementById("rightPlane").setAttribute("src", "images/" + imageId + ".R.jpg")
+        document.getElementById("leftPlane").setAttribute("src", "images/" + imagePathPrefix + imageId + ".L.jpg")
+        document.getElementById("rightPlane").setAttribute("src", "images/" + imagePathPrefix + imageId + ".R.jpg")
 
-        document.getElementById("scrollLThumbL").setAttribute("src", "images/" + scenes[currentThumbL].Link + ".L.jpg")
-        document.getElementById("scrollLThumbR").setAttribute("src", "images/" + scenes[currentThumbL].Link + ".R.jpg")
-        document.getElementById("scrollRThumbL").setAttribute("src", "images/" + scenes[currentThumbR].Link + ".L.jpg")
-        document.getElementById("scrollRThumbR").setAttribute("src", "images/" + scenes[currentThumbR].Link + ".R.jpg")
+        document.getElementById("scrollLThumbL").setAttribute("src", "images/" + imagePathPrefix + scenes[currentThumbL].Link + ".L.jpg")
+        document.getElementById("scrollLThumbR").setAttribute("src", "images/" + imagePathPrefix + scenes[currentThumbL].Link + ".R.jpg")
+        document.getElementById("scrollRThumbL").setAttribute("src", "images/" + imagePathPrefix + scenes[currentThumbR].Link + ".L.jpg")
+        document.getElementById("scrollRThumbR").setAttribute("src", "images/" + imagePathPrefix + scenes[currentThumbR].Link + ".R.jpg")
 
         loadedImage = currentImage;
     }

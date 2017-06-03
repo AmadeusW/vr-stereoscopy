@@ -7,6 +7,7 @@ async function initializeMenu() {
 async function initializeCategory(feed) {
     var data = httpGet('images/' + feed, 'json');
     var scenes = (await data).scenes;
+    console.log("initializeCategory", scenes);
     return scenes;
 }
 
@@ -80,7 +81,7 @@ function onConfirm(sender, params) {
         if (subcategory > -1) {
             // We are in subcategory. Display images
             goToCategory(category, subcategory);
-            hideMenu();
+            //hideMenu();
         }
         // We are in category. Display a subcategory?
     }

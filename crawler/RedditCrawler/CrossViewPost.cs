@@ -7,6 +7,11 @@ using System.Text.RegularExpressions;
 
 namespace StereoscopyVR.RedditCrawler
 {
+    class SceneCollection
+    {
+        public IEnumerable<CrossViewPost> scenes { get; set; }
+    }
+
     class CrossViewPost
     {
         public Uri Url { get; }
