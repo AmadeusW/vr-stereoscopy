@@ -26,48 +26,55 @@ namespace StereoscopyVR.ImageApp
             }
         }
 
-        public static void ProcessFile(string file)
+        public static ImageProperties ProcessFile(string file)
         {
-            Console.WriteLine($"Processing {file}");
             var filename = Path.GetFileNameWithoutExtension(file);
+            Console.Write($"Processing {filename}: ");
             using (Image<Rgba32> image = Image.Load(file))
             {
-                Work(image, filename);
+                var result = Work(image, filename);
+                return result;
             }
         }
 
-        private static void Work(Image<Rgba32> image, string filename)
+        private static ImageProperties Work(Image<Rgba32> image, string filename)
         {
             var imageL = new Image<Rgba32>(image).Crop(new Rectangle(0, 0, image.Width / 2, image.Height));
             var imageR = new Image<Rgba32>(image).Crop(new Rectangle(image.Width / 2, 0, image.Width / 2, image.Height));
 
-            Console.WriteLine("cropUp");
+            Console.Write("u");
             var cropUp = findMargin(imageL, searchY: 1);
-            Console.WriteLine("cropDown");
+            Console.Write("d");
             var cropDown = findMargin(imageL, searchY: -1);
-            Console.WriteLine("crop1Left");
+            Console.Write("l");
             var crop1Left = findMargin(imageL, searchX: 1);
-            Console.WriteLine("crop1Right");
+            Console.Write("r");
             var crop1Right = findMargin(imageR, searchX: -1);
-            Console.WriteLine("crop2Left");
+            Console.Write("l");
             var crop2Left = findMargin(imageL, searchX: 1);
-            Console.WriteLine("crop2Right");
+            Console.Write("r");
             var crop2Right = findMargin(imageR, searchX: -1);
 
+            Console.Write("C");
             imageL = imageL.Crop(new Rectangle(crop1Left, cropUp, imageL.Width - crop1Left - crop1Right, imageL.Height - cropUp - cropDown));
+            Console.Write("C");
             imageR = imageR.Crop(new Rectangle(crop1Left, cropUp, imageR.Width - crop2Left - crop2Right, imageR.Height - cropUp - cropDown));
 
             // Get thumbnails
+            Console.Write("t");
             var thumbnailL = new Image<Rgba32>(imageL)
                 .Resize(new ResizeOptions { Mode = ResizeMode.Max, Size = new Size(128, 128) })
                 .Resize(new ResizeOptions { Mode = ResizeMode.BoxPad, Size = new Size(128, 128) });
+            Console.Write("t");
             var thumbnailR = new Image<Rgba32>(imageR)
                 .Resize(new ResizeOptions { Mode = ResizeMode.Max, Size = new Size(128, 128) })
                 .Resize(new ResizeOptions { Mode = ResizeMode.BoxPad, Size = new Size(128, 128) });
+            Console.Write("w");
             using (var stream = new FileStream($"out/{filename}.T.L.jpg", FileMode.Create))
             {
                 thumbnailL.SaveAsJpeg(stream, new JpegEncoderOptions { Quality = 80 });
             }
+            Console.Write("w");
             using (var stream = new FileStream($"out/{filename}.T.R.jpg", FileMode.Create))
             {
                 thumbnailR.SaveAsJpeg(stream, new JpegEncoderOptions { Quality = 80 });
@@ -79,17 +86,27 @@ namespace StereoscopyVR.ImageApp
             var newHeight = (int)Math.Pow(2, Math.Ceiling(Math.Log(Math.Max(imageL.Height, imageR.Height), 2)));
             newWidth = Math.Min(1024, newWidth);
             newHeight = Math.Min(1024, newHeight);
+            Console.Write("R");
             imageL = imageL.Resize(new ResizeOptions { Mode = ResizeMode.BoxPad, Size = new Size(newWidth, newHeight) });
+            Console.Write("R");
             imageR = imageR.Resize(new ResizeOptions { Mode = ResizeMode.BoxPad, Size = new Size(newWidth, newHeight) });
 
+            Console.Write("W");
             using (var stream = new FileStream($"out/{filename}.L.jpg", FileMode.Create))
             {
                 imageL.SaveAsJpeg(stream, new JpegEncoderOptions { Quality = 100 });
             }
+            Console.Write("W");
             using (var stream = new FileStream($"out/{filename}.R.jpg", FileMode.Create))
             {
                 imageR.SaveAsJpeg(stream, new JpegEncoderOptions { Quality = 100 });
             }
+            Console.WriteLine(" :)");
+            return new ImageProperties()
+            {
+                Width = (int)Math.Log(newWidth, 2),
+                Height = (int)Math.Log(newHeight, 2),
+            };
         }
 
         private static int findMargin(Image<Rgba32> image, int searchX = 0, int searchY = 0)

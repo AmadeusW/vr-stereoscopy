@@ -65,7 +65,6 @@ function render() {
         document.getElementById("leftPlane").setAttribute("src", "#leftImage")
         document.getElementById("rightPlane").setAttribute("src", "#rightImage")
         */
-// TODO TODO TODO - W DOESN'T EXIST IN THE JSON. FIX THE CSHARP CODE
         console.log("New position: " + "0 0 -" + scenes[currentImage].W)
 
         document.getElementById("leftPlane").setAttribute("width", Math.pow(2, scenes[currentImage].W))

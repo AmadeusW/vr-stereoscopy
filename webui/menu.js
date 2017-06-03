@@ -18,7 +18,7 @@ function buildMenu(categories) {
     for (var categoryId = 0; categoryId < categories.length; categoryId++) {
         var category = template.cloneNode(/*deep:*/true);
         category.setAttribute("id", "category" + categoryId);
-        category.setAttribute("position", categoryId + " 0 0");
+        category.setAttribute("position", categoryId + " 1 0");
         category.setAttribute("visible", true);
         category.querySelector(".title")
             .setAttribute("value", categories[categoryId].DisplayName);
@@ -34,7 +34,7 @@ function buildMenu(categories) {
         for (var subId = 0; subId < categories[categoryId].Subcategories.length; subId++) {
             var sub = template.cloneNode(/*deep:*/true);
             sub.setAttribute("id", "category" + categoryId + "sub" + subId);
-            sub.setAttribute("position", categoryId + " " + (-1 - subId) + " 0");
+            sub.setAttribute("position", categoryId + " " + (0 - subId) + " 0");
             sub.setAttribute("visible", true);
             sub.querySelector(".title")
                 .setAttribute("value", categories[categoryId].Subcategories[subId].DisplayName);

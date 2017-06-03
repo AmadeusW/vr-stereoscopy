@@ -6,12 +6,14 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace StereoscopyVR.RedditCrawler
 {
     class Program
     {
+        // TODO TODO TODO make it nice and functional. how about some f sharp?
         const string SaveLocation = "out";
         const string DownloadLocation = "drop";
         const string PostsFile = "posts.json";
@@ -22,7 +24,7 @@ namespace StereoscopyVR.RedditCrawler
             Directory.CreateDirectory(DownloadLocation);
 
             Configure();
-            MainAsync().Wait();
+            MainAsync().Wait(System.Threading.Timeout.Infinite);
         }
 
         private static async Task MainAsync()
@@ -33,6 +35,10 @@ namespace StereoscopyVR.RedditCrawler
             {
                 Console.WriteLine("Downloading data from Reddit...");
                 posts = await GetPosts();
+
+                Console.WriteLine("Fetching image URLs...");
+                await GetImageUrls(posts);
+
                 Console.WriteLine("Writing data to disk...");
                 using (StreamWriter file = File.CreateText(Path.Combine(DownloadLocation, PostsFile)))
                 {
@@ -52,17 +58,14 @@ namespace StereoscopyVR.RedditCrawler
                 }
             }
 
-            Console.WriteLine("Fetching image URLs");
-            await GetImageUrls(posts);
-
             Console.WriteLine("Do you want to process images? (y, enter)");
             if (Console.ReadLine().ToLowerInvariant() == "y")
             {
-                var goodPosts = await DoWork(posts);
+                var processedPosts = await DoWork(posts);
                 using (StreamWriter file = File.CreateText(Path.Combine(SaveLocation, PostsFile)))
                 {
                     var serializer = new JsonSerializer();
-                    var collection = new SceneCollection() { scenes = posts };
+                    var collection = new SceneCollection() { scenes = processedPosts };
                     serializer.Serialize(file, collection);
                 }
             }
@@ -102,22 +105,41 @@ namespace StereoscopyVR.RedditCrawler
 
         private static async Task<IEnumerable<CrossViewPost>> DoWork(IEnumerable<CrossViewPost> posts)
         {
-            List<CrossViewPost> goodPosts = new List<CrossViewPost>();
+            List<CrossViewPost> processedPosts = new List<CrossViewPost>();
             foreach (var post in posts.Where(n => n.ImageUrl != null))
             {
+                Console.Write($"Processing {post.Link}: ");
                 var filePath = Path.Combine(DownloadLocation, post.Link + ".img");
-                await DownloadAsync(post, filePath);
+                if (File.Exists(filePath))
+                {
+                    Console.Write("Using previously downloaded file; ");
+                }
+                else
+                {
+                    try
+                    {
+                        Console.Write("Downloading; ");
+                        await DownloadAsync(post, filePath);
+                    }
+                    catch (Exception e)
+                    {
+                        Console.WriteLine($"Error downloading {post.ImageUrl}: {e.Message}");
+                    }
+                }
                 try
                 {
-                    ImageApp.Program.ProcessFile(filePath);
-                    goodPosts.Add(post);
+                    var imageProperties = ImageApp.Program.ProcessFile(filePath);
+                    post.W = imageProperties.Width;
+                    post.H = imageProperties.Height;
+                    // TODO: refactor to make data structures nice and immutable
+                    processedPosts.Add(post);
                 }
                 catch (Exception e)
                 {
                     Console.WriteLine($"Error processing {filePath}: {e.Message}");
                 }
             }
-            return goodPosts;
+            return processedPosts;
         }
 
         private static async Task DownloadAsync(CrossViewPost post, string filePath)
@@ -125,7 +147,7 @@ namespace StereoscopyVR.RedditCrawler
             using (var client = new HttpClient())
             {
                 var request = new HttpRequestMessage(HttpMethod.Get, post.ImageUrl);
-                using (var response = await client.SendAsync(request))
+                using (var response = await client.SendAsync(request, new CancellationToken()))
                 using (var fileStream = new FileStream(filePath, FileMode.Create))
                 {
                     var dataStream = await response.Content.ReadAsStreamAsync();

@@ -22,7 +22,9 @@ namespace StereoscopyVR.RedditCrawler
         public DateTime CrawlDate { get; }
 
         public string ShortLink => "http://redd.it/" + Link;
-        public Uri ImageUrl { get; private set; }
+        public Uri ImageUrl { get; set; }
+        public int W { get; set; }
+        public int H { get; set; }
 
         static Regex flickrRegex = new Regex(@"photos\/[^\/]+\/(\d+)\/.*");
         static IOriginalImageSource flickrEndpoint = new Flickr();
