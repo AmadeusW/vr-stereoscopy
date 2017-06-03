@@ -51,11 +51,13 @@ function buildMenu(categories) {
 }
 
 function showMenu() {
-    document.querySelector("#menuPane").setAttribute("visible", true);
+    document.querySelector("#menuPane").emit("show");
+    document.querySelector("#menuCurtain").emit("show");
 }
 
 function hideMenu() {
-    document.querySelector("#menuPane").setAttribute("visible", false);
+    document.querySelector("#menuPane").emit("hide");
+    document.querySelector("#menuCurtain").emit("hide");
 }
 
 function onSelect(sender, params) {

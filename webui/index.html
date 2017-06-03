@@ -64,11 +64,24 @@
 
       <!-- Menu -->
       <a-entity id="menuPane" visible="false" position="0 2 -3">
+
+        <a-animation begin="hide" delay="100"
+          attribute="visible" to="false"></a-animation>
+        <a-animation begin="hide"
+          attribute="position" to="0 2 -4"></a-animation>
+        <a-animation begin="show" delay="0"
+          attribute="visible" to="true"></a-animation>
+        <a-animation begin="show" dur="500"
+          attribute="position" to="0 2 -3"></a-animation>
+
+        <a-plane width="11" height="11" position="0 0 -1" color="#000" opacity="0.7" id="menuCurtain">
+          <a-animation begin="show" dur="100" ease
+            attribute="material.opacity" from="0.0" to="0.7"></a-animation>
+          <a-animation begin="hide" dur="100"
+            attribute="material.opacity" from="0.7" to="0.0"></a-animation>
+        </a-plane>
+
         <a-text id="menuTitle" position="0 1 0" value="Stereoscopy in VR">
-            <a-animation delay="5000" easing="ease-in" attribute="position"
-            fill="forwards" to="0 5 0" dur="3000"></a-animation>
-            <a-animation delay="6000" easing="ease-in" attribute="rotation"
-              fill="forwards" to="45 0 0" dur="2000"></a-animation>
         </a-text>
         <a-entity id="categoryTemplate" class="ui" visible="false">
           <a-entity class="categoryThumb" class="ui" scale=".5 .5 0"
