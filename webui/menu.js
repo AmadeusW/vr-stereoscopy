@@ -43,3 +43,11 @@ async function initializeCategory(feed) {
     var scenes = (await data).scenes;
     return scenes;
 }
+
+function select(sender, params) {
+    sender.emit('grow');
+};
+
+function deselect(sender, params) {
+    sender.emit('shrink');
+};

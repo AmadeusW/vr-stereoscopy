@@ -1,10 +1,3 @@
-  var select = function(sender, params) {
-    sender.emit('grow');
-  };
-  var deselect = function(sender, params) {
-    sender.emit('shrink');
-  };
-
 AFRAME.registerComponent('listener', {
   multiple: true,
   schema: {
@@ -13,7 +6,6 @@ AFRAME.registerComponent('listener', {
     params: {type: 'array', default: []}
   },
   init: function () {
-    console.log('We are ', this.id);
     var hack = this;
     this.el.addEventListener(this.data.event, function (ev) {
       var fn = window[hack.data.callback];
