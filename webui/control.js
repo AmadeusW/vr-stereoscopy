@@ -1,4 +1,4 @@
-var positionBase = [0, 0.1, -2.3]; // Base position of images
+var positionBase = [0, 0, -9]; // Base position of images
 var eyeDelta = [0, 0, 0]; // Per-eye offset for each image
 var eyeDeltaStep = 0.05;
 var positionHead = [0, 0, 0]; // raw value for head's position
@@ -11,6 +11,8 @@ var positionOffsetFactor = [0, 0, 0]; // how user's head position translates int
 var rotationOffsetFactor = [4, -4, 0]; // how user's head rotation translates into image offset
 var loadedImage = 0;
 var currentImage = 0;
+var currentThumbL = 0;
+var currentThumbR = 0;
 var lastImage = 0;
 var timeoutId;
 
@@ -19,10 +21,12 @@ initialize();
 async function initialize() {
     initializeAFrame();
     var categories = initializeMenu();
-    showMenu(await categories);
+    buildMenu(await categories);
     scenes = await initializeCategory((await categories)[0].Subcategories[0].Feed)
     lastImage = scenes.length - 1;
-
+    currentThumbR = 1;
+    currentThumbL = lastImage;
+    showMenu();
     render();
 }
 
@@ -59,6 +63,11 @@ function render() {
 
         document.getElementById("leftPlane").setAttribute("src", "images/" + imageId + ".L.jpg")
         document.getElementById("rightPlane").setAttribute("src", "images/" + imageId + ".R.jpg")
+
+        document.getElementById("scrollLThumbL").setAttribute("src", "images/" + scenes[currentThumbL].Link + ".L.jpg")
+        document.getElementById("scrollLThumbR").setAttribute("src", "images/" + scenes[currentThumbL].Link + ".R.jpg")
+        document.getElementById("scrollRThumbL").setAttribute("src", "images/" + scenes[currentThumbR].Link + ".L.jpg")
+        document.getElementById("scrollRThumbR").setAttribute("src", "images/" + scenes[currentThumbR].Link + ".R.jpg")
 
         loadedImage = currentImage;
     }
@@ -143,6 +152,10 @@ window.addEventListener("keydown", function(e){
         }
     }
     if(e.keyCode === 78) { // n
+        var elements = document.querySelectorAll(".categoryThumb");
+        for (var i = 0; i < elements.length; i++) {
+            elements[i].emit("grow");
+        };
         nextImage();
     }
     if(e.keyCode === 32) { // space
@@ -163,21 +176,25 @@ function nextImageByTimer() {
 }
 
 function nextImage() {
-    console.log("Next image");
-    if (currentImage < lastImage) {
-        currentImage++;
-    } else {
-        currentImage = 0;
-    }
+    console.info("Next image");
+    currentImage = getNextIndex(currentImage);
+    currentThumbR = getNextIndex(currentThumbR);
+    currentThumbL = getNextIndex(currentThumbL);
     render();
 }
 
 function previousImage() {
-    console.log("Previous image");
-    if (currentImage > 0) {
-        currentImage--;
-    } else {
-        currentImage = lastImage;
-    }
+    console.info("Previous image");
+    currentImage = getPreviousIndex(currentImage);
+    currentThumbR = getPreviousIndex(currentThumbR);
+    currentThumbL = getPreviousIndex(currentThumbL);
     render();
+}
+
+function getNextIndex(value) {
+    return value < lastImage ? ++value : 0;
+}
+
+function getPreviousIndex(value) {
+    return value > 0 ? --value : lastImage;
 }
