@@ -61,7 +61,12 @@ https://github.com/ngokevin/kframe/tree/master/components/animation/ -->
 
       <!-- Menu -->
       <a-entity id="menuPane" visible="false" position="0 2 -3">
-        <a-text id="menuTitle" position="0 0.5 0" value="Stereoscopy in VR"></a-text>
+        <a-text id="menuTitle" position="0 1 0" value="Stereoscopy in VR">
+            <a-animation delay="5000" easing="ease-in" attribute="position"
+            fill="forwards" to="0 5 0" dur="3000"></a-animation>
+            <a-animation delay="6000" easing="ease-in" attribute="rotation"
+              fill="forwards" to="45 0 0" dur="2000"></a-animation>
+        </a-text>
         <a-entity id="categoryTemplate" class="ui" visible="false">
           <a-entity class="categoryThumb" class="ui" scale=".5 .5 0"
             listener__click="event: click; callback: select; params: [1, 2, 3]" 
