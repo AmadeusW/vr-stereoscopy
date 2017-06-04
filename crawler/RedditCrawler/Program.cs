@@ -58,8 +58,8 @@ namespace StereoscopyVR.RedditCrawler
                 }
             }
 
-            Console.WriteLine("Do you want to process images? (y, enter)");
-            if (Console.ReadLine().ToLowerInvariant() == "y")
+            //Console.WriteLine("Do you want to process images? (y, enter)");
+            //if (Console.ReadLine().ToLowerInvariant() == "y")
             {
                 var processedPosts = await DoWork(posts);
                 using (StreamWriter file = File.CreateText(Path.Combine(SaveLocation, PostsFile)))
@@ -177,7 +177,8 @@ namespace StereoscopyVR.RedditCrawler
 
             var subreddit = await reddit.GetSubredditAsync("/r/crossview");
             var posts = new List<CrossViewPost>();
-            await subreddit.GetTop(RedditSharp.Things.FromTime.Month).Take(50).ForEachAsync(post => {
+            await subreddit.GetTop(RedditSharp.Things.FromTime.Year).Where(n => n.CreatedUTC.Month == 3).Take(50).ForEachAsync(post => {
+            //await subreddit.GetTop(RedditSharp.Things.FromTime.Month).Take(50).ForEachAsync(post => {
                 var data = new CrossViewPost(post.Url, post.Title, post.Shortlink, post.Score, post.CreatedUTC);
                 Console.WriteLine(post.Title);
                 posts.Add(data);
