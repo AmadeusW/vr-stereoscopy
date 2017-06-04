@@ -36,7 +36,7 @@ function buildMenu(categories) {
         for (var subId = 0; subId < categories[categoryId].Subcategories.length; subId++) {
             var sub = template.cloneNode(/*deep:*/true);
             sub.setAttribute("id", "category" + categoryId + "sub" + subId);
-            sub.setAttribute("position", (-1 + subId*2) + " 0 0");
+            sub.setAttribute("position", (-2.1 + subId*1.4) + " 0 0");
             sub.setAttribute("visible", true);
             sub.querySelector(".title")
                 .setAttribute("value", categories[categoryId].Subcategories[subId].DisplayName);
