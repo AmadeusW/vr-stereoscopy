@@ -34,6 +34,10 @@
       </a-camera>
       <!-- Navigation in slideshow mode -->
       <a-entity id="scrollPane" position="0 1.7 -4.5">
+        <a-plane id="menuBottomZone" class="ui" position="0 -10 0" rotation="-45 0 0" width="20" height="10" color="#000" opacity="0.01"
+          listener__click="event: click; callback: onShowMenu"></a-plane>
+        <a-plane id="menuTopZone" class="ui" position="0 10 0" rotation="45 0 0" width="20" height="10" color="#000" opacity="0.01"
+          listener__click="event: click; callback: onShowMenu"></a-plane>
         <a-entity id="scrollRThumb" class="ui" position="6 0 0" rotation="0 -45 0"
           listener__click="event: click; callback: onNavigate; params: r"
           listener__enter="event: mouseenter; callback: onSelect"
