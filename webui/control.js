@@ -62,7 +62,7 @@ function render() {
     {
         var imageId = scenes[currentImage].Link;
         console.log("Loading new image: " + imageId);
-        console.log("New position: " + "0 0 -" + scenes[currentImage].W)
+        document.getElementById("imageTitle").setAttribute("value", scenes[currentImage].Title);
 
         document.getElementById("leftPlane").setAttribute("width", Math.pow(2, scenes[currentImage].W))
         document.getElementById("leftPlane").setAttribute("height", Math.pow(2, scenes[currentImage].H))
