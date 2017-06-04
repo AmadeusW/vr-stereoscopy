@@ -74,29 +74,29 @@
         <a-animation begin="show" dur="500"
           attribute="position" to="0 2 -3"></a-animation>
 
-        <a-plane width="11" height="11" position="0 0 -1" color="#000" opacity="0.7" id="menuCurtain">
+        <a-plane width="20" height="20" position="0 0 -0.1" color="#000" opacity="0.7" id="menuCurtain">
           <a-animation begin="show" dur="100" ease
             attribute="material.opacity" from="0.0" to="0.7"></a-animation>
           <a-animation begin="hide" dur="100"
             attribute="material.opacity" from="0.7" to="0.0"></a-animation>
         </a-plane>
 
-        <a-text id="menuTitle" position="0 1 0" value="Stereoscopy in VR">
+        <a-text id="menuTitle" position="-1.5 1 0" value="Gallery of stereoscopic images">
         </a-text>
         <a-entity id="categoryTemplate" class="ui" visible="false">
-          <a-entity class="categoryThumb" class="ui" scale=".5 .5 0"
+          <a-entity class="categoryThumb" class="ui" scale="1 1 1"
             listener__click="event: click; callback: onConfirm; params: -1, -1"
             listener__enter="event: mouseenter; callback: onSelect"
             listener__leave="event: mouseleave; callback: onDeselect"
             >
-            <a-plane class="thumbL" class="ui" position="0 -0.8 0" src="images/201705/6c9wxa.T.L.jpg" stereo="eye: right"></a-plane>
-            <a-plane class="thumbR" class="ui" position="0 -0.8 0" src="images/201705/6c9wxa.T.R.jpg" stereo="eye: left"></a-plane>
+            <a-plane class="thumbL" class="ui" position="0 -0.3 0" src="images/201705/6c9wxa.T.L.jpg" stereo="eye: right"></a-plane>
+            <a-plane class="thumbR" class="ui" position="0 -0.3 0" src="images/201705/6c9wxa.T.R.jpg" stereo="eye: left"></a-plane>
             <a-animation begin="grow" easing="ease-out" attribute="scale"
-              fill="forwards" to=".8 .8 .8" dur="200"></a-animation>
+              fill="forwards" to="1.2 1.2 1.2" dur="200"></a-animation>
             <a-animation begin="shrink" easing="ease-out" attribute="scale"
-              fill="forwards" to=".5 .5 .5" dur="300"></a-animation>
+              fill="forwards" to="1 1 1" dur="300"></a-animation>
           </a-entity>
-          <a-text class="title" position="0 0.2 0" scale="0.3 0.3 0.3" color="white" value="Sample category"></a-text>
+          <a-text class="title" position="-0.3 0.4 0" scale="0.5 0.5 0.5" color="white" value="Sample category"></a-text>
         </a-entity>
       </a-entity>
         
