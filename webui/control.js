@@ -38,6 +38,7 @@ async function goToCategory(categoryId, subcategoryId) {
     scenes = await initializeCategory((allCategories)[categoryId].Subcategories[subcategoryId].Feed);
     imagePathPrefix = (allCategories)[categoryId].Subcategories[subcategoryId].ImagePathPrefix;
     lastImage = scenes.length - 1;
+    currentImage = 0;
     currentThumbR = 1;
     currentThumbL = lastImage;
     console.log("Going to ", categoryId, subcategoryId, "; Loaded scenes: ", scenes, "; Prefix: ", imagePathPrefix);
