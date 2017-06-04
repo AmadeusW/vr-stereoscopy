@@ -173,6 +173,12 @@ window.addEventListener("keydown", function(e){
     if(e.keyCode === 80) { // p
         previousImage();
     }
+    if(e.keyCode === 13) { // enter
+        showMenu();
+    }
+    if(e.keyCode === 27) { // esc
+        hideMenu();
+    }
 });
 
 function setTimer() {
