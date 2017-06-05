@@ -53,7 +53,12 @@
           listener__click="event: click; callback: onNavigate; params: r"
           listener__enter="event: mouseenter; callback: onSelect; params: scrollRThumb"
           listener__leave="event: mouseleave; callback: onDeselect; params: scrollRThumb"
-          ></a-plane>
+          >
+          <a-animation begin="mouseleave" easing="ease-out" attribute="opacity"
+            to="0.01" dur="500"></a-animation>
+          <a-animation begin="mouseenter" easing="ease-out" attribute="opacity"
+            to="0.2" dur="500"></a-animation>
+        </a-plane>
         <a-entity id="scrollRThumb" position="6 0 0" rotation="0 -45 0">
           <a-animation begin="grow" easing="ease-out" attribute="scale"
             fill="forwards" to="2 2 2" dur="200"></a-animation>
@@ -67,7 +72,12 @@
           listener__click="event: click; callback: onNavigate; params: l"
           listener__enter="event: mouseenter; callback: onSelect; params: scrollLThumb"
           listener__leave="event: mouseleave; callback: onDeselect; params: scrollLThumb"
-        ></a-plane>
+        >
+          <a-animation begin="mouseleave" easing="ease-out" attribute="opacity"
+            to="0.01" dur="500"></a-animation>
+          <a-animation begin="mouseenter" easing="ease-out" attribute="opacity"
+            to="0.2" dur="500"></a-animation>
+        </a-plane>
         <a-entity id="scrollLThumb" position="-6 0 0" rotation="0 45 0">
           <a-animation begin="grow" easing="ease-out" attribute="scale"
             fill="forwards" to="2 2 2" dur="200"></a-animation>
