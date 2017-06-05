@@ -65,11 +65,21 @@ function hideMenu() {
 }
 
 function onSelect(sender, params) {
-    sender.emit('grow');
+    console.log(params)
+    if (params.length == 0) {
+        sender.emit('grow');
+    } else {
+        console.log(params, document.getElementById(params[0]))
+        document.getElementById(params[0]).emit('grow');
+    }
 };
 
 function onDeselect(sender, params) {
-    sender.emit('shrink');
+    if (params.length == 0) {
+        sender.emit('shrink');
+    } else {
+        document.getElementById(params[0]).emit('shrink');
+    }
 };
 
 function onNavigate(sender, params) {
