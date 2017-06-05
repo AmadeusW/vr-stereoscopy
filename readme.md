@@ -24,8 +24,8 @@ See stereoscopic and *cross view* images in VR
 - [x] dynamically crop images from web
 - [ ] use azure blob storage for images. Allow CORS
 - [ ] use azure table storage for image data
-- [ ] display thumbnails
-- [ ] navigation by gaze
+- [x] display thumbnails
+- [x] navigation by gaze
 - [x] data source: imgur
 - [x] data source: reddit images
 - [x] data source: imgur albums
