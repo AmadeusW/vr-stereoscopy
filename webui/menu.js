@@ -55,11 +55,13 @@ function buildMenu(categories) {
 function showMenu() {
     document.querySelector("#menuPane").emit("show");
     document.querySelector("#menuCurtain").emit("show");
+    document.querySelector("#cursor").setAttribute("visible", "true");
 }
 
 function hideMenu() {
     document.querySelector("#menuPane").emit("hide");
     document.querySelector("#menuCurtain").emit("hide");
+    document.querySelector("#cursor").setAttribute("visible", "false");
 }
 
 function onSelect(sender, params) {
