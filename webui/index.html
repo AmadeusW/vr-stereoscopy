@@ -12,7 +12,8 @@
   <body>
     <a-scene>
       <a-assets>
-        <!-- <img id="sampleAsset" src="ui/img.png" /> -->
+        <a-mixin id="zone-show" begin="mouseenter" easing="ease-out" attribute="opacity" to="0.2" dur="500"></a-mixin>
+        <a-mixin id="zone-hide" begin="mouseleave" easing="ease-out" attribute="opacity" to="0.01" dur="500"></a-mixin>
       </a-assets>
 
       <a-camera id="camera" position="0 0 0" stereocam="eye:left;" wasd-controls="enabled: false">
@@ -36,17 +37,13 @@
       <a-entity id="scrollPane" position="0 1.7 -4.5">
         <a-plane id="menuBottomZone" class="ui" position="0 -15 0" rotation="-90 0 0" width="50" height="20" color="#99b" opacity="0.01"
           listener__click="event: click; callback: onShowMenu">
-            <a-animation begin="mouseleave" easing="ease-out" attribute="opacity"
-             to="0.01" dur="500"></a-animation>
-            <a-animation begin="mouseenter" easing="ease-out" attribute="opacity"
-             to="0.2" dur="500"></a-animation>
+          <a-animation mixin="zone-show"></a-animation>
+          <a-animation mixin="zone-hide"></a-animation>
           </a-plane>
         <a-plane id="menuTopZone" class="ui" position="0 15 0" rotation="90 0 0" width="50" height="20" color="#99b" opacity="0.01"
           listener__click="event: click; callback: onShowMenu">
-        <a-animation begin="mouseleave" easing="ease-in" attribute="opacity"
-          to="0.01" dur="500"></a-animation>
-        <a-animation begin="mouseenter" easing="ease-in" attribute="opacity"
-          to="0.2" dur="500"></a-animation>
+          <a-animation mixin="zone-show"></a-animation>
+          <a-animation mixin="zone-hide"></a-animation>
         </a-plane>
         <a-plane id="scrollRThumbZone" class="ui" color="#99b" opacity="0.01" 
           position="5 0 4" width="10" height="20" rotation="0 -90 0"
@@ -54,10 +51,8 @@
           listener__enter="event: mouseenter; callback: onSelect; params: scrollRThumb"
           listener__leave="event: mouseleave; callback: onDeselect; params: scrollRThumb"
           >
-          <a-animation begin="mouseleave" easing="ease-out" attribute="opacity"
-            to="0.01" dur="500"></a-animation>
-          <a-animation begin="mouseenter" easing="ease-out" attribute="opacity"
-            to="0.2" dur="500"></a-animation>
+          <a-animation mixin="zone-show"></a-animation>
+          <a-animation mixin="zone-hide"></a-animation>
         </a-plane>
         <a-entity id="scrollRThumb" position="6 0 0" rotation="0 -45 0">
           <a-animation begin="grow" easing="ease-out" attribute="scale"
@@ -73,10 +68,8 @@
           listener__enter="event: mouseenter; callback: onSelect; params: scrollLThumb"
           listener__leave="event: mouseleave; callback: onDeselect; params: scrollLThumb"
         >
-          <a-animation begin="mouseleave" easing="ease-out" attribute="opacity"
-            to="0.01" dur="500"></a-animation>
-          <a-animation begin="mouseenter" easing="ease-out" attribute="opacity"
-            to="0.2" dur="500"></a-animation>
+          <a-animation mixin="zone-show"></a-animation>
+          <a-animation mixin="zone-hide"></a-animation>
         </a-plane>
         <a-entity id="scrollLThumb" position="-6 0 0" rotation="0 45 0">
           <a-animation begin="grow" easing="ease-out" attribute="scale"
