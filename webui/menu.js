@@ -110,3 +110,7 @@ function onShowMenu(sender, params) {
 function onHideMenu(sender, params) {
     hideMenu();
 }
+
+function onToggleTimer(sender, params) {
+    toggleTimer();
+}

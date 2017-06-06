@@ -110,6 +110,16 @@
 
         <a-text id="menuTitle" position="-1.5 1 0" value="Gallery of stereoscopic images">
         </a-text>
+
+        <a-cylinder id="timerButton" class="ui" position="-2.5 -2.2 0" rotation="90 0 0" color="#99b" scale=".3 .1 .3"
+          listener__click="event: click; callback: onToggleTimer;"
+        >
+          <a-animation begin="mouseleave" easing="ease-out" attribute="scale"
+            to=".3 .1 .3" dur="500"></a-animation>
+          <a-animation begin="mouseenter" easing="ease-out" attribute="scale"
+            to="0.4 0.1 0.4" dur="500"></a-animation>
+        </a-cylinder>
+
         <a-entity id="categoryTemplate" class="ui" visible="false">
           <a-entity class="categoryThumb" class="ui" scale="1 1 1"
             listener__click="event: click; callback: onConfirm; params: -1, -1"

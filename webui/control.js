@@ -153,14 +153,7 @@ window.addEventListener("keydown", function(e){
         render();
     }
     if(e.keyCode === 84) { // t
-        if (timeoutId == null) {
-            console.log("Enable timer");
-            setTimer();
-        } else {
-            console.log("Disable timer");
-            window.clearTimeout(timeoutId);
-            timeoutId = null;
-        }
+        toggleTimer();
     }
     if(e.keyCode === 78) { // n
         var elements = document.querySelectorAll(".categoryThumb");
@@ -214,4 +207,15 @@ function getNextIndex(value) {
 
 function getPreviousIndex(value) {
     return value > 0 ? --value : lastImage;
+}
+
+function toggleTimer() {
+    if (timeoutId == null) {
+        console.log("Enable timer");
+        setTimer();
+    } else {
+        console.log("Disable timer");
+        window.clearTimeout(timeoutId);
+        timeoutId = null;
+    }
 }
