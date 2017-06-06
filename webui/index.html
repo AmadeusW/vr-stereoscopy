@@ -92,19 +92,19 @@
       <a-entity id="menuPane" visible="false" position="0 2 -3">
         <a-text id="imageTitle" position="-3 -3 0" color="white" value="."></a-text>
 
-        <a-animation begin="hide" delay="100"
+        <a-animation begin="hide" delay="300"
           attribute="visible" to="false"></a-animation>
-        <a-animation begin="hide"
-          attribute="position" to="0 2 -4"></a-animation>
+        <a-animation begin="hide" dur="300" easing="ease-in"
+          attribute="position" from="0 2 -3" to="0 2 -4"></a-animation>
         <a-animation begin="show" delay="0"
           attribute="visible" to="true"></a-animation>
-        <a-animation begin="show" dur="500"
-          attribute="position" to="0 2 -3"></a-animation>
+        <a-animation begin="show" dur="300" easing="ease-out"
+          attribute="position" from="0 2 -4" to="0 2 -3"></a-animation>
 
         <a-plane width="20" height="20" position="0 0 -0.1" color="#000" opacity="0.7" id="menuCurtain">
-          <a-animation begin="show" dur="100" ease
+          <a-animation begin="show" dur="300"
             attribute="material.opacity" from="0.0" to="0.7"></a-animation>
-          <a-animation begin="hide" dur="100"
+          <a-animation begin="hide" dur="300"
             attribute="material.opacity" from="0.7" to="0.0"></a-animation>
         </a-plane>
 
