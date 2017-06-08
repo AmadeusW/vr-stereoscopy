@@ -1,6 +1,6 @@
 var positionBase = [0, 0, -9]; // Base position of images
 var eyeDelta = [0, 0, 0]; // Per-eye offset for each image
-var eyeDeltaStep = 0.05;
+var eyeDeltaStep = 1;
 var positionHead = [0, 0, 0]; // raw value for head's position
 var positionOrigin = [0, 0, 0]; // origin head position
 var positionOffset = [0, 0, 0]; // Both-eye offset controlled by user's head position
@@ -80,6 +80,7 @@ function render() {
         document.getElementById("scrollRThumbL").setAttribute("src", "images/" + imagePathPrefix + scenes[currentThumbR].Link + ".L.jpg")
         document.getElementById("scrollRThumbR").setAttribute("src", "images/" + imagePathPrefix + scenes[currentThumbR].Link + ".R.jpg")
 
+        eyeDelta = [-43, 0, 0];
         loadedImage = currentImage;
     }
     var positionR = (positionBase[0] + positionOffset[0] + rotationOffset[0])
