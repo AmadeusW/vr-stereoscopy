@@ -80,7 +80,11 @@ function render() {
         document.getElementById("scrollRThumbL").setAttribute("src", "images/" + imagePathPrefix + scenes[currentThumbR].Link + ".L.jpg")
         document.getElementById("scrollRThumbR").setAttribute("src", "images/" + imagePathPrefix + scenes[currentThumbR].Link + ".R.jpg")
 
-        eyeDelta = [-43, 0, 0];
+        if (scenes[currentImage].correction != null) {
+            eyeDelta = scenes[currentImage].correction;
+        } else {
+            eyeDelta = [-43, 0, 0];
+        }
         loadedImage = currentImage;
     }
     var positionR = (positionBase[0] + positionOffset[0] + rotationOffset[0])
@@ -187,7 +191,7 @@ function nextImageByTimer() {
 }
 
 function nextImage() {
-    console.info("Next image");
+    saveImageCorrections();
     currentImage = getNextIndex(currentImage);
     currentThumbR = getNextIndex(currentThumbR);
     currentThumbL = getNextIndex(currentThumbL);
@@ -195,11 +199,15 @@ function nextImage() {
 }
 
 function previousImage() {
-    console.info("Previous image");
+    saveImageCorrections();
     currentImage = getPreviousIndex(currentImage);
     currentThumbR = getPreviousIndex(currentThumbR);
     currentThumbL = getPreviousIndex(currentThumbL);
     render();
+}
+
+function saveImageCorrections() {
+    scenes[currentImage].correction = eyeDelta;
 }
 
 function getNextIndex(value) {
