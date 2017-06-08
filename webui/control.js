@@ -104,9 +104,9 @@ function subscribeToEvents() {
             rotationHead[0] = evt.detail.newData.y;
             rotationHead[1] = evt.detail.newData.x;
             rotationHead[2] = evt.detail.newData.z; // TODO: consider using as image plane rotation
-            rotationOffset[0] = (rotationHead[0] - rotationOrigin[0]) * rotationOffsetFactor[0];
-            rotationOffset[1] = (rotationHead[1] - rotationOrigin[1]) * rotationOffsetFactor[1];
-            rotationOffset[2] = (rotationHead[2] - rotationOrigin[2]) * rotationOffsetFactor[2];
+            positionOffset[0] = (rotationHead[0] - rotationOrigin[0]) * rotationOffsetFactor[0];
+            positionOffset[1] = (rotationHead[1] - rotationOrigin[1]) * rotationOffsetFactor[1];
+            positionOffset[2] = 0;
             render();
         }
         /*
