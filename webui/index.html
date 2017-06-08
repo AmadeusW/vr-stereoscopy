@@ -16,7 +16,7 @@
         <a-mixin id="zone-hide" begin="mouseleave" easing="ease-out" attribute="opacity" to="0.01" dur="500"></a-mixin>
       </a-assets>
 
-      <a-camera id="camera" position="0 0 0" stereocam="eye:left;" wasd-controls="enabled: false">
+      <a-entity id="camera" camera="userHeight: 1.6" stereocam="eye:right;" look-controls></a-entity>
         <a-cursor fuse="true" id="cursor" color="yellow" fuseTimeout="700" raycaster="objects: .ui"> <!-- todo: see why FAR nor OBJECTS don't work -->
           <a-animation begin="click" easing="ease-bounce" attribute="scale"
              to="1 1 1" dur="200"></a-animation>
@@ -25,14 +25,13 @@
           <a-animation begin="fusing" easing="ease-in" attribute="scale"
              to="0.1 0.1 0.1" dur="700"></a-animation>
         </a-cursor> <!-- TODO: Use cursor only when no controllers found -->
-
         <!-- Stereo picture -->
         <a-entity id="mainPane" visible="false">
           <a-plane id="leftPlane"  position="0 0 -9" width="9" height="9" src="images/201705/6c9wxa.L.jpg" stereo="eye: right"></a-plane>
           <a-plane id="rightPlane" position="0 0 -9" width="9" height="9" src="images/201705/6c9wxa.R.jpg" stereo="eye: left"></a-plane>
         </a-entity>
+      </a-entity>
 
-      </a-camera>
       <!-- Navigation in slideshow mode -->
       <a-entity id="scrollPane" position="0 1.7 -4.5">
         <a-plane id="menuBottomZone" class="ui" position="0 -15 0" rotation="-90 0 0" width="50" height="20" color="#99b" opacity="0.01"
