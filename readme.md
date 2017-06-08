@@ -18,12 +18,12 @@ See stereoscopic and *cross view* images in VR
 - [x] display image in AFrame
 - [x] display image in VR
 - [x] attach image to camera
-- [ ] pan image with head motion
 - [x] pan image with head rotation
 - [ ] change image with horizontal head rotation
 - [x] dynamically crop images from web
 - [ ] use azure blob storage for images. Allow CORS
 - [ ] use azure table storage for image data
+- [ ] save and restore per-image adjustment
 - [x] display thumbnails
 - [x] navigation by gaze
 - [x] data source: imgur
