@@ -36,7 +36,7 @@ function buildMenu(categories) {
         for (var subId = 0; subId < categories[categoryId].Subcategories.length; subId++) {
             var sub = template.cloneNode(/*deep:*/true);
             sub.setAttribute("id", "category" + categoryId + "sub" + subId);
-            sub.setAttribute("position", (-2.1 + subId*1.4) + " 0 0");
+            placeInSpace(sub, (subId - 1) * 20)
             sub.setAttribute("visible", true);
             sub.querySelector(".title")
                 .setAttribute("value", categories[categoryId].Subcategories[subId].DisplayName);
@@ -50,6 +50,14 @@ function buildMenu(categories) {
             menu.appendChild(sub);
         }
     }
+}
+
+function placeInSpace(el, angle) {
+  distance = 2
+  x = distance * Math.sin(angle)
+  y = distance * Math.cos(angle)
+  el.setAttribute("position", x + " " + y + " 0")
+  el.setAttribute("rotation", "0 -" + angle + " 0")
 }
 
 function showMenu() {
@@ -96,6 +104,7 @@ function onConfirm(sender, params) {
     if (category > -1) {
         if (subcategory > -1) {
             // We are in subcategory. Display images
+            console.log("User selected a category");
             goToCategory(category, subcategory);
             hideMenu(); // TODO: show menu by looking up or down
         }
