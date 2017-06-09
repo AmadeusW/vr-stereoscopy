@@ -104,26 +104,14 @@ function subscribeToEvents() {
     p.addEventListener('componentchanged', function (evt) {
         //console.log(evt.detail.name);
         if (evt.detail.name === 'rotation') {
-            //console.log('Rotation from ', evt.detail.oldData, 'to', evt.detail.newData, '!');
             rotationHead[0] = evt.detail.newData.y;
             rotationHead[1] = evt.detail.newData.x;
-            rotationHead[2] = evt.detail.newData.z; // TODO: consider using as image plane rotation
+            rotationHead[2] = evt.detail.newData.z;
             positionOffset[0] = (rotationHead[0] - rotationOrigin[0]) * rotationOffsetFactor[0];
             positionOffset[1] = (rotationHead[1] - rotationOrigin[1]) * rotationOffsetFactor[1];
             positionOffset[2] = 0;
             render();
         }
-        /*
-        if (evt.detail.name === 'position') {
-            //console.log('Movement from', evt.detail.oldData, 'to', evt.detail.newData, '!');
-            positionHead[0] = evt.detail.newData.x;
-            positionHead[1] = evt.detail.newData.y;
-            positionHead[2] = evt.detail.newData.z;
-            positionOffset[0] = (positionHead[0] - positionOrigin[0]) * positionOffsetFactor[0];
-            positionOffset[1] = (positionHead[1] - positionOrigin[1]) * positionOffsetFactor[1];
-            positionOffset[2] = (positionHead[2] - positionOrigin[2]) * positionOffsetFactor[2];
-            render();
-        }*/
     });
 }
 
