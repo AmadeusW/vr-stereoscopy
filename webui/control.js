@@ -83,7 +83,7 @@ function render() {
         if (scenes[currentImage].correction != null) {
             eyeDelta = scenes[currentImage].correction;
         } else {
-            eyeDelta = [-43, 0, 0];
+            eyeDelta = [0, 0, 0];
         }
         loadedImage = currentImage;
     }
@@ -127,18 +127,22 @@ function resetPosition() {
 window.addEventListener("keydown", function(e){
     if(e.keyCode === 37) { // left
         eyeDelta[0] -= eyeDeltaStep;
+        scenes[currentImage].correction = eyeDelta;
         render();
     }
     if(e.keyCode === 39) { // right
         eyeDelta[0] += eyeDeltaStep;
+        scenes[currentImage].correction = eyeDelta;
         render();
     }
     if(e.keyCode === 38) { // up
         eyeDelta[1] += eyeDeltaStep;
+        scenes[currentImage].correction = eyeDelta;
         render();
     }
     if(e.keyCode === 40) { // down
         eyeDelta[1] -= eyeDeltaStep;
+        scenes[currentImage].correction = eyeDelta;
         render();
     }
     if(e.keyCode === 82) { // r
