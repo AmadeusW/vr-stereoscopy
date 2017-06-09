@@ -17,7 +17,7 @@
       </a-assets>
 
       <a-entity id="camera" camera="userHeight: 1.6" stereocam="eye:left;" look-controls>
-        <a-cursor fuse="true" id="cursor" color="yellow" fuseTimeout="700" raycaster="objects: .ui"> <!-- todo: see why FAR nor OBJECTS don't work -->
+        <a-cursor fuse="true" id="cursor" color="yellow" fuseTimeout="700" raycaster="objects: .ui"> <!-- todo: see why FAR nor OBJECTS don't work, and why visible: false objects are caught (category changes) -->
           <a-animation begin="click" easing="ease-bounce" attribute="scale"
              to="1 1 1" dur="200"></a-animation>
           <a-animation begin="mouseleave" easing="ease-out" attribute="scale"
