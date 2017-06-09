@@ -177,7 +177,7 @@ namespace StereoscopyVR.RedditCrawler
 
             var subreddit = await reddit.GetSubredditAsync("/r/crossview");
             var posts = new List<CrossViewPost>();
-            await subreddit.GetTop(RedditSharp.Things.FromTime.Year).Where(n => n.CreatedUTC.Month == 3).Take(50).ForEachAsync(post => {
+            await subreddit.GetTop(RedditSharp.Things.FromTime.All).Where(n => n.CreatedUTC.Year == 2016).Take(50).ForEachAsync(post => {
             //await subreddit.GetTop(RedditSharp.Things.FromTime.Month).Take(50).ForEachAsync(post => {
                 var data = new CrossViewPost(post.Url, post.Title, post.Shortlink, post.Score, post.CreatedUTC);
                 Console.WriteLine(post.Title);
