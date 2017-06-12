@@ -64,12 +64,14 @@ function showMenu() {
     document.querySelector("#menuPane").emit("show");
     document.querySelector("#menuCurtain").emit("show");
     document.querySelector("#cursor").setAttribute("visible", "true");
+    document.querySelector("#cursor").setAttribute("raycaster", "objects: .ui-menu");
 }
 
 function hideMenu() {
     document.querySelector("#menuPane").emit("hide");
     document.querySelector("#menuCurtain").emit("hide");
     document.querySelector("#cursor").setAttribute("visible", "false");
+    document.querySelector("#cursor").setAttribute("raycaster", "objects: .ui-scroll");
 }
 
 function onSelect(sender, params) {
