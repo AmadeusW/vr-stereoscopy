@@ -122,9 +122,9 @@ function resetPosition() {
     rotationOrigin[0] = rotationHead[0];
     rotationOrigin[1] = rotationHead[1];
     rotationOrigin[2] = rotationHead[2];
-    var rotationString = rotationHead[0] +" "+ rotationHead[1] +" "+ rotationHead[2];
-    document.getElementById("scrollPane").setAttribute("rotation", rotationString);
-    document.getElementById("menuPane").setAttribute("rotation", rotationString);
+    var rotationString = "0 "+ rotationHead[0] +" 0";
+    document.getElementById("allUi").setAttribute("rotation", rotationString);
+    document.getElementById("allUi").setAttribute("rotation", rotationString);
 }
 
 window.addEventListener("keydown", function(e){
