@@ -35,7 +35,7 @@
       </a-entity>
       <!-- Navigation in slideshow mode -->
       <a-entity id="scrollPane" position="0 1.7 -4.5">
-        <a-plane id="menuBottomZone" class="ui" position="0 -15 0" rotation="-90 0 0" width="50" height="20" color="#99b" opacity="0.01"
+        <a-plane id="menuBottomZone" class="ui-scroll" position="0 -15 0" rotation="-90 0 0" width="50" height="20" color="#99b" opacity="0.01"
           listener__click="event: click; callback: onShowMenu">
           <a-animation mixin="zone-show"></a-animation>
           <a-animation mixin="zone-hide"></a-animation>
@@ -45,7 +45,7 @@
           <a-animation mixin="zone-show"></a-animation>
           <a-animation mixin="zone-hide"></a-animation>
         </a-plane>
-        <a-plane id="scrollRThumbZone" class="ui" color="#99b" opacity="0.01" 
+        <a-plane id="scrollRThumbZone" class="ui-scroll" color="#99b" opacity="0.01" 
           position="5 0 4" width="10" height="20" rotation="0 -90 0"
           listener__click="event: click; callback: onNavigate; params: r"
           listener__enter="event: mouseenter; callback: onSelect; params: scrollRThumb"
