@@ -32,16 +32,32 @@ namespace StereoscopyVR.ImageApp
             Console.Write($"Processing {filename}: ");
             using (Image<Rgba32> image = Image.Load(file))
             {
-                var result = Work(image, filename);
+                var result = ProcessSingleImage(image, filename);
                 return result;
             }
         }
 
-        private static ImageProperties Work(Image<Rgba32> image, string filename)
+        public static ImageProperties ProcessPair(string file1, string file2)
+        {
+            var filename1 = Path.GetFileNameWithoutExtension(file1);
+            var filename2 = Path.GetFileNameWithoutExtension(file1);
+            Console.Write($"Processing {filename1} and {filename2}: ");
+            using (Image<Rgba32> image1 = Image.Load(file1))
+            using (Image<Rgba32> image2 = Image.Load(file2))
+            {
+                return Work(image1, image2, filename1);
+            }
+        }
+
+        private static ImageProperties ProcessSingleImage(Image<Rgba32> image, string filename)
         {
             var imageL = new Image<Rgba32>(image).Crop(new Rectangle(0, 0, image.Width / 2, image.Height));
             var imageR = new Image<Rgba32>(image).Crop(new Rectangle(image.Width / 2, 0, image.Width / 2, image.Height));
+            return Work(imageR, imageL, filename);
+        }
 
+        private static ImageProperties Work(Image<Rgba32> imageR, Image<Rgba32> imageL, string filename)
+        {
             Console.Write("u");
             var cropUp = findMargin(imageL, searchY: 1);
             Console.Write("d");
