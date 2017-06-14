@@ -7,12 +7,12 @@ using System.Text.RegularExpressions;
 
 namespace StereoscopyVR.RedditCrawler
 {
-    class SceneCollection
+    public class SceneCollection
     {
         public IEnumerable<CrossViewPost> scenes { get; set; }
     }
 
-    class CrossViewPost
+    public class CrossViewPost
     {
         public Uri Url { get; }
         public string Title { get; }

@@ -6,7 +6,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="10.0.2" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\imageapp\imageapp.csproj" />
+    <ProjectReference Include="..\RedditCrawler\RedditCrawler.csproj" />
   </ItemGroup>
 
 </Project>
