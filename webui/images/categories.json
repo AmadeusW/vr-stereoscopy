@@ -5,6 +5,7 @@
             { "DisplayName": "May 2017", "Thumbnail": "201705/69ov7p", "ImagePathPrefix": "201705/", "Feed": "201705/posts.json" },
             { "DisplayName": "April 2017 ✔", "Thumbnail": "201704/63tlg0", "ImagePathPrefix": "201704/", "Feed": "201704/posts.json" },
             { "DisplayName": "March 2017", "Thumbnail": "201703/5xa1y0", "ImagePathPrefix": "201703/", "Feed": "201703/posts.json" },
-            { "DisplayName": "2016 ✔", "Thumbnail": "2016/425ue6", "ImagePathPrefix": "2016/", "Feed": "2016/posts.json" }
+            { "DisplayName": "2016 ✔", "Thumbnail": "2016/425ue6", "ImagePathPrefix": "2016/", "Feed": "2016/posts.json" },
+            { "DisplayName": "Japan", "Thumbnail": "Japan/rust", "ImagePathPrefix": "Japan/", "Feed": "Japan/posts.json" }
     ]}
 ]}
