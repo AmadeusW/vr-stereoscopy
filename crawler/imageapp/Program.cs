@@ -37,15 +37,13 @@ namespace StereoscopyVR.ImageApp
             }
         }
 
-        public static ImageProperties ProcessPair(string file1, string file2)
+        public static ImageProperties ProcessPair(string file1, string file2, string name)
         {
-            var filename1 = Path.GetFileNameWithoutExtension(file1);
-            var filename2 = Path.GetFileNameWithoutExtension(file1);
-            Console.Write($"Processing {filename1} and {filename2}: ");
+            Console.Write($"Processing {name}: ");
             using (Image<Rgba32> image1 = Image.Load(file1))
             using (Image<Rgba32> image2 = Image.Load(file2))
             {
-                return Work(image1, image2, filename1);
+                return Work(image1, image2, name);
             }
         }
 

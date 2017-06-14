@@ -24,9 +24,10 @@ namespace MyImages
             var files = GetPairs(@"C:\Users\amadeusz\Pictures\Stereo\out\").ToArray();
             for (int i = 0; i < files.Length; i += 2)
             {
-                var file1 = files[i];
-                var file2 = files[i+1];
-                processedPosts.Add(ProcessPair(file1, file2));
+                var file1 = files[i];   // Right eye view
+                var file2 = files[i+1]; // Left eye view
+                var name = Path.GetFileNameWithoutExtension(file1);
+                processedPosts.Add(ProcessPair(file2, file1, name)); // crossview images swap left and right!
             }
             
             using (StreamWriter file = File.CreateText(Path.Combine(SaveLocation, PostsFile)))
@@ -42,10 +43,10 @@ namespace MyImages
             return Directory.EnumerateFiles(directory).OrderBy(n => n);
         }
 
-        private static CrossViewPost ProcessPair(string path1, string path2)
+        private static CrossViewPost ProcessPair(string path1, string path2, string name)
         {
-            var imageData = StereoscopyVR.ImageApp.Program.ProcessPair(path1, path2);
-            var post = new CrossViewPost(default(Uri), Path.GetFileNameWithoutExtension(path1), Path.GetFileNameWithoutExtension(path1), 0, DateTime.Now);
+            var imageData = StereoscopyVR.ImageApp.Program.ProcessPair(path1, path2, name);
+            var post = new CrossViewPost(default(Uri), name, name, 0, DateTime.Now);
             post.W = imageData.Width;
             post.H = imageData.Height;
             return post;
