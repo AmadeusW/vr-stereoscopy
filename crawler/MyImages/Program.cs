@@ -27,7 +27,7 @@ namespace MyImages
                 var file1 = files[i];   // Right eye view
                 var file2 = files[i+1]; // Left eye view
                 var name = Path.GetFileNameWithoutExtension(file1);
-                processedPosts.Add(ProcessPair(file2, file1, name)); // crossview images swap left and right!
+                processedPosts.Add(ProcessPair(file1, file2, name));
             }
             
             using (StreamWriter file = File.CreateText(Path.Combine(SaveLocation, PostsFile)))
