@@ -63,6 +63,7 @@ function placeInCircle(el, angle) {
 }
 
 function showMenu() {
+    isMenuVisible = true;
     document.querySelector("#menuPane").emit("show");
     document.querySelector("#menuCurtain").emit("show");
     document.querySelector("#cursor").setAttribute("visible", "true");
@@ -70,6 +71,7 @@ function showMenu() {
 }
 
 function hideMenu() {
+    isMenuVisible = false;
     document.querySelector("#menuPane").emit("hide");
     document.querySelector("#menuCurtain").emit("hide");
     document.querySelector("#cursor").setAttribute("visible", "false");

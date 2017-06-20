@@ -17,6 +17,7 @@ var lastImage = 0;
 var timeoutId;
 var allCategories = [];
 var imagePathPrefix = "";
+var isMenuVisible = false;
 
 initialize();
 
@@ -169,10 +170,13 @@ window.addEventListener("keydown", function(e){
         previousImage();
     }
     if(e.keyCode === 13) { // enter
-        showMenu();
+        if (isMenuVisible)
+            hideMenu();
+        else
+            showMenu();
     }
     if(e.keyCode === 27) { // esc
-        hideMenu();
+        // disengages VR mode. don't use.
     }
 });
 
