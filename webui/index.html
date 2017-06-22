@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>VR Stereoscopy</title>
+    <title>Stereoscopic VR</title>
     <meta name="description" content="Watch stereoscopic images in your VR headset">
     <script src="lib/aframe.min.js"></script>
     <script src="lib/aframe-stereo-component.js"></script>
@@ -96,14 +96,14 @@
           <a-animation begin="show" dur="300" easing="ease-out"
             attribute="position" from="0 2 -4" to="0 2 -3"></a-animation>
 
-          <a-plane width="20" height="20" position="0 0 -0.1" color="#000" opacity="0.7" id="menuCurtain">
+          <a-plane width="20" height="20" position="0 0 -0.5" color="#000" opacity="0.7" id="menuCurtain">
             <a-animation begin="show" dur="300"
               attribute="material.opacity" from="0.0" to="0.7"></a-animation>
             <a-animation begin="hide" dur="300"
               attribute="material.opacity" from="0.7" to="0.0"></a-animation>
           </a-plane>
 
-          <a-text id="menuTitle" position="-1.5 1 0" value="Gallery of stereoscopic images">
+          <a-text id="menuTitle" position="-0.85 0 0" value="Stereoscopic VR">
           </a-text>
 
           <a-cylinder id="timerButton" class="ui-menu" position="-2.5 -2.2 0" rotation="90 0 0" color="#99b" scale=".3 .1 .3"
