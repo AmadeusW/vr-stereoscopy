@@ -36,7 +36,8 @@ function buildMenu(categories) {
         for (var subId = 0; subId < categories[categoryId].Subcategories.length; subId++) {
             var sub = template.cloneNode(/*deep:*/true);
             sub.setAttribute("id", "category" + categoryId + "sub" + subId);
-            placeInCircle(sub, (subId - 1) * 20)
+            var separation = 360 / categories[categoryId].Subcategories.length;
+            placeInCircle(sub, (subId - 1) * separation)
             sub.setAttribute("visible", true);
             sub.querySelector(".title")
                 .setAttribute("value", categories[categoryId].Subcategories[subId].DisplayName);
@@ -53,13 +54,19 @@ function buildMenu(categories) {
 }
 
 function placeInCircle(el, angle) {
-  distance = 2
-  x = distance * Math.sin(angle)
-  y = distance * Math.cos(angle)
-  rotationY = -Math.acos(y/distance);
-  rotationX = -Math.acos(x/distance);
+  radius = 1.5
+  distance = 3; // Z position of #menuPane
+  DegPerRad = 57.29577
+
+  rads = angle / DegPerRad; // convert to radians
+  x = radius * Math.sin(rads)
+  y = radius * Math.cos(rads)
   el.setAttribute("position", x + " " + y + " 0")
-  el.setAttribute("rotation", rotationX + " " + rotationY + " 0")
+
+  // Now that element is placed, find appropraite rotation so that it faces the user
+  angleX = Math.asin(x/distance) * DegPerRad * -1;
+  angleY = Math.asin(y/distance) * DegPerRad;
+  el.setAttribute("rotation", angleY + " " + angleX + " 0")
 }
 
 function showMenu() {
