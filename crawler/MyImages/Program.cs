@@ -15,6 +15,7 @@ namespace MyImages
 
         static void Main(string[] args)
         {
+            Directory.CreateDirectory(SaveLocation);
             DoWork();            
         }
 
@@ -27,6 +28,10 @@ namespace MyImages
                 var file1 = files[i];   // Right eye view
                 var file2 = files[i+1]; // Left eye view
                 var name = Path.GetFileNameWithoutExtension(file1);
+                if (name.EndsWith(".L") || name.EndsWith(".R"))
+                {
+                    name = name.Substring(0, name.Length - 2);
+                }
                 processedPosts.Add(ProcessPair(file2, file1, name)); // crossview images swap left and right!
             }
             
