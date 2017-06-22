@@ -32,7 +32,7 @@ namespace MyImages
                 {
                     name = name.Substring(0, name.Length - 2);
                 }
-                processedPosts.Add(ProcessPair(file2, file1, name)); // crossview images swap left and right!
+                processedPosts.Add(ProcessPair(file1, file2, name));
             }
             
             using (StreamWriter file = File.CreateText(Path.Combine(SaveLocation, PostsFile)))

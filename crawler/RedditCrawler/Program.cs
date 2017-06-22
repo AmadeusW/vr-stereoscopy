@@ -128,7 +128,7 @@ namespace StereoscopyVR.RedditCrawler
                 }
                 try
                 {
-                    var imageProperties = ImageApp.Program.ProcessFile(filePath);
+                    var imageProperties = ImageApp.Program.ProcessCrossViewFile(filePath);
                     post.W = imageProperties.Width;
                     post.H = imageProperties.Height;
                     // TODO: refactor to make data structures nice and immutable

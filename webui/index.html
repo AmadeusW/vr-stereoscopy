@@ -36,7 +36,7 @@
 
       <a-entity id="allUi">
         <!-- Navigation in slideshow mode -->
-        <a-entity id="scrollPane" position="0 1.7 -4.5">
+        <a-entity id="scrollPane" position="0 1.7 0">
           <a-plane id="menuBottomZone" class="ui-scroll" position="0 -15 0" rotation="-90 0 0" width="50" height="20" color="#99b" opacity="0.01"
             listener__click="event: click; callback: onShowMenu">
             <a-animation mixin="zone-show"></a-animation>
@@ -48,7 +48,7 @@
             <a-animation mixin="zone-hide"></a-animation>
           </a-plane>
           <a-plane id="scrollRThumbZone" class="ui-scroll" color="#99b" opacity="0.01" 
-            position="5 0 4" width="10" height="20" rotation="0 -90 0"
+            position="2.9 0 4" width="10" height="20" rotation="0 -90 0"
             listener__click="event: click; callback: onNavigate; params: r"
             listener__enter="event: mouseenter; callback: onSelect; params: scrollRThumb"
             listener__leave="event: mouseleave; callback: onDeselect; params: scrollRThumb"
@@ -56,7 +56,7 @@
             <a-animation mixin="zone-show"></a-animation>
             <a-animation mixin="zone-hide"></a-animation>
           </a-plane>
-          <a-entity id="scrollRThumb" position="6 0 0" rotation="0 -45 0">
+          <a-entity id="scrollRThumb" position="3 0 0" rotation="0 -90 0">
             <a-animation begin="grow" easing="ease-out" attribute="scale"
               fill="forwards" to="2 2 2" dur="200"></a-animation>
             <a-animation begin="shrink" easing="ease-out" attribute="scale"
@@ -65,7 +65,7 @@
             <a-plane id="scrollRThumbR" class="ui-scroll" width="1" height="1" src="images/201705/6c9wxa.T.R.jpg" stereo="eye: left"></a-plane>
           </a-entity>
           <a-plane id="scrollLThumbZone" class="ui-scroll" color="#99b" opacity="0.01"
-            position="-5 0 4" width="10" height="20" rotation="0 90 0"
+            position="-2.9 0 4" width="10" height="20" rotation="0 90 0"
             listener__click="event: click; callback: onNavigate; params: l"
             listener__enter="event: mouseenter; callback: onSelect; params: scrollLThumb"
             listener__leave="event: mouseleave; callback: onDeselect; params: scrollLThumb"
@@ -73,7 +73,7 @@
             <a-animation mixin="zone-show"></a-animation>
             <a-animation mixin="zone-hide"></a-animation>
           </a-plane>
-          <a-entity id="scrollLThumb" position="-6 0 0" rotation="0 45 0">
+          <a-entity id="scrollLThumb" position="-3 0 0" rotation="0 90 0">
             <a-animation begin="grow" easing="ease-out" attribute="scale"
               fill="forwards" to="2 2 2" dur="200"></a-animation>
             <a-animation begin="shrink" easing="ease-out" attribute="scale"

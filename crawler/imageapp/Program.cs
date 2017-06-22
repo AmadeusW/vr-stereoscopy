@@ -22,17 +22,17 @@ namespace StereoscopyVR.ImageApp
             Directory.CreateDirectory("out");
             foreach (var file in Directory.EnumerateFiles(directory, "*.jpg").Union(Directory.EnumerateFiles(directory, "*.png")))
             {
-                ProcessFile(file);
+                ProcessCrossViewFile(file);
             }
         }
 
-        public static ImageProperties ProcessFile(string file)
+        public static ImageProperties ProcessCrossViewFile(string file)
         {
             var filename = Path.GetFileNameWithoutExtension(file);
             Console.Write($"Processing {filename}: ");
             using (Image<Rgba32> image = Image.Load(file))
             {
-                var result = ProcessSingleImage(image, filename);
+                var result = ProcessCrossViewImage(image, filename);
                 return result;
             }
         }
@@ -47,10 +47,11 @@ namespace StereoscopyVR.ImageApp
             }
         }
 
-        private static ImageProperties ProcessSingleImage(Image<Rgba32> image, string filename)
+        private static ImageProperties ProcessCrossViewImage(Image<Rgba32> image, string filename)
         {
-            var imageL = new Image<Rgba32>(image).Crop(new Rectangle(0, 0, image.Width / 2, image.Height));
-            var imageR = new Image<Rgba32>(image).Crop(new Rectangle(image.Width / 2, 0, image.Width / 2, image.Height));
+            // In cross eyed images, the image for the left eye is on the right side and vice versa.
+            var imageR = new Image<Rgba32>(image).Crop(new Rectangle(0, 0, image.Width / 2, image.Height));
+            var imageL = new Image<Rgba32>(image).Crop(new Rectangle(image.Width / 2, 0, image.Width / 2, image.Height));
             return Work(imageR, imageL, filename);
         }
 

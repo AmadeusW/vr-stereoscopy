@@ -36,7 +36,7 @@ function buildMenu(categories) {
         for (var subId = 0; subId < categories[categoryId].Subcategories.length; subId++) {
             var sub = template.cloneNode(/*deep:*/true);
             sub.setAttribute("id", "category" + categoryId + "sub" + subId);
-            placeInSpace(sub, (subId - 1) * 20)
+            placeInCircle(sub, (subId - 1) * 20)
             sub.setAttribute("visible", true);
             sub.querySelector(".title")
                 .setAttribute("value", categories[categoryId].Subcategories[subId].DisplayName);
@@ -52,15 +52,18 @@ function buildMenu(categories) {
     }
 }
 
-function placeInSpace(el, angle) {
+function placeInCircle(el, angle) {
   distance = 2
   x = distance * Math.sin(angle)
   y = distance * Math.cos(angle)
+  rotationY = -Math.acos(y/distance);
+  rotationX = -Math.acos(x/distance);
   el.setAttribute("position", x + " " + y + " 0")
-  el.setAttribute("rotation", "0 -" + angle + " 0")
+  el.setAttribute("rotation", rotationX + " " + rotationY + " 0")
 }
 
 function showMenu() {
+    isMenuVisible = true;
     document.querySelector("#menuPane").emit("show");
     document.querySelector("#menuCurtain").emit("show");
     document.querySelector("#cursor").setAttribute("visible", "true");
@@ -68,6 +71,7 @@ function showMenu() {
 }
 
 function hideMenu() {
+    isMenuVisible = false;
     document.querySelector("#menuPane").emit("hide");
     document.querySelector("#menuCurtain").emit("hide");
     document.querySelector("#cursor").setAttribute("visible", "false");
