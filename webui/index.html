@@ -7,6 +7,7 @@
     <script src="lib/aframe.min.js"></script>
     <script src="lib/aframe-stereo-component.js"></script>
     <script src="lib/aframe-animation-component.min.js"></script>
+    <script src="lib/aframe-mouse-cursor-component.min.js"></script>
     <script src="lib/aframe-listener.js"></script>
   </head>
   <body>
@@ -16,7 +17,7 @@
         <a-mixin id="zone-hide" begin="mouseleave" easing="ease-out" attribute="opacity" to="0.01" dur="500"></a-mixin>
       </a-assets>
 
-      <a-entity id="camera" camera="userHeight: 1.6" stereocam="eye:left;" look-controls>
+      <a-entity id="camera" camera="userHeight: 1.6" stereocam="eye:left;" look-controls mouse-cursor>
         <a-cursor fuse="true" id="cursor" color="yellow" fuseTimeout="700" raycaster="objects: .ui-menu"> <!-- todo: see why FAR nor OBJECTS don't work, and why visible: false objects are caught (category changes) -->
           <a-animation begin="click" easing="ease-bounce" attribute="scale"
              to="1 1 1" dur="200"></a-animation>
