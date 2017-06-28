@@ -18,6 +18,7 @@ var timeoutId;
 var allCategories = [];
 var imagePathPrefix = "";
 var isMenuVisible = false;
+var usesParallax = true;
 
 initialize();
 
@@ -225,5 +226,18 @@ function toggleTimer() {
         console.log("Disable timer");
         window.clearTimeout(timeoutId);
         timeoutId = null;
+    }
+}
+
+function toggleParallax() {
+    if (usesParallax)
+    {
+        rotationOffsetFactor = [0, 0, 0];
+        usesParallax = false;
+    }
+    else
+    {
+        rotationOffsetFactor = [4, -4, 0];
+        usesParallax = true;
     }
 }

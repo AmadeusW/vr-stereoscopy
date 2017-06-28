@@ -136,3 +136,7 @@ function onHideMenu(sender, params) {
 function onToggleTimer(sender, params) {
     toggleTimer();
 }
+
+function onToggleParallax(sender, params) {
+    toggleParallax();
+}
