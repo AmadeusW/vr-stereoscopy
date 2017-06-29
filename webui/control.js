@@ -222,10 +222,12 @@ function toggleTimer() {
     if (timeoutId == null) {
         console.log("Enable timer");
         setTimer();
+        document.getElementById("timerButton").setAttribute("color", "#cc3");
     } else {
         console.log("Disable timer");
         window.clearTimeout(timeoutId);
         timeoutId = null;
+        document.getElementById("timerButton").setAttribute("color", "#511");
     }
 }
 
@@ -234,10 +236,12 @@ function toggleParallax() {
     {
         rotationOffsetFactor = [0, 0, 0];
         usesParallax = false;
+        document.getElementById("parallaxButton").setAttribute("color", "#511");
     }
     else
     {
         rotationOffsetFactor = [4, -4, 0];
         usesParallax = true;
+        document.getElementById("parallaxButton").setAttribute("color", "#cc3");
     }
 }
