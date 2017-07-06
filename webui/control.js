@@ -19,6 +19,7 @@ var allCategories = [];
 var imagePathPrefix = "";
 var isMenuVisible = false;
 var usesParallax = true;
+var cdnPrefix = "https://vrcv.azureedge.net/vrcv/";
 
 initialize();
 
@@ -66,6 +67,10 @@ function render() {
     {
         var imageId = scenes[currentImage].Link;
         console.log("Loading new image: " + imageId);
+        var imageUrlTemplate = cdnPrefix + imagePathPrefix + imageId;
+        var thumbRUrlTemplate = cdnPrefix + imagePathPrefix + scenes[currentThumbR].Link;
+        var thumbLUrlTemplate = cdnPrefix + imagePathPrefix + scenes[currentThumbL].Link;
+
         document.getElementById("imageTitle").setAttribute("value", scenes[currentImage].Title);
 
         document.getElementById("leftPlane").setAttribute("width", Math.pow(2, scenes[currentImage].W))
@@ -74,13 +79,13 @@ function render() {
         document.getElementById("rightPlane").setAttribute("height", Math.pow(2, scenes[currentImage].H))
         positionBase[2] = -Math.pow(1.88, scenes[currentImage].W); // this will update the distance
 
-        document.getElementById("leftPlane").setAttribute("src", "images/" + imagePathPrefix + imageId + ".L.jpg")
-        document.getElementById("rightPlane").setAttribute("src", "images/" + imagePathPrefix + imageId + ".R.jpg")
+        document.getElementById("leftPlane").setAttribute("src", imageUrlTemplate + ".L.jpg")
+        document.getElementById("rightPlane").setAttribute("src", imageUrlTemplate + ".R.jpg")
 
-        document.getElementById("scrollLThumbL").setAttribute("src", "images/" + imagePathPrefix + scenes[currentThumbL].Link + ".L.jpg")
-        document.getElementById("scrollLThumbR").setAttribute("src", "images/" + imagePathPrefix + scenes[currentThumbL].Link + ".R.jpg")
-        document.getElementById("scrollRThumbL").setAttribute("src", "images/" + imagePathPrefix + scenes[currentThumbR].Link + ".L.jpg")
-        document.getElementById("scrollRThumbR").setAttribute("src", "images/" + imagePathPrefix + scenes[currentThumbR].Link + ".R.jpg")
+        document.getElementById("scrollLThumbL").setAttribute("src", thumbLUrlTemplate + ".L.jpg")
+        document.getElementById("scrollLThumbR").setAttribute("src", thumbLUrlTemplate + ".R.jpg")
+        document.getElementById("scrollRThumbL").setAttribute("src", thumbRUrlTemplate + ".L.jpg")
+        document.getElementById("scrollRThumbR").setAttribute("src", thumbRUrlTemplate + ".R.jpg")
 
         if (scenes[currentImage].correction != null) {
             eyeDelta = scenes[currentImage].correction;

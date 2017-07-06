@@ -42,9 +42,9 @@ function buildMenu(categories) {
             sub.querySelector(".title")
                 .setAttribute("value", categories[categoryId].Subcategories[subId].DisplayName);
             sub.querySelector(".thumbL").
-                setAttribute("src", "images/" + categories[categoryId].Subcategories[subId].Thumbnail + ".T.L.jpg");
+                setAttribute("src", cdnPrefix + categories[categoryId].Subcategories[subId].Thumbnail + ".T.L.jpg");
             sub.querySelector(".thumbR").
-                setAttribute("src", "images/" + categories[categoryId].Subcategories[subId].Thumbnail + ".T.R.jpg");
+                setAttribute("src", cdnPrefix + categories[categoryId].Subcategories[subId].Thumbnail + ".T.R.jpg");
             sub.querySelector(".categoryThumb")
                 .setAttribute("listener__click", "event: click; callback: onConfirm; params: "+categoryId+", "+subId);
 
