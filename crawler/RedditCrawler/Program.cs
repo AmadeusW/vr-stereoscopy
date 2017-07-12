@@ -184,8 +184,9 @@ namespace StereoscopyVR.RedditCrawler
 
             var subreddit = await reddit.GetSubredditAsync("/r/crossview");
             var posts = new List<CrossViewPost>();
-            await subreddit.GetTop(RedditSharp.Things.FromTime.All).Where(n => n.CreatedUTC.Year == 2016).Take(50).ForEachAsync(post => {
+            //await subreddit.GetTop(RedditSharp.Things.FromTime.All).Where(n => n.CreatedUTC.Year == 2016).Take(50).ForEachAsync(post => {
             //await subreddit.GetTop(RedditSharp.Things.FromTime.Month).Take(50).ForEachAsync(post => {
+            await reddit.GetPostAsync(new Uri(@"https://www.reddit.com/r/CrossView/comments/1ujpnj/some_1920s_stereograms/?ref=share&ref_source=link")).ToAsyncEnumerable().ForEachAsync(post => {
                 var data = new CrossViewPost(post.Url, null, post.Title, post.Shortlink, post.Score, post.CreatedUTC);
                 Console.WriteLine(post.Title);
                 posts.Add(data);
