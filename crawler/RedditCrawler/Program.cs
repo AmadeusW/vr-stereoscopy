@@ -13,7 +13,8 @@ namespace StereoscopyVR.RedditCrawler
 {
     class Program
     {
-        // TODO TODO TODO make it nice and functional. how about some f sharp?
+        // TODO: Consider using F#
+
         const string SaveLocation = "out";
         const string DownloadLocation = "drop";
         const string PostsFile = "posts.json";
@@ -37,7 +38,7 @@ namespace StereoscopyVR.RedditCrawler
                 posts = await GetPosts();
 
                 Console.WriteLine("Fetching image URLs...");
-                await GetImageUrls(posts);
+                posts = await GetImageUrls(posts);
 
                 Console.WriteLine("Writing data to disk...");
                 using (StreamWriter file = File.CreateText(Path.Combine(DownloadLocation, PostsFile)))
@@ -74,27 +75,32 @@ namespace StereoscopyVR.RedditCrawler
             Console.ReadLine();
         }
 
-        private static async Task GetImageUrls(IEnumerable<CrossViewPost> posts)
+        private static async Task<IEnumerable<CrossViewPost>> GetImageUrls(IEnumerable<CrossViewPost> posts)
         {
+            var allPosts = new List<CrossViewPost>();
+
             foreach (var post in posts)
             {
                 try
                 {
-                    await post.TryGetImageUrl();
-                    if (post.ImageUrl != null)
-                    {
-                        Console.WriteLine($"OK: [{post.Score}] {post.Title}");
-                    }
-                    else
+                    var updatedPosts = await post.WithUpdatedImageUrl();
+                    if (!updatedPosts.Any())
                     {
                         Console.WriteLine($"Not supported domain {post.Url.Host}: [{post.Score}] {post.Title}");
                     }
+
+                    allPosts.AddRange(updatedPosts.Select(updatedPost =>
+                    {
+                        Console.WriteLine($"OK: [{updatedPost.Score}] {updatedPost.Title}");
+                        return updatedPost;
+                    }));
                 }
                 catch (Exception ex)
                 {
                     Console.WriteLine($"Error at {post.Url.Host}: {ex}");
                 }
             }
+            return allPosts;
         }
 
         private static async Task GetAndSavePosts()
@@ -108,8 +114,9 @@ namespace StereoscopyVR.RedditCrawler
             List<CrossViewPost> processedPosts = new List<CrossViewPost>();
             foreach (var post in posts.Where(n => n.ImageUrl != null))
             {
-                Console.Write($"Processing {post.Link}: ");
-                var filePath = Path.Combine(DownloadLocation, post.Link + ".img");
+                var name = post.ImageUrl.Segments.Last();
+                Console.Write($"Processing {name}: ");
+                var filePath = Path.Combine(DownloadLocation, name);
                 if (File.Exists(filePath))
                 {
                     Console.Write("Using previously downloaded file; ");
@@ -179,7 +186,7 @@ namespace StereoscopyVR.RedditCrawler
             var posts = new List<CrossViewPost>();
             await subreddit.GetTop(RedditSharp.Things.FromTime.All).Where(n => n.CreatedUTC.Year == 2016).Take(50).ForEachAsync(post => {
             //await subreddit.GetTop(RedditSharp.Things.FromTime.Month).Take(50).ForEachAsync(post => {
-                var data = new CrossViewPost(post.Url, post.Title, post.Shortlink, post.Score, post.CreatedUTC);
+                var data = new CrossViewPost(post.Url, null, post.Title, post.Shortlink, post.Score, post.CreatedUTC);
                 Console.WriteLine(post.Title);
                 posts.Add(data);
             });

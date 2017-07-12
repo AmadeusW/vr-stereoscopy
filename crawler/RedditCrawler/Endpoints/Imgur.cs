@@ -4,19 +4,17 @@ using System.Text;
 using Refit;
 using System.Threading.Tasks;
 using StereoscopyVR.RedditCrawler.Data;
+using System.Linq;
 
 namespace StereoscopyVR.RedditCrawler.Endpoints
 {
     internal class Imgur : IOriginalImageSource
     {
-        public async Task<OriginalImage> GetOriginalData(string id)
+        public async Task<IEnumerable<OriginalImage>> GetOriginalData(string id)
         {
             // TODO: Check if this is an album
             var albumImages = await ImgurApi.GetAlbumImages(id, "Client-ID " + Program.Configuration["imgur-token"]);
-            return new OriginalImage
-            {
-                Url = albumImages.data[0].link.ToString()
-            };
+            return albumImages.data.Select(d => new OriginalImage() { Title = d.title, Url = d.link });
         }
 
         static IImgurApi _imgurApi;

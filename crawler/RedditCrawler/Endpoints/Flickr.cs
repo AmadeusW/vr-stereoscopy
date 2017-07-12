@@ -10,7 +10,7 @@ namespace StereoscopyVR.RedditCrawler.Endpoints
 {
     internal class Flickr : IOriginalImageSource
     {
-        public async Task<OriginalImage> GetOriginalData(string id)
+        public async Task<IEnumerable<OriginalImage>> GetOriginalData(string id)
         {
             try
             {
@@ -24,9 +24,9 @@ namespace StereoscopyVR.RedditCrawler.Endpoints
                         return null;
                     }
                 }
-                return new OriginalImage
+                return new OriginalImage[]
                 {
-                    Url = match.source
+                    new OriginalImage { Url = match.source }
                 };
             }
             catch (Exception ex)

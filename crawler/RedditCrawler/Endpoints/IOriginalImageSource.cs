@@ -1,10 +1,11 @@
 ﻿using StereoscopyVR.RedditCrawler.Data;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace StereoscopyVR.RedditCrawler.Endpoints
 {
     internal interface IOriginalImageSource
     {
-        Task<OriginalImage> GetOriginalData(string id);
+        Task<IEnumerable<OriginalImage>> GetOriginalData(string id);
     }
 }
