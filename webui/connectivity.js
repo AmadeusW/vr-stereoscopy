@@ -9,7 +9,7 @@ function httpGet(url, responseType="") {
                     resolve(this.response);
                 } else {
                     // Something went wrong (404 etc.)
-                    reject(new Error(this.statusText));
+                    reject(new Error(this.statusText+" "+url));
                 }
             };
             request.onerror = function () {
