@@ -9,5 +9,7 @@ namespace StereoscopyVR.RedditCrawler.Data
         public string Title { get; set; }
         public string Url { get; set; }
         public string Author { get; set; }
+
+        public string FileName => Url.Substring(0, Url.LastIndexOf('.')).Substring(Url.LastIndexOf('/') + 1);
     }
 }

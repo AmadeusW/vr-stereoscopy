@@ -74,7 +74,7 @@ namespace StereoscopyVR.RedditCrawler
                         query = query.Substring(0, query.IndexOf('.'));
 
                     var details = await imgurEndpoint.GetOriginalData(query);
-                    return details.Select(d => new CrossViewPost(this.Url, new Uri(d.Url), String.IsNullOrEmpty(d.Title) ? this.Title : d.Title, this.Link, this.Score, this.UploadDate));
+                    return details.Select(d => new CrossViewPost(this.Url, new Uri(d.Url), String.IsNullOrEmpty(d.Title) ? this.Title : d.Title, d.FileName, this.Score, this.UploadDate));
                 }
                 else
                 {
