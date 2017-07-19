@@ -52,6 +52,7 @@ namespace StereoscopyVR.ImageApp
             // In cross eyed images, the image for the left eye is on the right side and vice versa.
             var imageR = new Image<Rgba32>(image).Crop(new Rectangle(0, 0, image.Width / 2, image.Height));
             var imageL = new Image<Rgba32>(image).Crop(new Rectangle(image.Width / 2, 0, image.Width / 2, image.Height));
+            //return Work(imageL, imageR, filename); // Old stereograms don't switch left and right, so revert images back to normal
             return Work(imageR, imageL, filename);
         }
 
