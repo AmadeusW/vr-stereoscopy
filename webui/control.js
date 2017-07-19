@@ -94,12 +94,12 @@ function render() {
         }
         loadedImage = currentImage;
     }
-    var positionR = (positionBase[0] + positionOffset[0] + rotationOffset[0])
-             + " " + (positionBase[1] + positionOffset[1] + rotationOffset[1]) 
-             + " " + (positionBase[2] + positionOffset[2] + rotationOffset[2]);
-    var positionL = (positionBase[0] + positionOffset[0] + rotationOffset[0] + eyeDelta[0])
-             + " " + (positionBase[1] + positionOffset[1] + rotationOffset[1] + eyeDelta[1])
-             + " " + (positionBase[2] + positionOffset[2] + rotationOffset[2] + eyeDelta[2]);
+    var positionR = (positionBase[0] + positionOffset[0] + rotationOffset[0] - eyeDelta[0]/2)
+             + " " + (positionBase[1] + positionOffset[1] + rotationOffset[1] - eyeDelta[1]/2)
+             + " " + (positionBase[2] + positionOffset[2] + rotationOffset[2] - eyeDelta[2]/2);
+    var positionL = (positionBase[0] + positionOffset[0] + rotationOffset[0] + eyeDelta[0]/2)
+             + " " + (positionBase[1] + positionOffset[1] + rotationOffset[1] + eyeDelta[1]/2)
+             + " " + (positionBase[2] + positionOffset[2] + rotationOffset[2] + eyeDelta[2]/2);
 
     document.getElementById("leftPlane").setAttribute("position", positionL)
     document.getElementById("rightPlane").setAttribute("position", positionR)
