@@ -110,14 +110,16 @@ function subscribeToEvents() {
     const p = document.querySelector("#camera");
     p.addEventListener('componentchanged', function (evt) {
         //console.log(evt.detail.name);
-        if (evt.detail.name === 'rotation') {
-            rotationHead[0] = evt.detail.newData.y;
-            rotationHead[1] = evt.detail.newData.x;
-            rotationHead[2] = evt.detail.newData.z;
-            positionOffset[0] = (rotationHead[0] - rotationOrigin[0]) * rotationOffsetFactor[0];
-            positionOffset[1] = (rotationHead[1] - rotationOrigin[1]) * rotationOffsetFactor[1];
-            positionOffset[2] = 0;
-            render();
+        if (usesParallax) {
+            if (evt.detail.name === 'rotation') {
+                rotationHead[0] = evt.detail.newData.y;
+                rotationHead[1] = evt.detail.newData.x;
+                rotationHead[2] = evt.detail.newData.z;
+                positionOffset[0] = (rotationHead[0] - rotationOrigin[0]) * rotationOffsetFactor[0];
+                positionOffset[1] = (rotationHead[1] - rotationOrigin[1]) * rotationOffsetFactor[1];
+                positionOffset[2] = 0;
+                render();
+            }
         }
     });
 }
