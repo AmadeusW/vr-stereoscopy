@@ -18,7 +18,7 @@ var timeoutId;
 var allCategories = [];
 var imagePathPrefix = "";
 var isMenuVisible = false;
-var usesParallax = true;
+var usesParallax = false;
 var cdnPrefix = "https://vrcv.azureedge.net/vrcv/";
 
 initialize();
