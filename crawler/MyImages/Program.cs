@@ -51,7 +51,7 @@ namespace MyImages
         private static CrossViewPost ProcessPair(string path1, string path2, string name)
         {
             var imageData = StereoscopyVR.ImageApp.Program.ProcessPair(path1, path2, name);
-            var post = new CrossViewPost(default(Uri), name, name, 0, DateTime.Now);
+            var post = new CrossViewPost(default(Uri), default(Uri), name, name, 0, DateTime.Now);
             post.W = imageData.Width;
             post.H = imageData.Height;
             return post;
