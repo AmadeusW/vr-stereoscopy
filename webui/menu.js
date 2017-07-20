@@ -137,6 +137,6 @@ function onToggleTimer(sender, params) {
     toggleTimer();
 }
 
-function onToggleParallax(sender, params) {
-    toggleParallax();
+function onToggleGaze(sender, params) {
+    toggleGaze();
 }

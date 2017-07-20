@@ -18,7 +18,7 @@ var timeoutId;
 var allCategories = [];
 var imagePathPrefix = "";
 var isMenuVisible = false;
-var usesParallax = false;
+var usesGaze = true;
 var cdnPrefix = "https://vrcv.azureedge.net/vrcv/";
 
 initialize();
@@ -94,12 +94,12 @@ function render() {
         }
         loadedImage = currentImage;
     }
-    var positionR = (positionBase[0] + positionOffset[0] + rotationOffset[0])
-             + " " + (positionBase[1] + positionOffset[1] + rotationOffset[1]) 
-             + " " + (positionBase[2] + positionOffset[2] + rotationOffset[2]);
-    var positionL = (positionBase[0] + positionOffset[0] + rotationOffset[0] + eyeDelta[0])
-             + " " + (positionBase[1] + positionOffset[1] + rotationOffset[1] + eyeDelta[1])
-             + " " + (positionBase[2] + positionOffset[2] + rotationOffset[2] + eyeDelta[2]);
+    var positionR = (positionBase[0] + positionOffset[0] + rotationOffset[0] - eyeDelta[0]/2)
+             + " " + (positionBase[1] + positionOffset[1] + rotationOffset[1] - eyeDelta[1]/2)
+             + " " + (positionBase[2] + positionOffset[2] + rotationOffset[2] - eyeDelta[2]/2);
+    var positionL = (positionBase[0] + positionOffset[0] + rotationOffset[0] + eyeDelta[0]/2)
+             + " " + (positionBase[1] + positionOffset[1] + rotationOffset[1] + eyeDelta[1]/2)
+             + " " + (positionBase[2] + positionOffset[2] + rotationOffset[2] + eyeDelta[2]/2);
 
     document.getElementById("leftPlane").setAttribute("position", positionL)
     document.getElementById("rightPlane").setAttribute("position", positionR)
@@ -110,15 +110,17 @@ function subscribeToEvents() {
     const p = document.querySelector("#camera");
     p.addEventListener('componentchanged', function (evt) {
         //console.log(evt.detail.name);
-        if (evt.detail.name === 'rotation') {
-            rotationHead[0] = evt.detail.newData.y;
-            rotationHead[1] = evt.detail.newData.x;
-            rotationHead[2] = evt.detail.newData.z;
-            positionOffset[0] = (rotationHead[0] - rotationOrigin[0]) * rotationOffsetFactor[0];
-            positionOffset[1] = (rotationHead[1] - rotationOrigin[1]) * rotationOffsetFactor[1];
-            positionOffset[2] = 0;
-            render();
-        }
+        /*if (usesParallax) {
+            if (evt.detail.name === 'rotation') {
+                rotationHead[0] = evt.detail.newData.y;
+                rotationHead[1] = evt.detail.newData.x;
+                rotationHead[2] = evt.detail.newData.z;
+                positionOffset[0] = (rotationHead[0] - rotationOrigin[0]) * rotationOffsetFactor[0];
+                positionOffset[1] = (rotationHead[1] - rotationOrigin[1]) * rotationOffsetFactor[1];
+                positionOffset[2] = 0;
+                render();
+            }
+        }*/
     });
 }
 
@@ -232,21 +234,23 @@ function toggleTimer() {
         console.log("Disable timer");
         window.clearTimeout(timeoutId);
         timeoutId = null;
-        document.getElementById("timerButton").setAttribute("color", "#511");
+        document.getElementById("timerButton").setAttribute("color", "#311");
     }
 }
 
-function toggleParallax() {
-    if (usesParallax)
+function toggleGaze() {
+    if (usesGaze)
     {
-        rotationOffsetFactor = [0, 0, 0];
-        usesParallax = false;
-        document.getElementById("parallaxButton").setAttribute("color", "#511");
+        usesGaze = false;
+        document.getElementById("cursor").setAttribute("fuse", "false");
+        document.getElementById("cursor").setAttribute("raycaster", "objects:#nothing");
+        document.getElementById("gazeButton").setAttribute("color", "#311");
     }
     else
     {
-        rotationOffsetFactor = [4, -4, 0];
-        usesParallax = true;
-        document.getElementById("parallaxButton").setAttribute("color", "#cc3");
+        usesGaze = true;
+        document.getElementById("cursor").setAttribute("fuse", "true");
+        document.getElementById("cursor").setAttribute("raycaster", "objects:.ui-menu");
+        document.getElementById("gazeButton").setAttribute("color", "#cc3");
     }
 }
