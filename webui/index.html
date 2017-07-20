@@ -49,7 +49,7 @@
             <a-animation mixin="zone-hide"></a-animation>
           </a-plane>
           <a-plane id="scrollRThumbZone" class="ui-scroll" color="#99b" opacity="0.01" 
-            position="2.9 0 4" width="10" height="20" rotation="0 -90 0"
+            position="3.1 0 3" width="10" height="20" rotation="0 -90 0"
             listener__click="event: click; callback: onNavigate; params: r"
             listener__enter="event: mouseenter; callback: onSelect; params: scrollRThumb"
             listener__leave="event: mouseleave; callback: onDeselect; params: scrollRThumb"
@@ -62,6 +62,7 @@
               fill="forwards" to="2 2 2" dur="200"></a-animation>
             <a-animation begin="shrink" easing="ease-out" attribute="scale"
               fill="forwards" to="1 1 1" dur="300"></a-animation>
+            <a-plane id="srollRFrame" class="ui-menu" width="1.1905" height="1.1905" position="0 0 -0.05" material="transparent: true" src="ui/frame.png"></a-plane>
             <a-plane id="scrollRThumbL" class="ui-scroll" width="1" height="1" src="images/201705/6c9wxa.T.L.jpg" stereo="eye: right"></a-plane>
             <a-plane id="scrollRThumbR" class="ui-scroll" width="1" height="1" src="images/201705/6c9wxa.T.R.jpg" stereo="eye: left"></a-plane>
           </a-entity>
@@ -79,6 +80,7 @@
               fill="forwards" to="2 2 2" dur="200"></a-animation>
             <a-animation begin="shrink" easing="ease-out" attribute="scale"
               fill="forwards" to="1 1 1" dur="300"></a-animation>
+            <a-plane id="srollRFrame" class="ui-menu" width="1.1905" height="1.1905" position="0 0 -0.05" material="transparent: true" src="ui/frame.png"></a-plane>
             <a-plane id="scrollLThumbL" class="ui-scroll" width="1" height="1" src="images/201705/6c9wxa.T.L.jpg" stereo="eye: right"></a-plane>
             <a-plane id="scrollLThumbR" class="ui-scroll" width="1" height="1" src="images/201705/6c9wxa.T.R.jpg" stereo="eye: left"></a-plane>
           </a-entity>
@@ -133,6 +135,7 @@
               listener__enter="event: mouseenter; callback: onSelect"
               listener__leave="event: mouseleave; callback: onDeselect"
               >
+              <a-plane id="srollRFrame" class="ui-menu" width="1.1905" height="1.1905" position="0 -0.3 -0.05" material="transparent: true" src="ui/frame.png"></a-plane>
               <a-plane class="thumbL" class="ui-menu" position="0 -0.3 0" src="images/201705/6c9wxa.T.L.jpg" stereo="eye: right"></a-plane>
               <a-plane class="thumbR" class="ui-menu" position="0 -0.3 0" src="images/201705/6c9wxa.T.R.jpg" stereo="eye: left"></a-plane>
               <a-animation begin="grow" easing="ease-out" attribute="scale"
