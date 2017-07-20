@@ -18,7 +18,7 @@ var timeoutId;
 var allCategories = [];
 var imagePathPrefix = "";
 var isMenuVisible = false;
-var usesParallax = false;
+var usesGaze = true;
 var cdnPrefix = "https://vrcv.azureedge.net/vrcv/";
 
 initialize();
@@ -110,7 +110,7 @@ function subscribeToEvents() {
     const p = document.querySelector("#camera");
     p.addEventListener('componentchanged', function (evt) {
         //console.log(evt.detail.name);
-        if (usesParallax) {
+        /*if (usesParallax) {
             if (evt.detail.name === 'rotation') {
                 rotationHead[0] = evt.detail.newData.y;
                 rotationHead[1] = evt.detail.newData.x;
@@ -120,7 +120,7 @@ function subscribeToEvents() {
                 positionOffset[2] = 0;
                 render();
             }
-        }
+        }*/
     });
 }
 
@@ -238,17 +238,19 @@ function toggleTimer() {
     }
 }
 
-function toggleParallax() {
-    if (usesParallax)
+function toggleGaze() {
+    if (usesGaze)
     {
-        rotationOffsetFactor = [0, 0, 0];
-        usesParallax = false;
-        document.getElementById("parallaxButton").setAttribute("color", "#311");
+        usesGaze = false;
+        document.getElementById("cursor").setAttribute("fuse", "false");
+        document.getElementById("cursor").setAttribute("raycaster", "objects:#nothing");
+        document.getElementById("gazeButton").setAttribute("color", "#311");
     }
     else
     {
-        rotationOffsetFactor = [4, -4, 0];
-        usesParallax = true;
-        document.getElementById("parallaxButton").setAttribute("color", "#cc3");
+        usesGaze = true;
+        document.getElementById("cursor").setAttribute("fuse", "true");
+        document.getElementById("cursor").setAttribute("raycaster", "objects:.ui-menu");
+        document.getElementById("gazeButton").setAttribute("color", "#cc3");
     }
 }
