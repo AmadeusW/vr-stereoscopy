@@ -234,7 +234,7 @@ function toggleTimer() {
         console.log("Disable timer");
         window.clearTimeout(timeoutId);
         timeoutId = null;
-        document.getElementById("timerButton").setAttribute("color", "#511");
+        document.getElementById("timerButton").setAttribute("color", "#311");
     }
 }
 
@@ -243,7 +243,7 @@ function toggleParallax() {
     {
         rotationOffsetFactor = [0, 0, 0];
         usesParallax = false;
-        document.getElementById("parallaxButton").setAttribute("color", "#511");
+        document.getElementById("parallaxButton").setAttribute("color", "#311");
     }
     else
     {
