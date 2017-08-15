@@ -14,25 +14,10 @@ async function initializeCategory(feed) {
 function buildMenu(categories) {
     var menu = document.querySelector("#menuPane");
     var template = document.querySelector("#categoryTemplate");
+    var menu2D = document.querySelector("#galleries-menu");
+    var template2D = document.querySelector("#template2d");
 
     for (var categoryId = 0; categoryId < categories.length; categoryId++) {
-        /*
-        For now, we won't show categories.
-        var category = template.cloneNode(true); // deep:true
-        category.setAttribute("id", "category" + categoryId);
-        category.setAttribute("position", categoryId + " 1 0");
-        category.setAttribute("visible", true);
-        category.querySelector(".title")
-            .setAttribute("value", categories[categoryId].DisplayName);
-        category.querySelector(".thumbL")
-            .setAttribute("src", "images/" + categories[categoryId].Thumbnail + ".T.L.jpg");
-        category.querySelector(".thumbR")
-            .setAttribute("src", "images/" + categories[categoryId].Thumbnail + ".T.R.jpg");
-        category.querySelector(".categoryThumb")
-            .setAttribute("listener__click", "event: click; callback: onConfirm; params: "+categoryId+", -1");
-
-        menu.appendChild(category);
-        */
         for (var subId = 0; subId < categories[categoryId].Subcategories.length; subId++) {
             var sub = template.cloneNode(/*deep:*/true);
             sub.setAttribute("id", "category" + categoryId + "sub" + subId);
@@ -49,6 +34,16 @@ function buildMenu(categories) {
                 .setAttribute("listener__click", "event: click; callback: onConfirm; params: "+categoryId+", "+subId);
 
             menu.appendChild(sub);
+
+            var sub2D = template2D.cloneNode(/*deep:*/true);
+            console.log(sub2D);
+            console.getElementsByTagName("p");
+            console.querySelectorAll("p");
+            sub2D.getElementsByTagName("h3")[0].html(categories[categoryId].Subcategories[subId].DisplayName);
+            sub2D.getElementsByTagName("p")[0].html(categories[categoryId].Subcategories[subId].DisplayName);
+            sub2D.getElementsByTagName("img")[0].setAttribute("src", cdnPrefix + categories[categoryId].Subcategories[subId].Thumbnail + ".T.L.jpg");
+            menu2D.appendChild(sub2D);
+            console.log(menu2D);
         }
     }
 }
