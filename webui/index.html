@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <title>Stereoscopic VR</title>
     <meta name="description" content="Watch stereoscopic images in your VR headset">
+    <link rel="stylesheet" href="ui/style.css">
     <script src="lib/aframe.min.js"></script>
     <script src="lib/aframe-stereo-component.min.js"></script>
     <script src="lib/aframe-animation-component.min.js"></script>
@@ -11,16 +12,50 @@
     <script src="lib/aframe-listener.js"></script>
   </head>
   <body>
+    
+    <!-- HTML menu -->
+    <div class="container">
+      <section class="title">
+        <h1>VR Stereoscopy</h1>
+        <p>Turn your VR headset into a stereoscope. Pick my personal photo album or one scraped from the internet.</p>
+      </section>
+
+      <section class="galleries">
+        <section class="item">
+          <div class="picture"></div>
+          <div class="description">
+            <h3>Gallery</h3>
+            <p>Description</p>
+          </div>
+        </section>
+        <section class="item">
+          <div class="picture"></div>
+          <div class="description">
+            <h3>Gallery</h3>
+            <p>Description</p>
+          </div>
+        </section>
+        <section class="item">
+          <div class="picture"></div>
+          <div class="description">
+            <h3>Gallery</h3>
+            <p>Description</p>
+          </div>
+        </section>
+        <section class="item">
+          <div class="picture"></div>
+          <div class="description">
+            <h3>Gallery</h3>
+            <p>Description</p>
+          </div>
+        </section>
+      </section>
+      
+      <section class="footer">A project by Amadeusz Wieczorek. Visit me on <a href="github.com/amadeusw/vr-stereoscopy">github</a></section>
+    </div>
+
+    <!-- VR world -->
     <a-scene>
-        <div style="width:1000px; display: flex; position:absolute; left:100px; top:100px; z-index:9999; flex-direction: column;">
-          <div style="background-color:#999">VR Stereoscopy</div>
-          <div style="background-color: #f00; height:128px;">Cascadia</div>
-          <div style="background-color: #ff0; height:128px;">Japan</div>
-          <div style="background-color: #0f0; height:128px;">2016 at Reddit</div>
-          <div style="background-color: #0ff; height:128px;">2015 at Reddit</div>
-          <div style="background-color: #00f; height:128px;">Insects</div>
-          <div style="background-color: #f0f; height:128px;"></div>
-        </div>
       <a-assets>
         <a-mixin id="zone-show" begin="mouseenter" easing="ease-out" attribute="opacity" to="0.2" dur="200"></a-mixin>
         <a-mixin id="zone-hide" begin="mouseleave" easing="ease-out" attribute="opacity" to="0.01" dur="500"></a-mixin>
