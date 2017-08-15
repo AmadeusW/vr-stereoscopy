@@ -67,22 +67,24 @@ section {
 @media (orientation: landscape) {  
   .container {
     flex-wrap: wrap;
+    justify-content: space-between;
   }
   .title {
-    flex-grow: 1;
+    width: 30vw;
+  }
+  .footer {
+    width: 30vw;
   }
   .galleries {
     order: 9;
+    flex-grow: 1;
     height: 100vh;
-    width: 50vw;
+    width: 80vw;
   }
 }
 
 @media (orientation: landscape) and (min-width: 1200px) {
   .container {
-    left: 10vw;
-    right: 10vw;
-    top: 10vh;
-    bottom: 10vh;
+    padding: 10%;
   }
 }
