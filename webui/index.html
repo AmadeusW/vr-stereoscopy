@@ -10,6 +10,7 @@
     <script src="lib/aframe-animation-component.min.js"></script>
     <script src="lib/aframe-mouse-cursor-component.min.js"></script>
     <script src="lib/aframe-listener.js"></script>
+    <script src="https://unpkg.com/vue"></script>
   </head>
   <body>
     
@@ -22,32 +23,11 @@
       </section>
 
       <section class="galleries" id="galleries-menu">
-        <section class="item" id="template2d">
-          <img class="picture"></div>
+        <section class="item" v-for="item in items">
+          <img class="picture" :src="item.picture" />
           <div class="description">
-            <h3>Gallery</h3>
-            <p>Description</p>
-          </div>
-        </section>
-        <section class="item">
-          <div class="picture"></div>
-          <div class="description">
-            <h3>Gallery</h3>
-            <p>Description</p>
-          </div>
-        </section>
-        <section class="item">
-          <div class="picture"></div>
-          <div class="description">
-            <h3>Gallery</h3>
-            <p>Description</p>
-          </div>
-        </section>
-        <section class="item">
-          <div class="picture"></div>
-          <div class="description">
-            <h3>Gallery</h3>
-            <p>Description</p>
+            <h3>{{item.title}}</h3>
+            <p>{{item.description}}</p>
           </div>
         </section>
       </section>

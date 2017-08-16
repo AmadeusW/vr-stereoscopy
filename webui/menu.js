@@ -17,6 +17,8 @@ function buildMenu(categories) {
     var menu2D = document.querySelector("#galleries-menu");
     var template2D = document.querySelector("#template2d");
 
+    var galleryItems = [];
+
     for (var categoryId = 0; categoryId < categories.length; categoryId++) {
         for (var subId = 0; subId < categories[categoryId].Subcategories.length; subId++) {
             var sub = template.cloneNode(/*deep:*/true);
@@ -35,17 +37,20 @@ function buildMenu(categories) {
 
             menu.appendChild(sub);
 
-            var sub2D = template2D.cloneNode(/*deep:*/true);
-            console.log(sub2D);
-            console.getElementsByTagName("p");
-            console.querySelectorAll("p");
-            sub2D.getElementsByTagName("h3")[0].html(categories[categoryId].Subcategories[subId].DisplayName);
-            sub2D.getElementsByTagName("p")[0].html(categories[categoryId].Subcategories[subId].DisplayName);
-            sub2D.getElementsByTagName("img")[0].setAttribute("src", cdnPrefix + categories[categoryId].Subcategories[subId].Thumbnail + ".T.L.jpg");
-            menu2D.appendChild(sub2D);
-            console.log(menu2D);
+            galleryItems.push({
+                name: categories[categoryId].Subcategories[subId].DisplayName,
+                description: categories[categoryId].Subcategories[subId].DisplayName,
+                picture: cdnPrefix + categories[categoryId].Subcategories[subId].Thumbnail + ".T.L.jpg",
+            });
         }
     }
+
+    var galleriesVue = new Vue({
+        el: '#galleries-menu',
+        data: {
+          items: galleryItems
+        }
+      });
 }
 
 function placeInCircle(el, angle) {
