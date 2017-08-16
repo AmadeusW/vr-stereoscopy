@@ -19,13 +19,11 @@ a:hover {
   background: #000;
   padding: 10px;
 }
-section {
-  padding: 5px;
-}
 .title {
   background-color: #000;
+  padding: 5px;
 }
-.title h1 {
+h1,h2,h3,h4,h5 {
   color: #e60;
 }
 .settings {
@@ -35,6 +33,7 @@ section {
   background-color: #000;
   border-top: 1px solid #e60;
   text-align: right;
+  padding: 10px;
 }
 
 .galleries {
@@ -42,26 +41,27 @@ section {
   flex-direction: column;
   background-color: #000;
   flex-grow: 1;
+  overflow-y: scroll;
+  padding: 5px;
 }
 
 .item {
   display: flex;
-  background-color: #cc0;
-  color: #000;
+  padding: 0 3px;
+  border-left: 3px solid #000;
+  border-right: 3px solid #000;
 }
 .item .picture {
   width: 128px;
   height: 128px;
-  background-color: #ff0;
 }
 .item .description {
-  padding: 5px;
-}
-.item .h3 {
-  text-align: center;
+  padding: 10px;
 }
 .item:hover {
-  background-color: #dd0;
+  background-color: #420;
+  border-left: 3px solid #e60;
+  border-right: 3px solid #e60;
 }
   
 @media (orientation: landscape) {  

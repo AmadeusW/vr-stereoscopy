@@ -38,7 +38,7 @@ function buildMenu(categories) {
             menu.appendChild(sub);
 
             galleryItems.push({
-                name: categories[categoryId].Subcategories[subId].DisplayName,
+                title: categories[categoryId].Subcategories[subId].DisplayName,
                 description: categories[categoryId].Subcategories[subId].DisplayName,
                 picture: cdnPrefix + categories[categoryId].Subcategories[subId].Thumbnail + ".T.L.jpg",
             });
