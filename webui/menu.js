@@ -41,6 +41,8 @@ function buildMenu(categories) {
                 title: categories[categoryId].Subcategories[subId].DisplayName,
                 description: categories[categoryId].Subcategories[subId].DisplayName,
                 picture: cdnPrefix + categories[categoryId].Subcategories[subId].Thumbnail + ".T.L.jpg",
+                id: categoryId,
+                subId: subId
             });
         }
     }
@@ -51,6 +53,14 @@ function buildMenu(categories) {
           items: galleryItems
         }
       });
+}
+
+function onGalleryItemClick(event) {
+    var category = event.target.getAttribute("cid")
+    var subcategory = event.target.getAttribute("sid")
+
+    goToCategory(category, subcategory);
+    hideMenu();
 }
 
 function placeInCircle(el, angle) {

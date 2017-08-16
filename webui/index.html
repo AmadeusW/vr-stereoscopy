@@ -23,7 +23,7 @@
       </section>
 
       <section class="galleries" id="galleries-menu">
-        <section class="item" v-for="item in items">
+        <section class="item" v-for="item in items" :cid="item.id" :sid="item.subId" onclick="onGalleryItemClick(event)">
           <img class="picture" :src="item.picture" />
           <div class="description">
             <h3>{{item.title}}</h3>
