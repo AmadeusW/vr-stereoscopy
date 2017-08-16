@@ -98,6 +98,11 @@ function hideMenu() {
 function goToVR() {
     document.getElementById("menu").classList.add("hidden");
     document.getElementById("scene").enterVR();
+    document.getElementById("scene").enterVR();
+}
+
+function onVrClosed() {
+    document.getElementById("menu").classList.remove("hidden");
 }
 
 function onSelect(sender, params) {

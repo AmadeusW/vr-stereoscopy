@@ -55,6 +55,7 @@ function initializeAFrame() {
         subscribeToEvents();
     } else {
         scene.addEventListener('loaded', subscribeToEvents);
+        scene.addEventListener('exit-vr', onVrClosed);
     }
 }
 
