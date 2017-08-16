@@ -39,7 +39,7 @@
     <a-scene id="scene">
       <a-entity id="camera" camera="userHeight: 1.6" stereocam="eye:left;" look-controls mouse-cursor>
         <!-- Stereo picture fixed to the camera -->
-        <a-entity id="mainPane" visible="false">
+        <a-entity id="mainPane">
           <a-plane id="leftPlane"  position="0 0 -9" width="9" height="9" src="images/201705/6c9wxa.L.jpg" stereo="eye: right"></a-plane>
           <a-plane id="rightPlane" position="0 0 -9" width="9" height="9" src="images/201705/6c9wxa.R.jpg" stereo="eye: left"></a-plane>
         </a-entity>
