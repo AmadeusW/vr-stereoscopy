@@ -15,7 +15,7 @@
   <body>
     
     <!-- HTML menu -->
-    <div class="container">
+    <div id="menu" class="container">
       <section class="title">
         <h1>VR Stereoscopy</h1>
         <p>Turn your VR headset into a stereoscope.</p>
@@ -36,7 +36,7 @@
     </div>
 
     <!-- VR world -->
-    <a-scene>
+    <a-scene id="scene">
       <a-assets>
         <a-mixin id="zone-show" begin="mouseenter" easing="ease-out" attribute="opacity" to="0.2" dur="200"></a-mixin>
         <a-mixin id="zone-hide" begin="mouseleave" easing="ease-out" attribute="opacity" to="0.01" dur="500"></a-mixin>

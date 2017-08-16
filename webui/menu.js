@@ -60,7 +60,7 @@ function onGalleryItemClick(event) {
     var subcategory = event.target.getAttribute("sid")
 
     goToCategory(category, subcategory);
-    hideMenu();
+    goToVR();
 }
 
 function placeInCircle(el, angle) {
@@ -93,6 +93,11 @@ function hideMenu() {
     document.querySelector("#menuCurtain").emit("hide");
     document.querySelector("#cursor").setAttribute("visible", "false");
     document.querySelector("#cursor").setAttribute("raycaster", "objects: .ui-scroll");
+}
+
+function goToVR() {
+    document.getElementById("menu").classList.add("hidden");
+    document.getElementById("scene").enterVR();
 }
 
 function onSelect(sender, params) {
