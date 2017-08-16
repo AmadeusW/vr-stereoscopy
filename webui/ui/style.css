@@ -37,6 +37,7 @@ h1,h2,h3,h4,h5 {
   border-top: 1px solid #e60;
   text-align: right;
   padding: 10px;
+  padding-right: 100px;
 }
 
 .galleries {
@@ -77,6 +78,7 @@ h1,h2,h3,h4,h5 {
   }
   .footer {
     width: 30vw;
+    padding-right: 10px;
   }
   .galleries {
     order: 9;
