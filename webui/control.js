@@ -31,7 +31,6 @@ async function initialize() {
     console.log(allCategories);
     await goToCategory(0, 0); // Initial category to display
     //scenes = await initializeCategory((await categories)[0].Subcategories[0].Feed)
-    showMenu();
     showImage();
     render();
 }
@@ -72,7 +71,7 @@ function render() {
         var thumbRUrlTemplate = cdnPrefix + imagePathPrefix + scenes[currentThumbR].Link;
         var thumbLUrlTemplate = cdnPrefix + imagePathPrefix + scenes[currentThumbL].Link;
 
-        document.getElementById("imageTitle").setAttribute("value", scenes[currentImage].Title);
+        //document.getElementById("imageTitle").setAttribute("value", scenes[currentImage].Title);
 
         document.getElementById("leftPlane").setAttribute("width", Math.pow(2, scenes[currentImage].W))
         document.getElementById("leftPlane").setAttribute("height", Math.pow(2, scenes[currentImage].H))
@@ -82,11 +81,6 @@ function render() {
 
         document.getElementById("leftPlane").setAttribute("src", imageUrlTemplate + ".L.jpg")
         document.getElementById("rightPlane").setAttribute("src", imageUrlTemplate + ".R.jpg")
-
-        document.getElementById("scrollLThumbL").setAttribute("src", thumbLUrlTemplate + ".L.jpg")
-        document.getElementById("scrollLThumbR").setAttribute("src", thumbLUrlTemplate + ".R.jpg")
-        document.getElementById("scrollRThumbL").setAttribute("src", thumbRUrlTemplate + ".L.jpg")
-        document.getElementById("scrollRThumbR").setAttribute("src", thumbRUrlTemplate + ".R.jpg")
 
         if (scenes[currentImage].correction != null) {
             eyeDelta = scenes[currentImage].correction;
@@ -132,9 +126,6 @@ function resetPosition() {
     rotationOrigin[0] = rotationHead[0];
     rotationOrigin[1] = rotationHead[1];
     rotationOrigin[2] = rotationHead[2];
-    var rotationString = "0 "+ rotationHead[0] +" 0";
-    document.getElementById("allUi").setAttribute("rotation", rotationString);
-    document.getElementById("allUi").setAttribute("rotation", rotationString);
 }
 
 window.addEventListener("keydown", function(e){
@@ -166,10 +157,6 @@ window.addEventListener("keydown", function(e){
         toggleTimer();
     }
     if(e.keyCode === 78) { // n
-        var elements = document.querySelectorAll(".categoryThumb");
-        for (var i = 0; i < elements.length; i++) {
-            elements[i].emit("grow");
-        };
         nextImage();
     }
     if(e.keyCode === 32) { // space
@@ -177,12 +164,6 @@ window.addEventListener("keydown", function(e){
     }
     if(e.keyCode === 80) { // p
         previousImage();
-    }
-    if(e.keyCode === 13) { // enter
-        if (isMenuVisible)
-            hideMenu();
-        else
-            showMenu();
     }
     if(e.keyCode === 27) { // esc
         // disengages VR mode. don't use.
@@ -201,16 +182,12 @@ function nextImageByTimer() {
 function nextImage() {
     saveImageCorrections();
     currentImage = getNextIndex(currentImage);
-    currentThumbR = getNextIndex(currentThumbR);
-    currentThumbL = getNextIndex(currentThumbL);
     render();
 }
 
 function previousImage() {
     saveImageCorrections();
     currentImage = getPreviousIndex(currentImage);
-    currentThumbR = getPreviousIndex(currentThumbR);
-    currentThumbL = getPreviousIndex(currentThumbL);
     render();
 }
 

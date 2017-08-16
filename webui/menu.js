@@ -12,31 +12,10 @@ async function initializeCategory(feed) {
 }
 
 function buildMenu(categories) {
-    var menu = document.querySelector("#menuPane");
-    var template = document.querySelector("#categoryTemplate");
-    var menu2D = document.querySelector("#galleries-menu");
-    var template2D = document.querySelector("#template2d");
-
     var galleryItems = [];
 
     for (var categoryId = 0; categoryId < categories.length; categoryId++) {
         for (var subId = 0; subId < categories[categoryId].Subcategories.length; subId++) {
-            var sub = template.cloneNode(/*deep:*/true);
-            sub.setAttribute("id", "category" + categoryId + "sub" + subId);
-            var separation = 360 / categories[categoryId].Subcategories.length;
-            placeInCircle(sub, (subId - 1) * separation)
-            sub.setAttribute("visible", true);
-            sub.querySelector(".title")
-                .setAttribute("value", categories[categoryId].Subcategories[subId].DisplayName);
-            sub.querySelector(".thumbL").
-                setAttribute("src", cdnPrefix + categories[categoryId].Subcategories[subId].Thumbnail + ".T.L.jpg");
-            sub.querySelector(".thumbR").
-                setAttribute("src", cdnPrefix + categories[categoryId].Subcategories[subId].Thumbnail + ".T.R.jpg");
-            sub.querySelector(".categoryThumb")
-                .setAttribute("listener__click", "event: click; callback: onConfirm; params: "+categoryId+", "+subId);
-
-            menu.appendChild(sub);
-
             galleryItems.push({
                 title: categories[categoryId].Subcategories[subId].DisplayName,
                 description: categories[categoryId].Subcategories[subId].DisplayName,
@@ -77,22 +56,6 @@ function placeInCircle(el, angle) {
   angleX = Math.asin(x/distance) * DegPerRad * -1;
   angleY = Math.asin(y/distance) * DegPerRad;
   el.setAttribute("rotation", angleY + " " + angleX + " 0")
-}
-
-function showMenu() {
-    isMenuVisible = true;
-    document.querySelector("#menuPane").emit("show");
-    document.querySelector("#menuCurtain").emit("show");
-    document.querySelector("#cursor").setAttribute("visible", "true");
-    document.querySelector("#cursor").setAttribute("raycaster", "objects: .ui-menu");
-}
-
-function hideMenu() {
-    isMenuVisible = false;
-    document.querySelector("#menuPane").emit("hide");
-    document.querySelector("#menuCurtain").emit("hide");
-    document.querySelector("#cursor").setAttribute("visible", "false");
-    document.querySelector("#cursor").setAttribute("raycaster", "objects: .ui-scroll");
 }
 
 function goToVR() {
