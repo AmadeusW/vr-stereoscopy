@@ -58,7 +58,7 @@ h1,h2,h3,h4,h5 {
 .item .description {
   padding: 10px;
 }
-.item:hover {
+.item:hover,item:active {
   background-color: #420;
   border-left: 3px solid #e60;
   border-right: 3px solid #e60;
