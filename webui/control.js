@@ -29,10 +29,9 @@ async function initialize() {
     buildMenu(await categories);
     allCategories = await categories;
     console.log(allCategories);
-    await goToCategory(0, 0); // Initial category to display
+    //await goToCategory(0, 0); // Initial category to display
     //scenes = await initializeCategory((await categories)[0].Subcategories[0].Feed)
-    showImage();
-    render();
+    //render();
 }
 
 async function goToCategory(categoryId, subcategoryId) {
@@ -56,10 +55,6 @@ function initializeAFrame() {
         scene.addEventListener('loaded', subscribeToEvents);
         scene.addEventListener('exit-vr', onVrClosed);
     }
-}
-
-function showImage() {
-    document.getElementById("mainPane").setAttribute("visible", true);
 }
 
 function render() {

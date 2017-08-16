@@ -59,8 +59,8 @@ function placeInCircle(el, angle) {
 }
 
 function goToVR() {
+    render();
     document.getElementById("menu").classList.add("hidden");
-    document.getElementById("scene").enterVR();
     document.getElementById("scene").enterVR();
 }
 
@@ -106,14 +106,6 @@ function onConfirm(sender, params) {
         }
         // We are in category. Display a subcategory?
     }
-}
-
-function onShowMenu(sender, params) {
-    showMenu();
-}
-
-function onHideMenu(sender, params) {
-    hideMenu();
 }
 
 function onToggleTimer(sender, params) {
