@@ -19,7 +19,7 @@ var allCategories = [];
 var imagePathPrefix = "";
 var isMenuVisible = false;
 var cdnPrefix = "https://vrcv.azureedge.net/vrcv/";
-
+var currentImageVue;
 
 
 initialize();
@@ -89,6 +89,7 @@ function render() {
         document.getElementById("rightPlane").setAttribute("src", vm.imageRightUrl)
 
         loadedImageIdId = currentImageId;
+        currentImageVue.data = vm;
     }
     var positionR = (positionBase[0] + positionOffset[0] + rotationOffset[0] - vm.correction[0]/2)
              + " " + (positionBase[1] + positionOffset[1] + rotationOffset[1] - vm.correction[1]/2)

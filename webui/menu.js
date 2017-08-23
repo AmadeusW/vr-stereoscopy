@@ -32,6 +32,10 @@ function buildMenu(categories) {
           items: galleryItems
         }
       });
+    
+      currentImageVue = new Vue({
+          el: '#details-menu'
+      });
 }
 
 function onGalleryItemClick(event) {
