@@ -9,8 +9,8 @@ var rotationOrigin = [0, 0, 0]; // origin head rotation
 var rotationOffset = [0, 0, 0]; // Both-eye offset controlled by user's head rotation
 var positionOffsetFactor = [0, 0, 0]; // how user's head position translates into image offset
 var rotationOffsetFactor = [4, -4, 0]; // how user's head rotation translates into image offset
-var loadedImage = -1;
-var currentImage = 0;
+var loadedImageId = -1;
+var currentImageId = 0;
 var currentThumbL = 0;
 var currentThumbR = 0;
 var lastImage = 0;
@@ -24,14 +24,29 @@ var cdnPrefix = "https://vrcv.azureedge.net/vrcv/";
 initialize();
 
 async function initialize() {
-    initializeAFrame();
+    console.log("init");
     var categories = initializeMenu();
-    buildMenu(await categories);
     allCategories = await categories;
-    console.log(allCategories);
+    buildMenu(await categories);
+    initializeAFrame();
     //await goToCategory(0, 0); // Initial category to display
     //scenes = await initializeCategory((await categories)[0].Subcategories[0].Feed)
     //render();
+}
+
+function getViewModel(id) {
+    return {
+        title: scenes[id].Title,
+        imageLeftUrl: cdnPrefix + imagePathPrefix + scenes[id].Link + ".L.jpg",
+        imageRightUrl: cdnPrefix + imagePathPrefix + scenes[id].Link + ".R.jpg",
+        thumbLeftUrl: cdnPrefix + imagePathPrefix + scenes[id].Link+ ".T.L.jpg",
+        thumbRightUrl: cdnPrefix + imagePathPrefix + scenes[id].Link + ".T.R.jpg",
+        originalUrl: scenes[id].shortLink, // user friendly link to the original
+        originalImageUrl: scenes[id].ImageUrl, // raw version of the image
+        width: scenes[id].W,
+        height: scenes[id].H,
+        correction: scenes[id].correction != null ? scenes[id].correction : [0, 0, 0]
+    }
 }
 
 async function goToCategory(categoryId, subcategoryId) {
@@ -41,8 +56,8 @@ async function goToCategory(categoryId, subcategoryId) {
     lastImage = scenes.length - 1;
     currentThumbR = 1;
     currentThumbL = lastImage;
-    currentImage = 0;
-    loadedImage = -1;
+    currentImageId = 0;
+    loadedImageId = -1;
     console.log("Going to ", categoryId, subcategoryId, "; Loaded scenes: ", scenes, "; Prefix: ", imagePathPrefix);
     render();
 }
@@ -58,38 +73,28 @@ function initializeAFrame() {
 }
 
 function render() {
-    if (loadedImage != currentImage)
+    if (loadedImageId != currentImageId)
     {
-        var imageId = scenes[currentImage].Link;
-        console.log("Loading new image: " + imageId);
-        var imageUrlTemplate = cdnPrefix + imagePathPrefix + imageId;
-        var thumbRUrlTemplate = cdnPrefix + imagePathPrefix + scenes[currentThumbR].Link;
-        var thumbLUrlTemplate = cdnPrefix + imagePathPrefix + scenes[currentThumbL].Link;
+        var vm = getViewModel(currentImageId);
+        console.log("Rendering new image:", vm);
 
-        //document.getElementById("imageTitle").setAttribute("value", scenes[currentImage].Title);
+        document.getElementById("leftPlane").setAttribute("width", Math.pow(2, vm.width))
+        document.getElementById("leftPlane").setAttribute("height", Math.pow(2, vm.height))
+        document.getElementById("rightPlane").setAttribute("width", Math.pow(2, vm.width))
+        document.getElementById("rightPlane").setAttribute("height", Math.pow(2, vm.height))
+        positionBase[2] = -Math.pow(1.88, vm.width); // this will update the distance
 
-        document.getElementById("leftPlane").setAttribute("width", Math.pow(2, scenes[currentImage].W))
-        document.getElementById("leftPlane").setAttribute("height", Math.pow(2, scenes[currentImage].H))
-        document.getElementById("rightPlane").setAttribute("width", Math.pow(2, scenes[currentImage].W))
-        document.getElementById("rightPlane").setAttribute("height", Math.pow(2, scenes[currentImage].H))
-        positionBase[2] = -Math.pow(1.88, scenes[currentImage].W); // this will update the distance
+        document.getElementById("leftPlane").setAttribute("src", vm.imageLeftUrl)
+        document.getElementById("rightPlane").setAttribute("src", vm.imageRightUrl)
 
-        document.getElementById("leftPlane").setAttribute("src", imageUrlTemplate + ".L.jpg")
-        document.getElementById("rightPlane").setAttribute("src", imageUrlTemplate + ".R.jpg")
-
-        if (scenes[currentImage].correction != null) {
-            eyeDelta = scenes[currentImage].correction;
-        } else {
-            eyeDelta = [0, 0, 0];
-        }
-        loadedImage = currentImage;
+        loadedImageIdId = currentImageId;
     }
-    var positionR = (positionBase[0] + positionOffset[0] + rotationOffset[0] - eyeDelta[0]/2)
-             + " " + (positionBase[1] + positionOffset[1] + rotationOffset[1] - eyeDelta[1]/2)
-             + " " + (positionBase[2] + positionOffset[2] + rotationOffset[2] - eyeDelta[2]/2);
-    var positionL = (positionBase[0] + positionOffset[0] + rotationOffset[0] + eyeDelta[0]/2)
-             + " " + (positionBase[1] + positionOffset[1] + rotationOffset[1] + eyeDelta[1]/2)
-             + " " + (positionBase[2] + positionOffset[2] + rotationOffset[2] + eyeDelta[2]/2);
+    var positionR = (positionBase[0] + positionOffset[0] + rotationOffset[0] - vm.correction[0]/2)
+             + " " + (positionBase[1] + positionOffset[1] + rotationOffset[1] - vm.correction[1]/2)
+             + " " + (positionBase[2] + positionOffset[2] + rotationOffset[2] - vm.correction[2]/2);
+    var positionL = (positionBase[0] + positionOffset[0] + rotationOffset[0] + vm.correction[0]/2)
+             + " " + (positionBase[1] + positionOffset[1] + rotationOffset[1] + vm.correction[1]/2)
+             + " " + (positionBase[2] + positionOffset[2] + rotationOffset[2] + vm.correction[2]/2);
 
     document.getElementById("leftPlane").setAttribute("position", positionL)
     document.getElementById("rightPlane").setAttribute("position", positionR)
@@ -126,22 +131,22 @@ function resetPosition() {
 window.addEventListener("keydown", function(e){
     if(e.keyCode === 37) { // left
         eyeDelta[0] -= eyeDeltaStep;
-        scenes[currentImage].correction = eyeDelta;
+        vm.correction = eyeDelta;
         render();
     }
     if(e.keyCode === 39) { // right
         eyeDelta[0] += eyeDeltaStep;
-        scenes[currentImage].correction = eyeDelta;
+        vm.correction = eyeDelta;
         render();
     }
     if(e.keyCode === 38) { // up
         eyeDelta[1] += eyeDeltaStep;
-        scenes[currentImage].correction = eyeDelta;
+        vm.correction = eyeDelta;
         render();
     }
     if(e.keyCode === 40) { // down
         eyeDelta[1] -= eyeDeltaStep;
-        scenes[currentImage].correction = eyeDelta;
+        vm.correction = eyeDelta;
         render();
     }
     if(e.keyCode === 82) { // r
@@ -176,18 +181,18 @@ function nextImageByTimer() {
 
 function nextImage() {
     saveImageCorrections();
-    currentImage = getNextIndex(currentImage);
+    currentImageId = getNextIndex(currentImageId);
     render();
 }
 
 function previousImage() {
     saveImageCorrections();
-    currentImage = getPreviousIndex(currentImage);
+    currentImageId = getPreviousIndex(currentImageId);
     render();
 }
 
 function saveImageCorrections() {
-    scenes[currentImage].correction = eyeDelta;
+    vm.correction = eyeDelta;
 }
 
 function getNextIndex(value) {
