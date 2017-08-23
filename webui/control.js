@@ -18,8 +18,9 @@ var timeoutId;
 var allCategories = [];
 var imagePathPrefix = "";
 var isMenuVisible = false;
-var usesGaze = true;
 var cdnPrefix = "https://vrcv.azureedge.net/vrcv/";
+
+
 
 initialize();
 
@@ -213,22 +214,5 @@ function toggleTimer() {
         window.clearTimeout(timeoutId);
         timeoutId = null;
         document.getElementById("timerButton").setAttribute("color", "#311");
-    }
-}
-
-function toggleGaze() {
-    if (usesGaze)
-    {
-        usesGaze = false;
-        document.getElementById("cursor").setAttribute("fuse", "false");
-        document.getElementById("cursor").setAttribute("raycaster", "objects:#nothing");
-        document.getElementById("gazeButton").setAttribute("color", "#311");
-    }
-    else
-    {
-        usesGaze = true;
-        document.getElementById("cursor").setAttribute("fuse", "true");
-        document.getElementById("cursor").setAttribute("raycaster", "objects:.ui-menu");
-        document.getElementById("gazeButton").setAttribute("color", "#cc3");
     }
 }
