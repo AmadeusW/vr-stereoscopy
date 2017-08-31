@@ -51,16 +51,17 @@ function getViewModel(id) {
     }
 }
 
-async function goToCategory(categoryId, subcategoryId) {
-    // TODO: I need a proper framework instead of storing data in global variables
-    scenes = await initializeCategory((allCategories)[categoryId].Subcategories[subcategoryId].Feed);
-    imagePathPrefix = (allCategories)[categoryId].Subcategories[subcategoryId].ImagePathPrefix;
+async function goToCategory(categoryId) {
+    if (categoryId == null) throw "Invalid categoryId";
+    scenes = await initializeCategory(allCategories[categoryId].Feed);
+    console.log("goToCategory:", scenes);
+    imagePathPrefix = allCategories[categoryId].ImagePathPrefix;
     lastImage = scenes.length - 1;
     currentThumbR = 1;
     currentThumbL = lastImage;
     currentImageId = 0;
     loadedImageId = -1;
-    console.log("Going to ", categoryId, subcategoryId, "; Loaded scenes: ", scenes, "; Prefix: ", imagePathPrefix);
+    console.log("Going to category " + categoryId + "; Loaded scenes: ", scenes, "; Prefix: ", imagePathPrefix);
     render();
 }
 

@@ -15,33 +15,35 @@ function buildMenu(categories) {
     var galleryItems = [];
 
     for (var categoryId = 0; categoryId < categories.length; categoryId++) {
-        for (var subId = 0; subId < categories[categoryId].Subcategories.length; subId++) {
-            galleryItems.push({
-                title: categories[categoryId].Subcategories[subId].DisplayName,
-                description: categories[categoryId].Subcategories[subId].DisplayName,
-                picture: cdnPrefix + categories[categoryId].Subcategories[subId].Thumbnail + ".T.L.jpg",
-                id: categoryId,
-                subId: subId
-            });
-        }
+        galleryItems.push({
+            title: categories[categoryId].DisplayName,
+            description: categories[categoryId].DisplayName,
+            picture: cdnPrefix + categories[categoryId].Thumbnail + ".T.L.jpg",
+            id: categoryId
+        });
     }
 
     menuVue = new Vue({
         el: '#menu',
         data: {
           items: galleryItems,
-          test: "hey",
           show_main: true,
           show_gallery: false
         }
-      });
+    });
+
+    currentImageVue = new Vue({
+        el: '#imageDetails',
+        data: {
+            title: "Image title goes here"
+        }
+    });
 }
 
 function onGalleryItemClick(event) {
-    var category = event.target.getAttribute("cid")
-    var subcategory = event.target.getAttribute("sid")
+    var category = event.currentTarget.getAttribute("cid")
 
-    goToCategory(category, subcategory);
+    goToCategory(category);
     goToVR();
 }
 
@@ -107,20 +109,6 @@ function onNavigate(sender, params) {
         nextImage();
     } else if (params[0] == 'l') {
         previousImage();
-    }
-}
-
-function onConfirm(sender, params) {
-    var category = parseInt(params[0]);
-    var subcategory = parseInt(params[1]);
-    if (category > -1) {
-        if (subcategory > -1) {
-            // We are in subcategory. Display images
-            console.log("User selected a category");
-            goToCategory(category, subcategory);
-            hideMenu(); // TODO: show menu by looking up or down
-        }
-        // We are in category. Display a subcategory?
     }
 }
 

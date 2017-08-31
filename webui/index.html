@@ -16,25 +16,14 @@
     
     <!-- HTML menu -->
     <div id="menu" class="container">
-      <section class="title" id="main-title" v-if="show_main">
-        <h1><a href="index.html">VR Stereoscopy</a></h1>
+      <section class="title">
+        <h1>VR Stereoscopy</h1>
         <p>Turn your VR headset into a stereoscope.</p>
-      </section>
-
-      <section class="title" id="gallery-title" v-if="show_gallery">
-        <h1><a href="#">VR Stereoscopy</a></h1>
-        <p>You're now viewing</p>
-        <h3>Album title</h1>
-        <p>Paragraph describing the album, where it came from and what does it contain.</p>
-        <h2>{{title}}</h3>
-        <img class="picture" :src="thumbLeftUrl" />
-        <a :href="originalUrl">Source</a>
+        <p>Choose from albums scraped from the internet or taken by me.</p>
       </section>
 
       <section class="galleries" id="galleries-menu">
-        <p v-if="show_main">Choose from albums scraped from the internet or taken by me.</p>
-        <p v-if="show_gallery">All picture in this album</p>
-        <section class="item" v-for="item in items" :cid="item.id" :sid="item.subId" onclick="onGalleryItemClick(event)">
+        <section class="item" v-for="item in items" :cid="item.id" onclick="onGalleryItemClick(event)">
           <img class="picture" :src="item.picture" />
           <div class="description">
             <h3>{{item.title}}</h3>
@@ -43,14 +32,14 @@
         </section>
       </section>
       
-      <section class="footer">Built with <a href="https://aframe.io/">A-Frame</a>. Visit me on <a href="//github.com/amadeusw/vr-stereoscopy">GitHub</a></section>
+      <section class="footer">Built with <a href="https://aframe.io/">A-Frame</a> by Amadeusz Wieczorek. Visit me on <a href="//github.com/amadeusw/vr-stereoscopy">GitHub</a></section>
     </div>
 
     <!-- VR world -->
     <a-scene id="scene">
       <a-entity id="camera" camera="userHeight: 1.6" stereocam="eye:left;" look-controls mouse-cursor>
         <!-- Stereo picture fixed to the camera -->
-        <a-entity id="mainPane">
+        <a-entity id="mainPane"`>
           <a-plane id="leftPlane"  position="0 0 -9" width="9" height="9" src="images/201705/6c9wxa.L.jpg" stereo="eye: right"></a-plane>
           <a-plane id="rightPlane" position="0 0 -9" width="9" height="9" src="images/201705/6c9wxa.R.jpg" stereo="eye: left"></a-plane>
         </a-entity>
