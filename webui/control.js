@@ -19,6 +19,7 @@ var allCategories = [];
 var imagePathPrefix = "";
 var isMenuVisible = false;
 var cdnPrefix = "https://vrcv.azureedge.net/vrcv/";
+var menuVue;
 var currentImageVue;
 
 

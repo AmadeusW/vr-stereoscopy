@@ -26,15 +26,14 @@ function buildMenu(categories) {
         }
     }
 
-    var galleriesVue = new Vue({
-        el: '#galleries-menu',
+    menuVue = new Vue({
+        el: '#menu',
         data: {
-          items: galleryItems
+          items: galleryItems,
+          test: "hey",
+          show_main: true,
+          show_gallery: false
         }
-      });
-    
-      currentImageVue = new Vue({
-          el: '#details-menu'
       });
 }
 
@@ -66,10 +65,23 @@ function goToVR() {
     render();
     document.getElementById("menu").classList.add("hidden");
     document.getElementById("scene").enterVR();
+    showGalleryUI();
 }
 
 function onVrClosed() {
     document.getElementById("menu").classList.remove("hidden");
+}
+
+function showMainUI() {
+    menuVue.data.show_main = true;
+    menuVue.data.show_gallery = false;
+    console.log("main");
+}
+
+function showGalleryUI() {
+    menuVue.data.show_main = false;
+    menuVue.data.show_gallery = true;
+    console.log("gallery");
 }
 
 function onSelect(sender, params) {
