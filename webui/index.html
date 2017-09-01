@@ -15,7 +15,7 @@
   <body>
     
     <!-- HTML menu -->
-    <div class="container" id="menuContainer" v-if="visible">
+    <div class="container" id="menuContainer" v-show="visible">
       <section class="title" id="main-title" v-if="visible">
         <h1><a href="index.html">VR Stereoscopy</a></h1>
         <p>Turn your VR headset into a stereoscope.</p>
@@ -57,7 +57,7 @@
     </div>
 
     <!-- VR world -->
-    <a-scene id="scene" v-if="visible">
+    <a-scene id="scene" v-show="visible">
       <a-entity id="camera" camera="userHeight: 1.6" stereocam="eye:left;" look-controls mouse-cursor>
         <!-- Stereo picture fixed to the camera -->
         <a-entity id="mainPane">
