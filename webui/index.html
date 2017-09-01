@@ -57,7 +57,7 @@
     </div>
 
     <!-- VR world -->
-    <a-scene id="scene" id="vrContainer" v-if="visible">
+    <a-scene id="scene" v-if="visible">
       <a-entity id="camera" camera="userHeight: 1.6" stereocam="eye:left;" look-controls mouse-cursor>
         <!-- Stereo picture fixed to the camera -->
         <a-entity id="mainPane">

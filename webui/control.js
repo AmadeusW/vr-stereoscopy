@@ -139,22 +139,22 @@ function resetPosition() {
 window.addEventListener("keydown", function(e){
     if(e.keyCode === 37) { // left
         eyeDelta[0] -= eyeDeltaStep;
-        vm.correction = eyeDelta;
+        galleryTitleVue.item.correction = eyeDelta;
         render();
     }
     if(e.keyCode === 39) { // right
         eyeDelta[0] += eyeDeltaStep;
-        vm.correction = eyeDelta;
+        galleryTitleVue.item.correction = eyeDelta;
         render();
     }
     if(e.keyCode === 38) { // up
         eyeDelta[1] += eyeDeltaStep;
-        vm.correction = eyeDelta;
+        galleryTitleVue.item.correction = eyeDelta;
         render();
     }
     if(e.keyCode === 40) { // down
         eyeDelta[1] -= eyeDeltaStep;
-        vm.correction = eyeDelta;
+        galleryTitleVue.item.correction = eyeDelta;
         render();
     }
     if(e.keyCode === 82) { // r
@@ -200,7 +200,7 @@ function previousImage() {
 }
 
 function saveImageCorrections() {
-    vm.correction = eyeDelta;
+    galleryTitleVue.item.correction = eyeDelta;
 }
 
 function getNextIndex(value) {

@@ -66,7 +66,7 @@ function buildMenu(categories) {
     });
 
     vrContainerVue = new Vue({
-        el: '#vrContainer',
+        el: '#scene',
         data: {
             visible: true
         }
