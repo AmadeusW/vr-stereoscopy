@@ -19,9 +19,12 @@ var allCategories = [];
 var imagePathPrefix = "";
 var isMenuVisible = false;
 var cdnPrefix = "https://vrcv.azureedge.net/vrcv/";
-var menuVue;
-var currentImageVue;
-
+var mainTitleVue;
+var galleryTitleVue;
+var mainMenuVue;
+var galleryMenuVue;
+var menuContainerVue;
+var vrContainerVue;
 
 initialize();
 
@@ -55,6 +58,7 @@ async function goToCategory(categoryId) {
     if (categoryId == null) throw "Invalid categoryId";
     scenes = await initializeCategory(allCategories[categoryId].Feed);
     console.log("goToCategory:", scenes);
+    galleryMenuVue.items = scenes;
     imagePathPrefix = allCategories[categoryId].ImagePathPrefix;
     lastImage = scenes.length - 1;
     currentThumbR = 1;
@@ -91,7 +95,7 @@ function render() {
         document.getElementById("rightPlane").setAttribute("src", vm.imageRightUrl)
 
         loadedImageIdId = currentImageId;
-        currentImageVue.data = vm;
+        galleryTitleVue.item = vm;
     }
     var positionR = (positionBase[0] + positionOffset[0] + rotationOffset[0] - vm.correction[0]/2)
              + " " + (positionBase[1] + positionOffset[1] + rotationOffset[1] - vm.correction[1]/2)

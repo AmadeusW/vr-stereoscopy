@@ -23,27 +23,60 @@ function buildMenu(categories) {
         });
     }
 
-    menuVue = new Vue({
-        el: '#menu',
+    mainTitleVue = new Vue({
+        el: '#main-title',
         data: {
-          items: galleryItems,
-          show_main: true,
-          show_gallery: false
+          visible: true
         }
     });
 
-    currentImageVue = new Vue({
-        el: '#imageDetails',
+    galleryTitleVue = new Vue({
+        el: '#gallery-title',
         data: {
-            title: "Image title goes here"
+          visible: true,
+          item: {
+            title: "Image title goes here",
+            thumbLeftUrl: "https://vrcv.azureedge.net/vrcv/201705/69ov7p.T.L.jpg",
+            originalUrl: "amadeusw.com"
+          }
+        }
+    });
+
+    mainMenuVue = new Vue({
+        el: '#main-menu',
+        data: {
+            visible: true,
+            items: galleryItems
+        }
+    });
+
+    galleryMenuVue = new Vue({
+        el: '#gallery-menu',
+        data: {
+            visible: true,
+            items: []
+        }
+    });
+
+    menuContainerVue = new Vue({
+        el: '#menuContainer',
+        data: {
+            visible: true
+        }
+    });
+
+    vrContainerVue = new Vue({
+        el: '#vrContainer',
+        data: {
+            visible: true
         }
     });
 }
 
-function onGalleryItemClick(event) {
+async function onGalleryItemClick(event) {
     var category = event.currentTarget.getAttribute("cid")
 
-    goToCategory(category);
+    await goToCategory(category);
     goToVR();
 }
 
@@ -65,24 +98,30 @@ function placeInCircle(el, angle) {
 
 function goToVR() {
     render();
-    document.getElementById("menu").classList.add("hidden");
+    menuContainerVue.visible = false;
+    vrContainerVue.visible = true;
     document.getElementById("scene").enterVR();
     showGalleryUI();
 }
 
 function onVrClosed() {
-    document.getElementById("menu").classList.remove("hidden");
+    menuContainerVue.visible = true;
+    vrContainerVue.visible = false;
 }
 
 function showMainUI() {
-    menuVue.data.show_main = true;
-    menuVue.data.show_gallery = false;
+    galleryTitleVue.visible = false;
+    mainTitleVue.visible = true;
+    galleryMenuVue.visible = false;
+    mainMenuVue.visible = true;
     console.log("main");
 }
 
 function showGalleryUI() {
-    menuVue.data.show_main = false;
-    menuVue.data.show_gallery = true;
+    galleryTitleVue.visible = true;
+    mainTitleVue.visible = false;
+    galleryMenuVue.visible = true;
+    mainMenuVue.visible = false;
     console.log("gallery");
 }
 
