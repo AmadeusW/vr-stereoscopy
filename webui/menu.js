@@ -75,9 +75,9 @@ function buildMenu(categories) {
 
 async function onGalleryItemClick(event) {
     var category = event.currentTarget.getAttribute("cid")
-
-    await goToCategory(category);
     goToVR();
+    await goToCategory(category);
+    render();
 }
 
 function placeInCircle(el, angle) {
@@ -97,7 +97,7 @@ function placeInCircle(el, angle) {
 }
 
 function goToVR() {
-    render();
+    //render(); // XXX: AFrame seems to lose the user gesture origin of async functions. enterVR() immediately and render() later.
     menuContainerVue.visible = false;
     vrContainerVue.visible = true;
     document.getElementById("scene").enterVR();
