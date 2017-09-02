@@ -54,7 +54,7 @@ function buildMenu(categories) {
         el: '#gallery-menu',
         data: {
             visible: true,
-            items: galleryItems
+            items: []
         }
     });
 }

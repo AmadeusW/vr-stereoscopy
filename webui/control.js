@@ -38,18 +38,18 @@ async function initialize() {
     //render();
 }
 
-function getViewModel(id) {
+function getViewModel(scene) {
     return {
-        title: scenes[id].Title,
-        imageLeftUrl: cdnPrefix + imagePathPrefix + scenes[id].Link + ".L.jpg",
-        imageRightUrl: cdnPrefix + imagePathPrefix + scenes[id].Link + ".R.jpg",
-        thumbLeftUrl: cdnPrefix + imagePathPrefix + scenes[id].Link+ ".T.L.jpg",
-        thumbRightUrl: cdnPrefix + imagePathPrefix + scenes[id].Link + ".T.R.jpg",
-        originalUrl: scenes[id].shortLink, // user friendly link to the original
-        originalImageUrl: scenes[id].ImageUrl, // raw version of the image
-        width: scenes[id].W,
-        height: scenes[id].H,
-        correction: scenes[id].correction != null ? scenes[id].correction : [0, 0, 0]
+        title: scene.Title,
+        imageLeftUrl: cdnPrefix + imagePathPrefix + scene.Link + ".L.jpg",
+        imageRightUrl: cdnPrefix + imagePathPrefix + scene.Link + ".R.jpg",
+        thumbLeftUrl: cdnPrefix + imagePathPrefix + scene.Link+ ".T.L.jpg",
+        thumbRightUrl: cdnPrefix + imagePathPrefix + scene.Link + ".T.R.jpg",
+        originalUrl: scene.shortLink, // user friendly link to the original
+        originalImageUrl: scene.ImageUrl, // raw version of the image
+        width: scene.W,
+        height: scene.H,
+        correction: scene.correction != null ? scene.correction : [0, 0, 0]
     }
 }
 
@@ -57,8 +57,8 @@ async function goToCategory(categoryId) {
     if (categoryId == null) throw "Invalid categoryId";
     scenes = await initializeCategory(allCategories[categoryId].Feed);
     console.log("goToCategory:", scenes);
-    galleryMenuVue.items = scenes;
     imagePathPrefix = allCategories[categoryId].ImagePathPrefix;
+    galleryMenuVue.items = scenes.map(getViewModel);
     lastImage = scenes.length - 1;
     currentThumbR = 1;
     currentThumbL = lastImage;
