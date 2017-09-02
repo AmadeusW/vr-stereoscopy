@@ -23,8 +23,6 @@ var mainTitleVue;
 var galleryTitleVue;
 var mainMenuVue;
 var galleryMenuVue;
-var menuContainerVue;
-var vrContainerVue;
 
 initialize();
 

@@ -57,18 +57,11 @@ function buildMenu(categories) {
             items: galleryItems
         }
     });
-
-    vrContainerVue = new Vue({
-        el: '#scene',
-        data: {
-            visible: true
-        }
-    });
 }
 
 async function onGalleryItemClick(event) {
     var category = event.currentTarget.getAttribute("cid")
-    goToVR();
+    goToVR(); // AFrame quirk requires this to happen before awaiting.
     await goToCategory(category);
     render();
 }
@@ -90,14 +83,13 @@ function placeInCircle(el, angle) {
 }
 
 function goToVR() {
-    //render(); // XXX: AFrame seems to lose the user gesture origin of async functions. enterVR() immediately and render() later.
-    vrContainerVue.visible = true;
     document.getElementById("scene").enterVR();
+    document.getElementById("scene").classList.remove("hidden");
     showGalleryUI();
 }
 
 function onVrClosed() {
-    vrContainerVue.visible = false;
+    document.getElementById("scene").classList.add("hidden");
 }
 
 function showMainUI() {
