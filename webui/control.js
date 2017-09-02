@@ -31,6 +31,7 @@ async function initialize() {
     var categories = initializeMenu();
     allCategories = await categories;
     buildMenu(await categories);
+    showMainUI();
     initializeAFrame();
     //await goToCategory(0, 0); // Initial category to display
     //scenes = await initializeCategory((await categories)[0].Subcategories[0].Feed)
