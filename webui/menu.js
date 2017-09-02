@@ -54,14 +54,7 @@ function buildMenu(categories) {
         el: '#gallery-menu',
         data: {
             visible: true,
-            items: []
-        }
-    });
-
-    menuContainerVue = new Vue({
-        el: '#menuContainer',
-        data: {
-            visible: true
+            items: galleryItems
         }
     });
 
@@ -98,14 +91,12 @@ function placeInCircle(el, angle) {
 
 function goToVR() {
     //render(); // XXX: AFrame seems to lose the user gesture origin of async functions. enterVR() immediately and render() later.
-    menuContainerVue.visible = false;
     vrContainerVue.visible = true;
     document.getElementById("scene").enterVR();
     showGalleryUI();
 }
 
 function onVrClosed() {
-    menuContainerVue.visible = true;
     vrContainerVue.visible = false;
 }
 
