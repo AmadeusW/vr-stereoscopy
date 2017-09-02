@@ -23,9 +23,10 @@
 
       <section class="title" id="gallery-title" v-if="visible">
         <h1><a href="#" onclick="showMainUI()">VR Stereoscopy</a></h1>
-        <p>You're now viewing</p>
-        <h3>Album title</h1>
-        <p>Paragraph describing the album, where it came from and what does it contain.</p>
+        <p>
+          You're now viewing album <b>Album title</b>: 
+          Paragraph describing the album, where it came from and what does it contain.
+        </p>
         <img class="picture" :src="item.thumbLeftUrl" />
         <p>{{item.title}}</p>
         <p><a :href="item.originalUrl">Source</a></p>
@@ -47,7 +48,7 @@
           <section class="item" v-for="item in items" :cid="item.id" onclick="onGalleryItemClick(event)">
             <img class="picture" :src="item.thumbLeftUrl" />
             <div class="description">
-              <p>{{item.description}}</p>
+              <p>{{item.title}}</p>
             </div>
           </section>
         </section>
