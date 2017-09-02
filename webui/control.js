@@ -59,6 +59,8 @@ async function goToCategory(categoryId) {
     console.log("goToCategory:", scenes);
     imagePathPrefix = allCategories[categoryId].ImagePathPrefix;
     galleryMenuVue.items = scenes.map(getViewModel);
+    galleryTitleVue.galleryTitle = allCategories[categoryId].DisplayName;
+    galleryTitleVue.galleryDescription = allCategories[categoryId].Feed;
     lastImage = scenes.length - 1;
     currentThumbR = 1;
     currentThumbL = lastImage;

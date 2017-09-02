@@ -38,7 +38,9 @@ function buildMenu(categories) {
             title: "Image title goes here",
             thumbLeftUrl: "https://vrcv.azureedge.net/vrcv/201705/69ov7p.T.L.jpg",
             originalUrl: "amadeusw.com"
-          }
+          },
+          galleryTitle: "",
+          galleryDescription: ""
         }
     });
 
