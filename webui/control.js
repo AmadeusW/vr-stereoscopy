@@ -83,7 +83,7 @@ function initializeAFrame() {
 function render() {
     if (loadedImageId != currentImageId)
     {
-        var vm = getViewModel(currentImageId);
+        var vm = getViewModel(scenes[currentImageId]);
         console.log("Rendering new image:", vm);
 
         document.getElementById("leftPlane").setAttribute("width", Math.pow(2, vm.width))
