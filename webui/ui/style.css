@@ -72,7 +72,7 @@ h1,h2,h3,h4,h5,b {
   border-right: 3px solid #e60;
 }
   
-@media (orientation: landscape) {  
+@media (orientation: landscape) and (min-width: 1000px) {  
   .container {
     flex-wrap: wrap;
     justify-content: space-between;
@@ -94,7 +94,7 @@ h1,h2,h3,h4,h5,b {
   }
 }
 
-@media (orientation: landscape) and (min-width: 1200px) {
+@media (orientation: landscape) and (min-width: 1500px) {
   .container {
     padding: 10vh 10vw 10vh 10vw;
   }
