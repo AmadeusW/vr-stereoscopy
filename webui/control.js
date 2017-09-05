@@ -61,7 +61,7 @@ async function goToCategory(categoryId) {
     imagePathPrefix = allCategories[categoryId].ImagePathPrefix;
     galleryMenuVue.items = scenes.map(getViewModel);
     galleryTitleVue.galleryTitle = allCategories[categoryId].DisplayName;
-    galleryTitleVue.galleryDescription = allCategories[categoryId].Feed;
+    galleryTitleVue.galleryDescription = allCategories[categoryId].Description;
     lastImage = scenes.length - 1;
     currentThumbR = 1;
     currentThumbL = lastImage;

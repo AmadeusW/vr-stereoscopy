@@ -17,7 +17,7 @@ function buildMenu(categories) {
     for (var categoryId = 0; categoryId < categories.length; categoryId++) {
         galleryItems.push({
             title: categories[categoryId].DisplayName,
-            description: categories[categoryId].DisplayName,
+            description: categories[categoryId].Description,
             picture: cdnPrefix + categories[categoryId].Thumbnail + ".T.L.jpg",
             id: categoryId
         });
