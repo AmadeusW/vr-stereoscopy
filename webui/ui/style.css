@@ -1,0 +1,101 @@
+body {
+  color: #ddd;
+}
+a,a:visited {
+  color: #e60;
+}
+a:hover {
+  color: #f82;
+}
+h1 a {
+  text-decoration: none;
+}
+.container {
+  display: flex;
+  flex-direction: column;
+  z-index: 9999;
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  background: #000;
+  padding: 10px;
+}
+.hidden {
+  display: none;
+}
+.title {
+  background-color: #000;
+  padding: 5px;
+}
+h1,h2,h3,h4,h5,b {
+  color: #e60;
+}
+.settings {
+  background-color: #aaa;
+}
+.footer {
+  background-color: #000;
+  border-top: 1px solid #e60;
+  text-align: right;
+  padding: 10px;
+  padding-right: 100px;
+}
+
+.galleries {
+  flex-direction: column;
+  background-color: #000;
+  flex-grow: 1;
+  overflow-y: scroll;
+  padding: 5px;
+}
+
+.item {
+  display: flex;
+  padding: 0 3px;
+  border-left: 3px solid #000;
+  border-right: 3px solid #000;
+}
+.item .picture {
+  width: 128px;
+  height: 128px;
+}
+.item .description {
+  padding: 10px;
+}
+.item:hover,item:active {
+  background-color: #420;
+  border-left: 3px solid #e60;
+  border-right: 3px solid #e60;
+}
+  
+@media (orientation: landscape) {  
+  .container {
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+  .title {
+    width: 30vw;
+  }
+  .footer {
+    width: 30vw;
+    padding-right: 10px;
+  }
+  .galleries {
+    order: 9;
+    flex-grow: 1;
+    height: 100vh;
+    width: 70vw;
+  }
+}
+
+@media (orientation: landscape) and (min-width: 1200px) {
+  .container {
+    padding: 10vh 10vw 10vh 10vw;
+  }
+  .galleries {
+    height: 80vh;
+    width: 50vw;
+  }
+}

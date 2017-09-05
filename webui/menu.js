@@ -12,45 +12,67 @@ async function initializeCategory(feed) {
 }
 
 function buildMenu(categories) {
-    var menu = document.querySelector("#menuPane");
-    var template = document.querySelector("#categoryTemplate");
+    var galleryItems = [];
 
     for (var categoryId = 0; categoryId < categories.length; categoryId++) {
-        /*
-        For now, we won't show categories.
-        var category = template.cloneNode(true); // deep:true
-        category.setAttribute("id", "category" + categoryId);
-        category.setAttribute("position", categoryId + " 1 0");
-        category.setAttribute("visible", true);
-        category.querySelector(".title")
-            .setAttribute("value", categories[categoryId].DisplayName);
-        category.querySelector(".thumbL")
-            .setAttribute("src", "images/" + categories[categoryId].Thumbnail + ".T.L.jpg");
-        category.querySelector(".thumbR")
-            .setAttribute("src", "images/" + categories[categoryId].Thumbnail + ".T.R.jpg");
-        category.querySelector(".categoryThumb")
-            .setAttribute("listener__click", "event: click; callback: onConfirm; params: "+categoryId+", -1");
-
-        menu.appendChild(category);
-        */
-        for (var subId = 0; subId < categories[categoryId].Subcategories.length; subId++) {
-            var sub = template.cloneNode(/*deep:*/true);
-            sub.setAttribute("id", "category" + categoryId + "sub" + subId);
-            var separation = 360 / categories[categoryId].Subcategories.length;
-            placeInCircle(sub, (subId - 1) * separation)
-            sub.setAttribute("visible", true);
-            sub.querySelector(".title")
-                .setAttribute("value", categories[categoryId].Subcategories[subId].DisplayName);
-            sub.querySelector(".thumbL").
-                setAttribute("src", cdnPrefix + categories[categoryId].Subcategories[subId].Thumbnail + ".T.L.jpg");
-            sub.querySelector(".thumbR").
-                setAttribute("src", cdnPrefix + categories[categoryId].Subcategories[subId].Thumbnail + ".T.R.jpg");
-            sub.querySelector(".categoryThumb")
-                .setAttribute("listener__click", "event: click; callback: onConfirm; params: "+categoryId+", "+subId);
-
-            menu.appendChild(sub);
-        }
+        galleryItems.push({
+            title: categories[categoryId].DisplayName,
+            description: categories[categoryId].Description,
+            picture: cdnPrefix + categories[categoryId].Thumbnail + ".T.L.jpg",
+            id: categoryId
+        });
     }
+
+    mainTitleVue = new Vue({
+        el: '#main-title',
+        data: {
+          visible: true
+        }
+    });
+
+    galleryTitleVue = new Vue({
+        el: '#gallery-title',
+        data: {
+          visible: true,
+          item: {
+            title: "Image title goes here",
+            thumbLeftUrl: "https://vrcv.azureedge.net/vrcv/201705/69ov7p.T.L.jpg",
+            originalUrl: "amadeusw.com"
+          },
+          galleryTitle: "",
+          galleryDescription: ""
+        }
+    });
+
+    mainMenuVue = new Vue({
+        el: '#main-menu',
+        data: {
+            visible: true,
+            items: galleryItems
+        }
+    });
+
+    galleryMenuVue = new Vue({
+        el: '#gallery-menu',
+        data: {
+            visible: true,
+            items: []
+        }
+    });
+}
+
+async function onCategoryClick(event) {
+    var category = event.currentTarget.getAttribute("cid")
+    goToVR(); // AFrame quirk requires this to happen before awaiting.
+    await goToCategory(category);
+    render();
+}
+
+async function onGalleryItemClick(event) {
+    var imageId = event.currentTarget.getAttribute("cid")
+    goToVR(); // AFrame quirk requires this to happen before awaiting.
+    currentImageId = imageId;
+    render();
 }
 
 function placeInCircle(el, angle) {
@@ -69,20 +91,30 @@ function placeInCircle(el, angle) {
   el.setAttribute("rotation", angleY + " " + angleX + " 0")
 }
 
-function showMenu() {
-    isMenuVisible = true;
-    document.querySelector("#menuPane").emit("show");
-    document.querySelector("#menuCurtain").emit("show");
-    document.querySelector("#cursor").setAttribute("visible", "true");
-    document.querySelector("#cursor").setAttribute("raycaster", "objects: .ui-menu");
+function goToVR() {
+    document.getElementById("scene").enterVR();
+    document.getElementById("scene").classList.remove("hidden");
+    showGalleryUI();
 }
 
-function hideMenu() {
-    isMenuVisible = false;
-    document.querySelector("#menuPane").emit("hide");
-    document.querySelector("#menuCurtain").emit("hide");
-    document.querySelector("#cursor").setAttribute("visible", "false");
-    document.querySelector("#cursor").setAttribute("raycaster", "objects: .ui-scroll");
+function onVrClosed() {
+    document.getElementById("scene").classList.add("hidden");
+}
+
+function showMainUI() {
+    galleryTitleVue.visible = false;
+    mainTitleVue.visible = true;
+    galleryMenuVue.visible = false;
+    mainMenuVue.visible = true;
+    console.log("main");
+}
+
+function showGalleryUI() {
+    galleryTitleVue.visible = true;
+    mainTitleVue.visible = false;
+    galleryMenuVue.visible = true;
+    mainMenuVue.visible = false;
+    console.log("gallery");
 }
 
 function onSelect(sender, params) {
@@ -109,28 +141,6 @@ function onNavigate(sender, params) {
     } else if (params[0] == 'l') {
         previousImage();
     }
-}
-
-function onConfirm(sender, params) {
-    var category = parseInt(params[0]);
-    var subcategory = parseInt(params[1]);
-    if (category > -1) {
-        if (subcategory > -1) {
-            // We are in subcategory. Display images
-            console.log("User selected a category");
-            goToCategory(category, subcategory);
-            hideMenu(); // TODO: show menu by looking up or down
-        }
-        // We are in category. Display a subcategory?
-    }
-}
-
-function onShowMenu(sender, params) {
-    showMenu();
-}
-
-function onHideMenu(sender, params) {
-    hideMenu();
 }
 
 function onToggleTimer(sender, params) {

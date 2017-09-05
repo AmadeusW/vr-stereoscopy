@@ -1,13 +1,9 @@
 {
     "categories": [
-    {
-        "DisplayName": "Best of Reddit", "Thumbnail": "201705/69ov7p", "Subcategories": [
-            { "DisplayName": "May 2017 ✔!", "Thumbnail": "201705/69ov7p", "ImagePathPrefix": "201705/", "Feed": "201705/posts.json" },
-            { "DisplayName": "April 2017 ✔?", "Thumbnail": "201704/63tlg0", "ImagePathPrefix": "201704/", "Feed": "201704/posts.json" },
-            { "DisplayName": "March 2017", "Thumbnail": "201703/5xa1y0", "ImagePathPrefix": "201703/", "Feed": "201703/posts.json" },
-            { "DisplayName": "2016 ✔", "Thumbnail": "2016/425ue6", "ImagePathPrefix": "2016/", "Feed": "2016/posts.json" },
-            { "DisplayName": "Japan", "Thumbnail": "Japan/cherry blossom", "ImagePathPrefix": "Japan/", "Feed": "Japan/posts.json" },
-            { "DisplayName": "1920s", "Thumbnail": "1920s/f0StAi6", "ImagePathPrefix": "1920s/", "Feed": "1920s/posts.json" },
-            { "DisplayName": "Cascadia", "Thumbnail": "Cascadia/road", "ImagePathPrefix": "Cascadia/", "Feed": "Cascadia/posts.json" }
-    ]}
-]}
+        { "DisplayName": "Reddit favs 2017", "Description": "Top pictures from May. TODO: move pictures from other months and sanitize", "Thumbnail": "201705/69ov7p", "ImagePathPrefix": "201705/", "Feed": "201705/posts.json" },
+        { "DisplayName": "Reddit favs 2016", "Description": "Top 50 of 2016", "Thumbnail": "2016/425ue6", "ImagePathPrefix": "2016/", "Feed": "2016/posts.json" },
+        { "DisplayName": "Japan", "Description": "Stereo memories from the trip", "Thumbnail": "Japan/cherry blossom", "ImagePathPrefix": "Japan/", "Feed": "Japan/posts.json" },
+        { "DisplayName": "1920s", "Description": "Classic stereograms found on Reddit", "Thumbnail": "1920s/f0StAi6", "ImagePathPrefix": "1920s/", "Feed": "1920s/posts.json" },
+        { "DisplayName": "Cascadia", "Description": "Pacific Northwest, in stereo", "Thumbnail": "Cascadia/road", "ImagePathPrefix": "Cascadia/", "Feed": "Cascadia/posts.json" }
+    ]
+}

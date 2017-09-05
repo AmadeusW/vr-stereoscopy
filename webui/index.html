@@ -4,153 +4,70 @@
     <meta charset="utf-8">
     <title>Stereoscopic VR</title>
     <meta name="description" content="Watch stereoscopic images in your VR headset">
+    <link rel="stylesheet" href="ui/style.css">
     <script src="lib/aframe.min.js"></script>
     <script src="lib/aframe-stereo-component.min.js"></script>
     <script src="lib/aframe-animation-component.min.js"></script>
     <script src="lib/aframe-mouse-cursor-component.min.js"></script>
     <script src="lib/aframe-listener.js"></script>
+    <script src="https://unpkg.com/vue"></script>
   </head>
   <body>
-    <a-scene>
-      <a-assets>
-        <a-mixin id="zone-show" begin="mouseenter" easing="ease-out" attribute="opacity" to="0.2" dur="200"></a-mixin>
-        <a-mixin id="zone-hide" begin="mouseleave" easing="ease-out" attribute="opacity" to="0.01" dur="500"></a-mixin>
-      </a-assets>
+    
+    <!-- HTML menu -->
+    <div class="container">
+      <section class="title" id="main-title" v-if="visible">
+        <h1><a href="index.html">VR Stereoscopy</a></h1>
+        <p>Turn your VR headset into a stereoscope.</p>
+      </section>
 
+      <section class="title" id="gallery-title" v-if="visible">
+        <h1><a href="#" onclick="showMainUI()">VR Stereoscopy</a></h1>
+        <p>
+          You're now viewing album <b>{{galleryTitle}}</b>: {{galleryDescription}}
+        </p>
+        <img class="picture" :src="item.thumbLeftUrl" />
+        <p>{{item.title}}</p>
+        <p v-if="item.originalUrl"><a :href="item.originalUrl">Source</a></p>
+      </section>
+
+      <section class="galleries" id="main-menu" v-if="visible">
+        <p>Choose from albums scraped from the internet or taken by me.</p>
+        <section class="item" v-for="item in items" :cid="item.id" onclick="onCategoryClick(event)">
+          <img class="picture" :src="item.picture" />
+          <div class="description">
+            <h3>{{item.title}}</h3>
+            <p>{{item.description}}</p>
+          </div>
+        </section>
+      </section>
+      
+      <section class="galleries" id="gallery-menu" v-if="visible">
+          <p>All picture in this album</p>
+          <section class="item" v-for="item in items" :cid="item.id" onclick="onGalleryItemClick(event)">
+            <img class="picture" :src="item.thumbLeftUrl" />
+            <div class="description">
+              <p>{{item.title}}</p>
+            </div>
+          </section>
+        </section>
+
+      <section class="footer">Built with <a href="https://aframe.io/">A-Frame</a>. Visit me on <a href="//github.com/amadeusw/vr-stereoscopy">GitHub</a></section>
+    </div>
+
+    <!-- VR world -->
+    <a-scene id="scene" class="hidden">
       <a-entity id="camera" camera="userHeight: 1.6" stereocam="eye:left;" look-controls mouse-cursor>
-        <a-cursor fuse="true" id="cursor" color="yellow" fuseTimeout="700" raycaster="objects: .ui-menu"> <!-- todo: see why FAR nor OBJECTS don't work, and why visible: false objects are caught (category changes) -->
-          <a-animation begin="click" easing="ease-bounce" attribute="scale"
-             to="1 1 1" dur="200"></a-animation>
-          <a-animation begin="mouseleave" easing="ease-out" attribute="scale"
-             to="1 1 1" dur="300"></a-animation>
-          <a-animation begin="fusing" easing="ease-in" attribute="scale"
-             to="0.1 0.1 0.1" dur="700"></a-animation>
-        </a-cursor> <!-- TODO: Use cursor only when no controllers found -->
-
-        <!-- Stereo picture -->
-        <a-entity id="mainPane" visible="false">
+        <!-- Stereo picture fixed to the camera -->
+        <a-entity id="mainPane">
           <a-plane id="leftPlane"  position="0 0 -9" width="9" height="9" src="images/201705/6c9wxa.L.jpg" stereo="eye: right"></a-plane>
           <a-plane id="rightPlane" position="0 0 -9" width="9" height="9" src="images/201705/6c9wxa.R.jpg" stereo="eye: left"></a-plane>
         </a-entity>
-
       </a-entity>
-
-      <a-entity id="allUi">
-        <!-- Navigation in slideshow mode -->
-        <a-entity id="scrollPane" position="0 1.7 0">
-          <a-plane id="menuBottomZone" class="ui-scroll" position="0 -15 0" rotation="-90 0 0" width="50" height="20" color="#99b" opacity="0.01"
-            listener__click="event: click; callback: onShowMenu">
-            <a-animation mixin="zone-show"></a-animation>
-            <a-animation mixin="zone-hide"></a-animation>
-            </a-plane>
-          <a-plane id="menuTopZone" class="ui-scroll" position="0 15 0" rotation="90 0 0" width="50" height="20" color="#99b" opacity="0.01"
-            listener__click="event: click; callback: onShowMenu">
-            <a-animation mixin="zone-show"></a-animation>
-            <a-animation mixin="zone-hide"></a-animation>
-          </a-plane>
-          <a-plane id="scrollRThumbZone" class="ui-scroll" color="#99b" opacity="0.01" 
-            position="3.1 0 3" width="10" height="20" rotation="0 -90 0"
-            listener__click="event: click; callback: onNavigate; params: r"
-            listener__enter="event: mouseenter; callback: onSelect; params: scrollRThumb"
-            listener__leave="event: mouseleave; callback: onDeselect; params: scrollRThumb"
-            >
-            <a-animation mixin="zone-show"></a-animation>
-            <a-animation mixin="zone-hide"></a-animation>
-          </a-plane>
-          <a-entity id="scrollRThumb" position="3 0 0" rotation="0 -90 0">
-            <a-animation begin="grow" easing="ease-out" attribute="scale"
-              fill="forwards" to="2 2 2" dur="200"></a-animation>
-            <a-animation begin="shrink" easing="ease-out" attribute="scale"
-              fill="forwards" to="1 1 1" dur="300"></a-animation>
-            <a-plane id="srollRFrame" class="ui-menu" width="1.1905" height="1.1905" position="0 0 -0.05" material="transparent: true" src="ui/frame.png"></a-plane>
-            <a-plane id="scrollRThumbL" class="ui-scroll" width="1" height="1" src="images/201705/6c9wxa.T.L.jpg" stereo="eye: right"></a-plane>
-            <a-plane id="scrollRThumbR" class="ui-scroll" width="1" height="1" src="images/201705/6c9wxa.T.R.jpg" stereo="eye: left"></a-plane>
-          </a-entity>
-          <a-plane id="scrollLThumbZone" class="ui-scroll" color="#99b" opacity="0.01"
-            position="-2.9 0 4" width="10" height="20" rotation="0 90 0"
-            listener__click="event: click; callback: onNavigate; params: l"
-            listener__enter="event: mouseenter; callback: onSelect; params: scrollLThumb"
-            listener__leave="event: mouseleave; callback: onDeselect; params: scrollLThumb"
-          >
-            <a-animation mixin="zone-show"></a-animation>
-            <a-animation mixin="zone-hide"></a-animation>
-          </a-plane>
-          <a-entity id="scrollLThumb" position="-3 0 0" rotation="0 90 0">
-            <a-animation begin="grow" easing="ease-out" attribute="scale"
-              fill="forwards" to="2 2 2" dur="200"></a-animation>
-            <a-animation begin="shrink" easing="ease-out" attribute="scale"
-              fill="forwards" to="1 1 1" dur="300"></a-animation>
-            <a-plane id="srollRFrame" class="ui-menu" width="1.1905" height="1.1905" position="0 0 -0.05" material="transparent: true" src="ui/frame.png"></a-plane>
-            <a-plane id="scrollLThumbL" class="ui-scroll" width="1" height="1" src="images/201705/6c9wxa.T.L.jpg" stereo="eye: right"></a-plane>
-            <a-plane id="scrollLThumbR" class="ui-scroll" width="1" height="1" src="images/201705/6c9wxa.T.R.jpg" stereo="eye: left"></a-plane>
-          </a-entity>
-        </a-entity>
-
-        <!-- Menu -->
-        <a-entity id="menuPane" visible="false" position="0 2 -3">
-          <a-text id="imageTitle" position="-3 -3 0" color="white" value="."></a-text>
-
-          <a-animation begin="hide" delay="300"
-            attribute="visible" to="false"></a-animation>
-          <a-animation begin="hide" dur="300" easing="ease-in"
-            attribute="position" from="0 2 -3" to="0 2 -4"></a-animation>
-          <a-animation begin="show" delay="0"
-            attribute="visible" to="true"></a-animation>
-          <a-animation begin="show" dur="300" easing="ease-out"
-            attribute="position" from="0 2 -4" to="0 2 -3"></a-animation>
-
-          <a-plane width="20" height="20" position="0 0 -0.5" color="#000" opacity="0.7" id="menuCurtain">
-            <a-animation begin="show" dur="300"
-              attribute="material.opacity" from="0.0" to="0.7"></a-animation>
-            <a-animation begin="hide" dur="300"
-              attribute="material.opacity" from="0.7" to="0.0"></a-animation>
-          </a-plane>
-
-          <a-text id="menuTitle" position="-0.85 0 0" value="Stereoscopic VR">
-          </a-text>
-
-          <a-cylinder id="timerButton" class="ui-menu" position="-2 -2.5 0" rotation="90 0 0" color="#311" scale=".25 .05 .25"
-            listener__click="event: click; callback: onToggleTimer;"
-          >
-            <a-animation begin="mouseleave" easing="ease-out" attribute="scale"
-              to=".25 .05 .25" dur="500"></a-animation>
-            <a-animation begin="mouseenter" easing="ease-out" attribute="scale"
-              to="0.3 0.1 0.3" dur="500"></a-animation>
-          </a-cylinder>
-          <a-text id="imageTitle" position="-1.5 -2.5 0" align="left" color="white" value="Slideshow"></a-text>
-
-          <a-cylinder id="gazeButton" class="ui-menu" position="-2 -3 0" rotation="90 0 0" color="#cc3" scale=".25 .05 .25"
-            listener__click="event: click; callback: onToggleGaze;"
-          >
-            <a-animation begin="mouseleave" easing="ease-out" attribute="scale"
-              to=".25 .05 .25" dur="500"></a-animation>
-            <a-animation begin="mouseenter" easing="ease-out" attribute="scale"
-              to="0.3 0.1 0.3" dur="500"></a-animation>
-          </a-cylinder>
-          <a-text id="imageTitle" position="-1.5 -3 0" align="left" color="white" value="Use gaze"></a-text>
-
-          <a-entity id="categoryTemplate" class="ui-menu" visible="false">
-            <a-entity class="categoryThumb" class="ui-menu" scale="1 1 1"
-              listener__click="event: click; callback: onConfirm; params: -1, -1"
-              listener__enter="event: mouseenter; callback: onSelect"
-              listener__leave="event: mouseleave; callback: onDeselect"
-              >
-              <a-plane id="srollRFrame" class="ui-menu" width="1.1905" height="1.1905" position="0 -0.3 -0.05" material="transparent: true" src="ui/frame.png"></a-plane>
-              <a-plane class="thumbL" class="ui-menu" position="0 -0.3 0" src="images/201705/6c9wxa.T.L.jpg" stereo="eye: right"></a-plane>
-              <a-plane class="thumbR" class="ui-menu" position="0 -0.3 0" src="images/201705/6c9wxa.T.R.jpg" stereo="eye: left"></a-plane>
-              <a-animation begin="grow" easing="ease-out" attribute="scale"
-                fill="forwards" to="1.2 1.2 1.2" dur="200"></a-animation>
-              <a-animation begin="shrink" easing="ease-out" attribute="scale"
-                fill="forwards" to="1 1 1" dur="300"></a-animation>
-            </a-entity>
-            <a-text class="title" position="-0.3 0.4 0" scale="0.5 0.5 0.5" color="white" value="Sample category"></a-text>
-          </a-entity>
-        </a-entity>
-      </a-entity>
-        
       <a-sky color="#000"></a-sky>
       <a-light type="ambient"></a-light>
     </a-scene>
+
   </body>
   <script src="connectivity.js"></script>
   <script src="menu.js"></script>
