@@ -33,7 +33,7 @@
 
       <section class="galleries" id="main-menu" v-if="visible">
         <p>Choose from albums scraped from the internet or taken by me.</p>
-        <section class="item" v-for="item in items" :cid="item.id" onclick="onGalleryItemClick(event)">
+        <section class="item" v-for="item in items" :cid="item.id" onclick="onCategoryClick(event)">
           <img class="picture" :src="item.picture" />
           <div class="description">
             <h3>{{item.title}}</h3>
