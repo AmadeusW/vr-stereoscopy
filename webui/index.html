@@ -28,7 +28,7 @@
         </p>
         <img class="picture" :src="item.thumbLeftUrl" />
         <p>{{item.title}}</p>
-        <p><a :href="item.originalUrl">Source</a></p>
+        <p v-if="item.originalUrl"><a :href="item.originalUrl">Source</a></p>
       </section>
 
       <section class="galleries" id="main-menu" v-if="visible">
