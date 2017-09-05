@@ -38,18 +38,19 @@ async function initialize() {
     //render();
 }
 
-function getViewModel(scene) {
+function getViewModel(scene, index) {
     return {
         title: scene.Title,
         imageLeftUrl: cdnPrefix + imagePathPrefix + scene.Link + ".L.jpg",
         imageRightUrl: cdnPrefix + imagePathPrefix + scene.Link + ".R.jpg",
         thumbLeftUrl: cdnPrefix + imagePathPrefix + scene.Link+ ".T.L.jpg",
         thumbRightUrl: cdnPrefix + imagePathPrefix + scene.Link + ".T.R.jpg",
-        originalUrl: scene.shortLink, // user friendly link to the original
+        originalUrl: scene.ShortLink, // user friendly link to the original
         originalImageUrl: scene.ImageUrl, // raw version of the image
         width: scene.W,
         height: scene.H,
-        correction: scene.correction != null ? scene.correction : [0, 0, 0]
+        correction: scene.correction != null ? scene.correction : [0, 0, 0],
+        id: index
     }
 }
 
@@ -83,7 +84,7 @@ function initializeAFrame() {
 function render() {
     if (loadedImageId != currentImageId)
     {
-        var vm = getViewModel(scenes[currentImageId]);
+        var vm = galleryMenuVue.items[currentImageId];
         console.log("Rendering new image:", vm);
 
         document.getElementById("leftPlane").setAttribute("width", Math.pow(2, vm.width))
