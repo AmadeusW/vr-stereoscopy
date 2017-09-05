@@ -61,10 +61,17 @@ function buildMenu(categories) {
     });
 }
 
-async function onGalleryItemClick(event) {
+async function onCategoryClick(event) {
     var category = event.currentTarget.getAttribute("cid")
     goToVR(); // AFrame quirk requires this to happen before awaiting.
     await goToCategory(category);
+    render();
+}
+
+async function onGalleryItemClick(event) {
+    var imageId = event.currentTarget.getAttribute("cid")
+    goToVR(); // AFrame quirk requires this to happen before awaiting.
+    currentImageId = imageId;
     render();
 }
 
