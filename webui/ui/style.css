@@ -58,6 +58,7 @@ h1,h2,h3,h4,h5,b {
   padding: 0 3px;
   border-left: 3px solid #000;
   border-right: 3px solid #000;
+  cursor: pointer;
 }
 .item .picture {
   width: 128px;
