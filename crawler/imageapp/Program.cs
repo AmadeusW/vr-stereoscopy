@@ -175,33 +175,30 @@ namespace StereoscopyVR.ImageApp
                 };
             }
 
-            using (var pixels = image.Lock())
+            var distances = new List<int>();
+            foreach (var point in searchPoints)
             {
-                var distances = new List<int>();
-                foreach (var point in searchPoints)
-                {
-                    var searchPoint = point;
-                    var firstColor = pixels[point.X, point.Y];
+                var searchPoint = point;
+                var firstColor = image.GetPixelReference(point.X, point.Y);
 
-                    // Traverse into the picture. Stop when color differs
-                    int verifyLength = searchY == 0 ? image.Height : image.Width; // If first pass was horizontal, traverse vertically
-                    for (int i = 0; i < verifyLength; i++)
+                // Traverse into the picture. Stop when color differs
+                int verifyLength = searchY == 0 ? image.Height : image.Width; // If first pass was horizontal, traverse vertically
+                for (int i = 0; i < verifyLength; i++)
+                {
+                    //Console.WriteLine($"searching at {searchPoint}");
+                    var color = image.GetPixelReference(searchPoint.X, searchPoint.Y);
+                    if (!AlmostEquals(color, firstColor))
                     {
-                        //Console.WriteLine($"searching at {searchPoint}");
-                        var color = pixels[searchPoint.X, searchPoint.Y];
-                        if (!AlmostEquals(color, firstColor))
-                        {
-                            Debug.WriteLine($"Candidate at {i}");
-                            distances.Add(i);
-                            break;
-                        }
-                        searchPoint.X += searchX;
-                        searchPoint.Y += searchY;
+                        Debug.WriteLine($"Candidate at {i}");
+                        distances.Add(i);
+                        break;
                     }
+                    searchPoint.X += searchX;
+                    searchPoint.Y += searchY;
                 }
-                Debug.WriteLine($"First pass: returning {distances.Min()}");
-                return distances.Min();
             }
+            Debug.WriteLine($"First pass: returning {distances.Min()}");
+            return distances.Min();
         }
 
         public static bool AlmostEquals(Rgba32 a, Rgba32 b)
