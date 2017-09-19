@@ -26,6 +26,9 @@
         <p>
           You're now viewing album <b>{{galleryTitle}}</b>: {{galleryDescription}}
         </p>
+        <p>
+          With the headset on, use the controller to see photos, or select a photo from the list.
+        </p>
         <img class="picture" :src="item.thumbLeftUrl" />
         <p>{{item.title}}</p>
         <p v-if="item.originalUrl"><a :href="item.originalUrl">Source</a></p>
@@ -43,7 +46,6 @@
       </section>
       
       <section class="galleries" id="gallery-menu" v-if="visible">
-          <p>All picture in this album</p>
           <section class="item" v-for="item in items" :cid="item.id" onclick="onGalleryItemClick(event)">
             <img class="picture" :src="item.thumbLeftUrl" />
             <div class="description">
@@ -57,7 +59,7 @@
 
     <!-- VR world -->
     <a-scene id="scene" class="hidden">
-      <a-entity id="camera" camera="userHeight: 1.6" stereocam="eye:left;" look-controls mouse-cursor>
+      <a-entity id="camera" camera="userHeight: 1.6" stereocam="eye:left;" mouse-cursor>
         <!-- Stereo picture fixed to the camera -->
         <a-entity id="mainPane">
           <a-plane id="leftPlane"  position="0 0 -9" width="9" height="9" src="" stereo="eye: right"></a-plane>
