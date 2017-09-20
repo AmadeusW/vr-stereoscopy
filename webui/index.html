@@ -59,6 +59,8 @@
 
     <!-- VR world -->
     <a-scene id="scene" class="hidden">
+      <a-entity vive-controls="hand:left" oculus-touch-controls="hand:left" gearvr-controls="hand:left"  daydream-controls="hand:left"  x-controller-listener="hand:left"></a-entity>
+      <a-entity vive-controls="hand:right" oculus-touch-controls="hand:right" gearvr-controls="hand:right"  daydream-controls="hand:right"  x-controller-listener="hand:right"></a-entity>
       <a-entity id="camera" camera="userHeight: 1.6" stereocam="eye:left;" mouse-cursor>
         <!-- Stereo picture fixed to the camera -->
         <a-entity id="mainPane">

@@ -225,3 +225,33 @@ function toggleTimer() {
         document.getElementById("timerButton").setAttribute("color", "#311");
     }
 }
+
+AFRAME.registerComponent('x-controller-listener', {
+    schema: {
+        hand: {type: 'string', default: 'right'}
+    },
+    init: function () {
+        var el = this.el;
+        var flip = this.data.hand == 'left';
+        console.log("Listening to the controller. Left hand? " + flip);
+        el.addEventListener('triggerdown', function (evt) { // vive, oculus, gearvr
+            console.log("Trigger", evt);
+            if (flip) previousImage(); else nextImage();
+        });
+        el.addEventListener('gripdown', function (evt) { // vive, oculus
+            console.log("Grip", evt);
+            if (flip) nextImage(); else previousImage();
+        });
+        el.addEventListener('trackpaddown', function (evt) { // vive, gearvr, daydream
+            console.log("Trackpad!", evt);
+            if (flip) nextImage(); else previousImage();
+        });
+        /*
+        // Note: setting neither cancelBubble nor defaultPrevented prevents AFrame from firing both buttondown and other event
+        // until we figure out how to fire a single event, buttondown is disabled.
+        el.addEventListener('buttondown', function (evt) {
+            console.log("Click!", evt);
+            el.setAttribute('visible', !el.getAttribute('visible'));
+        });*/
+    }
+  });
