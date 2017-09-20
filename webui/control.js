@@ -82,9 +82,10 @@ function initializeAFrame() {
 }
 
 function render() {
+    var vm = galleryMenuVue.items[currentImageId];
+
     if (loadedImageId != currentImageId)
     {
-        var vm = galleryMenuVue.items[currentImageId];
         console.log("Rendering new image:", vm.title);
 
         document.getElementById("leftPlane").setAttribute("width", Math.pow(2, vm.width))
