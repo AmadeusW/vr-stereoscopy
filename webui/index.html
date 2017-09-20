@@ -19,23 +19,25 @@
       <section class="title" id="main-title" v-if="visible">
         <h1><a href="index.html">VR Stereoscopy</a></h1>
         <p>Turn your VR headset into a stereoscope.</p>
+        <p>Choose from albums scraped from the internet or taken by me.</p>
       </section>
 
       <section class="title" id="gallery-title" v-if="visible">
         <h1><a href="#" onclick="showMainUI()">VR Stereoscopy</a></h1>
         <p>
-          You're now viewing album <b>{{galleryTitle}}</b>: {{galleryDescription}}
+          <b>{{galleryTitle}}</b>: {{galleryDescription}}
         </p>
         <p>
           With the headset on, use the controller to see photos, or select a photo from the list.
         </p>
+        <p>
+          Now showing in stereo: <b>{{item.title}}</b>
+        </p>
         <img class="picture" :src="item.thumbLeftUrl" />
-        <p>{{item.title}}</p>
         <p v-if="item.originalUrl"><a :href="item.originalUrl">Source</a></p>
       </section>
 
       <section class="galleries" id="main-menu" v-if="visible">
-        <p>Choose from albums scraped from the internet or taken by me.</p>
         <section class="item" v-for="item in items" :cid="item.id" onclick="onCategoryClick(event)">
           <img class="picture" :src="item.picture" />
           <div class="description">
