@@ -97,7 +97,7 @@ function render() {
         document.getElementById("rightPlane").setAttribute("src", vm.imageRightUrl)
         eyeDelta = vm.correction;
 
-        loadedImageIdId = currentImageId;
+        loadedImageId = currentImageId;
         galleryTitleVue.item = vm;
     }
     var positionR = (positionBase[0] + positionOffset[0] + rotationOffset[0] - vm.correction[0]/2)
