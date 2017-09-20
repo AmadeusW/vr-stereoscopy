@@ -85,7 +85,7 @@ function render() {
     if (loadedImageId != currentImageId)
     {
         var vm = galleryMenuVue.items[currentImageId];
-        console.log("Rendering new image:", vm);
+        console.log("Rendering new image:", vm.title);
 
         document.getElementById("leftPlane").setAttribute("width", Math.pow(2, vm.width))
         document.getElementById("leftPlane").setAttribute("height", Math.pow(2, vm.height))
@@ -95,6 +95,7 @@ function render() {
 
         document.getElementById("leftPlane").setAttribute("src", vm.imageLeftUrl)
         document.getElementById("rightPlane").setAttribute("src", vm.imageRightUrl)
+        eyeDelta = vm.correction;
 
         loadedImageIdId = currentImageId;
         galleryTitleVue.item = vm;
@@ -166,6 +167,9 @@ window.addEventListener("keydown", function(e){
     if(e.keyCode === 84) { // t
         toggleTimer();
     }
+    if(e.keyCode === 67) { // c
+        showCorrectionData();
+    }
     if(e.keyCode === 78) { // n
         nextImage();
     }
@@ -203,6 +207,12 @@ function previousImage() {
 
 function saveImageCorrections() {
     galleryTitleVue.item.correction = eyeDelta;
+}
+
+function showCorrectionData() {
+    console.log(galleryMenuVue.items[currentImageId].title);
+    // Usage: copy this output into posts.json
+    console.log("correction: " + JSON.stringify(galleryMenuVue.items[currentImageId].correction));
 }
 
 function getNextIndex(value) {
