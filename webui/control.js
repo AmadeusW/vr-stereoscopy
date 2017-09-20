@@ -211,9 +211,9 @@ function saveImageCorrections() {
 }
 
 function showCorrectionData() {
-    console.log(galleryMenuVue.items[currentImageId].title);
     // Usage: copy this output into posts.json
-    console.log("correction: " + JSON.stringify(galleryMenuVue.items[currentImageId].correction));
+    console.log(",")
+    console.log("\"correction\": " + JSON.stringify(galleryMenuVue.items[currentImageId].correction));
 }
 
 function getNextIndex(value) {
