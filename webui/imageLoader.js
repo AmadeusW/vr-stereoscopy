@@ -2,35 +2,25 @@
 // by asynchronously loading new pictures, 
 //  dimming the current picture 
 //  and revealing the new picture only when it's fully loaded
-class ImageLoader {
+preloadImage = function(srcL, srcR) {
+    tempImagesLoaded = 0;
+    tempImageL.src = srcL;
+    tempImageR.src = srcR;
+    document.getElementById("leftPlane").setAttribute("visibile", "false");
+    document.getElementById("rightPlane").setAttribute("visibile", "false");
+}
 
-    constructor() {
-        this.tempImageL = new Image();
-        this.tempImageR = new Image();
-        tempImageL.onload = onImageLoaded;
-        tempImageR.onload = onImageLoaded;
-        this.imagesLoaded = 0;
-    }
-
-    load = function(srcL, srcR, callback) {
-        this.imagesLoaded = 0;
-        this.tempImageL.src = srcL;
-        this.tempImageR.src = srcR;
-        this.callback = callback;
-        document.getElementById("rightPlane").setAttribute("visibile", "false");
-    }
-
-    onImageLoaded = function() {
-        imagesLoaded++;
-        if (imagesLoaded == 2) {
-            onSceneLoaded();
-        }
-    }
-
-    onSceneLoaded = function() {
-        document.getElementById("leftPlane").setAttribute("src", tempImageL.src);
-        document.getElementById("rightPlane").setAttribute("src", tempImageR.src);
+onTempImageLoaded = function() {
+    tempImagesLoaded++;
+    if (tempImagesLoaded == 2) {
+        document.getElementById("leftPlane").setAttribute("visibile", "true");
         document.getElementById("rightPlane").setAttribute("visibile", "true");
-        this.callback();
+        render();
     }
 }
+
+tempImageL = new Image();
+tempImageR = new Image();
+tempImageL.onload = onTempImageLoaded;
+tempImageR.onload = onTempImageLoaded;
+tempImagesLoaded = 0;

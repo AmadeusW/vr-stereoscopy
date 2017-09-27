@@ -23,7 +23,6 @@ var mainTitleVue;
 var galleryTitleVue;
 var mainMenuVue;
 var galleryMenuVue;
-var loader = new ImageLoader();
 
 initialize();
 
@@ -91,30 +90,26 @@ function render() {
         loadedImageId = currentImageId;
         galleryTitleVue.item = vm;
 
-        loader.load(vm.imageLeftUrl, vm.imageRightUrl, () =>
-        {
-            console.log("Image loaded:", vm.title);
-            document.getElementById("leftPlane").setAttribute("width", Math.pow(2, vm.width))
-            document.getElementById("leftPlane").setAttribute("height", Math.pow(2, vm.height))
-            document.getElementById("rightPlane").setAttribute("width", Math.pow(2, vm.width))
-            document.getElementById("rightPlane").setAttribute("height", Math.pow(2, vm.height))
-            positionBase[2] = -Math.pow(1.88, vm.width); // this will update the distance
+        document.getElementById("leftPlane").setAttribute("width", Math.pow(2, vm.width))
+        document.getElementById("leftPlane").setAttribute("height", Math.pow(2, vm.height))
+        document.getElementById("rightPlane").setAttribute("width", Math.pow(2, vm.width))
+        document.getElementById("rightPlane").setAttribute("height", Math.pow(2, vm.height))
+        positionBase[2] = -Math.pow(1.88, vm.width); // this will update the distance
 
-            document.getElementById("leftPlane").setAttribute("src", vm.imageLeftUrl)
-            document.getElementById("rightPlane").setAttribute("src", vm.imageRightUrl)
-            eyeDelta = vm.correction;
-
-            var positionR = (positionBase[0] + positionOffset[0] + rotationOffset[0] - vm.correction[0]/2)
-                    + " " + (positionBase[1] + positionOffset[1] + rotationOffset[1] - vm.correction[1]/2)
-                    + " " + (positionBase[2] + positionOffset[2] + rotationOffset[2] - vm.correction[2]/2);
-            var positionL = (positionBase[0] + positionOffset[0] + rotationOffset[0] + vm.correction[0]/2)
-                    + " " + (positionBase[1] + positionOffset[1] + rotationOffset[1] + vm.correction[1]/2)
-                    + " " + (positionBase[2] + positionOffset[2] + rotationOffset[2] + vm.correction[2]/2);
-
-            document.getElementById("leftPlane").setAttribute("position", positionL)
-            document.getElementById("rightPlane").setAttribute("position", positionR)
-        });
+        document.getElementById("leftPlane").setAttribute("src", vm.imageLeftUrl)
+        document.getElementById("rightPlane").setAttribute("src", vm.imageRightUrl)
+        eyeDelta = vm.correction;
     }
+
+    var positionR = (positionBase[0] + positionOffset[0] + rotationOffset[0] - vm.correction[0]/2)
+        + " " + (positionBase[1] + positionOffset[1] + rotationOffset[1] - vm.correction[1]/2)
+        + " " + (positionBase[2] + positionOffset[2] + rotationOffset[2] - vm.correction[2]/2);
+    var positionL = (positionBase[0] + positionOffset[0] + rotationOffset[0] + vm.correction[0]/2)
+        + " " + (positionBase[1] + positionOffset[1] + rotationOffset[1] + vm.correction[1]/2)
+        + " " + (positionBase[2] + positionOffset[2] + rotationOffset[2] + vm.correction[2]/2);
+
+    document.getElementById("leftPlane").setAttribute("position", positionL)
+    document.getElementById("rightPlane").setAttribute("position", positionR)
 }
 
 function subscribeToEvents() {
@@ -202,13 +197,19 @@ function nextImageByTimer() {
 function nextImage() {
     saveImageCorrections();
     currentImageId = getNextIndex(currentImageId);
-    render();
+
+    var vm = galleryMenuVue.items[currentImageId];
+    preloadImage(vm.imageLeftUrl, vm.imageRightUrl);
+    // render(); is called from onTempImageLoaded, as a result of preloadImage
 }
 
 function previousImage() {
     saveImageCorrections();
     currentImageId = getPreviousIndex(currentImageId);
-    render();
+
+    var vm = galleryMenuVue.items[currentImageId];
+    preloadImage(vm.imageLeftUrl, vm.imageRightUrl);
+    // render(); is called from onTempImageLoaded, as a result of preloadImage
 }
 
 function saveImageCorrections() {
