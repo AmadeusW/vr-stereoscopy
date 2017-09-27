@@ -1,41 +1,33 @@
 # Virtual Reality Cross View
-See stereoscopic and *cross view* images in VR
+See stereoscopic *cross view* images in VR
 
 [Source code](https://github.com/AmadeusW/vr-stereoscopy/)
 
 ## Demo
 [Early demo](http://amadeusw.com/vr-stereoscopy/webui/)
 
-* T - enable\disable slideshow
-* N - next
-* Space - next
+User controls:
+
+* Controller buttons - next, previous
+* N, space - next
 * P - preview
-* arrow keys - adjustments for single eye
-* R - reset head position
+* T - slideshow
 
-## Roadmap:
-- [x] display image
-- [x] display image in AFrame
-- [x] display image in VR
-- [x] attach image to camera
-- [x] pan image with head rotation
-- [ ] change image with horizontal head rotation
-- [x] dynamically crop images from web
-- [ ] use azure blob storage for images. Allow CORS
-- [ ] use azure table storage for image data
-- [ ] save and restore per-image adjustment
-- [x] display thumbnails
-- [x] navigation by gaze
-- [x] data source: imgur
-- [x] data source: reddit images
-- [x] data source: imgur albums
-- [x] data source: flickr
-- [ ] data source: deviantart
-- [ ] separate data of scraped images from data of processed images
-- [ ] scrape top images with score over a threshold
-- [ ] scrape weekly top images with score over a threshold
+Dev controls:
 
+* arrow keys - adjust alignment of the image
+* C - log current alignment of the image
+* R - reset alignment
+
+## Future improvements:
+- Go around the cross origin policy and display any image from the internet
+- Automatically update the gallery with each month's top picks
+
+## Capabilities:
+This project scrapes links from reddit's /r/crossview, resizes to achieve dimensions that are a power of 2, and uploads images to CDN so that WebVR will display it without CORS issues.
+imgur, reddit and flickr are supported.
 
 ## Credits:
+- photographers. *Each photo has a link to the original reddit submission*
 - [oscarmarinmiro/aframe-stereo-component](https://github.com/oscarmarinmiro/aframe-stereo-component)
 - [aframevr/aframe](https://github.com/aframevr/aframe)
