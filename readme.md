@@ -1,30 +1,27 @@
 # Virtual Reality Cross View
 See stereoscopic *cross view* images in VR
 
+[Check it out](http://amadeusw.com/vr-stereoscopy/webui/)
 [Source code](https://github.com/AmadeusW/vr-stereoscopy/)
 
-## Demo
-[Early demo](http://amadeusw.com/vr-stereoscopy/webui/)
+Controls:
 
-User controls:
-
-* Controller buttons - next, previous
-* N, space - next
-* P - preview
-* T - slideshow
+* Next: `Controller buttons` `N`, `space`
+* Previous: `other controller button`, `P`
+* Slideshow: `T`
 
 Dev controls:
 
-* arrow keys - adjust alignment of the image
-* C - log current alignment of the image
-* R - reset alignment
+* Adjust relative positioning of left and right images: `arrow keys`
+* Log relative positions: `C`
+* Reset relative positions: `R`
 
 ## Future improvements:
-- Go around the cross origin policy and display any image from the internet
-- Automatically update the gallery with each month's top picks
+- Go around the cross origin policy and display any image from the internet, without the need of hosting it
+- Automatically update the gallery with each month's top voted images
 
 ## Capabilities:
-This project scrapes links from reddit's /r/crossview, resizes to achieve dimensions that are a power of 2, and uploads images to CDN so that WebVR will display it without CORS issues.
+This project scrapes links from reddit's /r/crossview, resizes to achieve dimensions that are a power of 2, and uploads images to CDN to prevent CORS issues.
 imgur, reddit and flickr are supported.
 
 ## Credits:
