@@ -19,7 +19,7 @@ onTempImageLoaded = function() {
                 document.getElementById("leftPlane").setAttribute("visible", "true");
                 document.getElementById("rightPlane").setAttribute("visible", "true");
             }
-        }, 100)
+        }, 150)
     }
 }
 
