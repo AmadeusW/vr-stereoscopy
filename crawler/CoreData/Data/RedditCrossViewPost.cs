@@ -1,4 +1,4 @@
-﻿using StereoscopyVR.RedditCrawler.Endpoints;
+﻿using StereoscopyVR.CoreData.Endpoints;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -6,48 +6,29 @@ using System.Threading.Tasks;
 using System.Text.RegularExpressions;
 using System.Linq;
 
-namespace StereoscopyVR.RedditCrawler
+namespace StereoscopyVR.CoreData.Data
 {
-    public class SceneCollection
+    public class RedditCrossViewPost : StereoImage
     {
-        public IEnumerable<CrossViewPost> scenes { get; set; }
-    }
-
-    public class CrossViewPost
-    {
-        public Uri Url { get; }
-        public string Title { get; }
-        public string Link { get; }
-        public int Score { get; }
-        public DateTime UploadDate { get; }
-        public DateTime CrawlDate { get; }
-
         public string ShortLink => "http://redd.it/" + Link;
-        public Uri ImageUrl { get; set; }
-        public int W { get; set; }
-        public int H { get; set; }
+        public int Score { get; }
 
         static Regex flickrRegex = new Regex(@"photos\/[^\/]+\/(\d+)\/.*");
         static IOriginalImageSource flickrEndpoint = new Flickr();
         static IOriginalImageSource imgurEndpoint = new Imgur();
 
-        public CrossViewPost(Uri url, Uri imageUrl, string title, string link, int score, DateTime uploadDate)
+        public RedditCrossViewPost(Uri url, Uri imageUrl, string title, string link, int score, DateTime uploadDate)
+            : base(url, imageUrl, title, link, uploadDate)
         {
-            Url = url;
-            ImageUrl = imageUrl;
-            Title = title;
-            Link = link.Contains("/") ? new Uri(link).PathAndQuery.Trim('/') : link;
             Score = score;
-            UploadDate = uploadDate;
-            CrawlDate = DateTime.UtcNow;
         }
 
-        private IEnumerable<CrossViewPost> AsEnumerable()
+        private IEnumerable<RedditCrossViewPost> AsEnumerable()
         {
             yield return this;
         }
 
-        internal async Task<IEnumerable<CrossViewPost>> WithUpdatedImageUrl()
+        public async Task<IEnumerable<RedditCrossViewPost>> WithUpdatedImageUrl()
         {
             ImageUrl = null;
 
@@ -63,7 +44,7 @@ namespace StereoscopyVR.RedditCrawler
                 var photoId = flickrRegex.Match(query).Groups[1].Value;
                 var details = await flickrEndpoint.GetOriginalData(photoId);
 
-                return details.Select(d => new CrossViewPost(this.Url, new Uri(d.Url), String.IsNullOrEmpty(d.Title) ? this.Title : d.Title, this.Link, this.Score, this.UploadDate));
+                return details.Select(d => new RedditCrossViewPost(this.Url, new Uri(d.Url), String.IsNullOrEmpty(d.Title) ? this.Title : d.Title, this.Link, this.Score, this.UploadDate));
             }
             else if (Url.Host == "imgur.com" || Url.Host == "i.imgur.com")
             {
@@ -74,7 +55,7 @@ namespace StereoscopyVR.RedditCrawler
                         query = query.Substring(0, query.IndexOf('.'));
 
                     var details = await imgurEndpoint.GetOriginalData(query);
-                    return details.Select(d => new CrossViewPost(this.Url, new Uri(d.Url), String.IsNullOrEmpty(d.Title) ? this.Title : d.Title, d.FileName, this.Score, this.UploadDate));
+                    return details.Select(d => new RedditCrossViewPost(this.Url, new Uri(d.Url), String.IsNullOrEmpty(d.Title) ? this.Title : d.Title, d.FileName, this.Score, this.UploadDate));
                 }
                 else
                 {
@@ -89,7 +70,7 @@ namespace StereoscopyVR.RedditCrawler
                     return this.AsEnumerable();
                 }
             }
-            return new CrossViewPost[0].AsEnumerable();
+            return new RedditCrossViewPost[0].AsEnumerable();
         }
     }
 }

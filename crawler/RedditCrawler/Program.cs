@@ -1,6 +1,7 @@
-﻿using Microsoft.Extensions.Configuration;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using RedditSharp;
+using StereoscopyVR.CoreData;
+using StereoscopyVR.CoreData.Data;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -18,20 +19,20 @@ namespace StereoscopyVR.RedditCrawler
         const string SaveLocation = "out";
         const string DownloadLocation = "drop";
         const string PostsFile = "posts.json";
-        static public IConfigurationRoot Configuration { get; set; }
+        
         static void Main(string[] args)
         {
             Directory.CreateDirectory(SaveLocation);
             Directory.CreateDirectory(DownloadLocation);
 
-            Configure();
+            CoreData.Configuration.Initialize();
             MainAsync().Wait(System.Threading.Timeout.Infinite);
         }
 
         private static async Task MainAsync()
         {
             Console.WriteLine("Do you want to download new posts? (y, enter)");
-            IEnumerable<CrossViewPost> posts = null;
+            IEnumerable<StereoImage> posts = null;
             if (Console.ReadLine().ToLowerInvariant() == "y")
             {
                 Console.WriteLine("Downloading data from Reddit...");
@@ -75,11 +76,11 @@ namespace StereoscopyVR.RedditCrawler
             Console.ReadLine();
         }
 
-        private static async Task<IEnumerable<CrossViewPost>> GetImageUrls(IEnumerable<CrossViewPost> posts)
+        private static async Task<IEnumerable<StereoImage>> GetImageUrls(IEnumerable<StereoImage> posts)
         {
-            var allPosts = new List<CrossViewPost>();
+            var allPosts = new List<RedditCrossViewPost>();
 
-            foreach (var post in posts)
+            foreach (var post in posts.Select(n => (RedditCrossViewPost)n))
             {
                 try
                 {
@@ -109,9 +110,9 @@ namespace StereoscopyVR.RedditCrawler
 
         }
 
-        private static async Task<IEnumerable<CrossViewPost>> DoWork(IEnumerable<CrossViewPost> posts)
+        private static async Task<IEnumerable<StereoImage>> DoWork(IEnumerable<StereoImage> posts)
         {
-            List<CrossViewPost> processedPosts = new List<CrossViewPost>();
+            var processedPosts = new List<StereoImage>();
             foreach (var post in posts.Where(n => n.ImageUrl != null))
             {
                 var name = post.ImageUrl.Segments.Last();
@@ -149,7 +150,7 @@ namespace StereoscopyVR.RedditCrawler
             return processedPosts;
         }
 
-        private static async Task DownloadAsync(CrossViewPost post, string filePath)
+        private static async Task DownloadAsync(StereoImage post, string filePath)
         {
             using (var client = new HttpClient())
             {
@@ -163,17 +164,9 @@ namespace StereoscopyVR.RedditCrawler
             }
         }
 
-        private static void Configure()
+        private static async Task<IEnumerable<RedditCrossViewPost>> GetPosts()
         {
-            var configPath = Environment.ExpandEnvironmentVariables(@"%USERPROFILE%\OneDrive\current\vrcv.json");
-            var builder = new ConfigurationBuilder()
-                .AddJsonFile(configPath);
-            Configuration = builder.Build();
-        }
-
-        private static async Task<IEnumerable<CrossViewPost>> GetPosts()
-        {
-            var webAgent = new BotWebAgent(Configuration["reddit-username"], Configuration["reddit-password"], Configuration["reddit-token"], Configuration["reddit-secret"], Configuration["reddit-url"]);
+            var webAgent = new BotWebAgent(Configuration.Instance["reddit-username"], Configuration.Instance["reddit-password"], Configuration.Instance["reddit-token"], Configuration.Instance["reddit-secret"], Configuration.Instance["reddit-url"]);
             //This will check if the access token is about to expire before each request and automatically request a new one for you
             //"false" means that it will NOT load the logged in user profile so reddit.User will be null
             var reddit = new Reddit(webAgent, false);
@@ -183,11 +176,11 @@ namespace StereoscopyVR.RedditCrawler
                 Console.WriteLine("Invalid token");
 
             var subreddit = await reddit.GetSubredditAsync("/r/crossview");
-            var posts = new List<CrossViewPost>();
+            var posts = new List<RedditCrossViewPost>();
             //await subreddit.GetTop(RedditSharp.Things.FromTime.All).Where(n => n.CreatedUTC.Year == 2016).Take(50).ForEachAsync(post => {
             //await subreddit.GetTop(RedditSharp.Things.FromTime.Month).Take(50).ForEachAsync(post => {
             await reddit.GetPostAsync(new Uri(@"https://www.reddit.com/r/CrossView/comments/1ujpnj/some_1920s_stereograms/?ref=share&ref_source=link")).ToAsyncEnumerable().ForEachAsync(post => {
-                var data = new CrossViewPost(post.Url, null, post.Title, post.Shortlink, post.Score, post.CreatedUTC);
+                var data = new RedditCrossViewPost(post.Url, null, post.Title, post.Shortlink, post.Score, post.CreatedUTC);
                 Console.WriteLine(post.Title);
                 posts.Add(data);
             });

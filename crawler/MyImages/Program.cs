@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Newtonsoft.Json;
-using StereoscopyVR.RedditCrawler;
+using StereoscopyVR.CoreData.Data;
 
 namespace MyImages
 {
@@ -21,7 +21,7 @@ namespace MyImages
 
         private static void DoWork()
         {
-            var processedPosts = new List<CrossViewPost>();
+            var processedPosts = new List<StereoImage>();
             var files = GetPairs(@"C:\Users\amadeusz\Pictures\Stereo\out\").ToArray();
             for (int i = 0; i < files.Length; i += 2)
             {
@@ -48,10 +48,10 @@ namespace MyImages
             return Directory.EnumerateFiles(directory).OrderBy(n => n);
         }
 
-        private static CrossViewPost ProcessPair(string path1, string path2, string name)
+        private static StereoImage ProcessPair(string path1, string path2, string name)
         {
             var imageData = StereoscopyVR.ImageApp.Program.ProcessPair(path1, path2, name);
-            var post = new CrossViewPost(default(Uri), default(Uri), name, name, 0, DateTime.Now);
+            var post = new StereoImage(default(Uri), default(Uri), name, name, DateTime.Now);
             post.W = imageData.Width;
             post.H = imageData.Height;
             return post;

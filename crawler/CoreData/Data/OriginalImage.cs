@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace StereoscopyVR.RedditCrawler.Data
+namespace StereoscopyVR.CoreData.Data
 {
     public class OriginalImage
     {

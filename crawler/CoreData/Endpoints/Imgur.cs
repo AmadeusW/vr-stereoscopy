@@ -3,17 +3,17 @@ using System.Collections.Generic;
 using System.Text;
 using Refit;
 using System.Threading.Tasks;
-using StereoscopyVR.RedditCrawler.Data;
+using StereoscopyVR.CoreData.Data;
 using System.Linq;
 
-namespace StereoscopyVR.RedditCrawler.Endpoints
+namespace StereoscopyVR.CoreData.Endpoints
 {
     internal class Imgur : IOriginalImageSource
     {
         public async Task<IEnumerable<OriginalImage>> GetOriginalData(string id)
         {
             // TODO: Check if this is an album
-            var albumImages = await ImgurApi.GetAlbumImages(id, "Client-ID " + Program.Configuration["imgur-token"]);
+            var albumImages = await ImgurApi.GetAlbumImages(id, "Client-ID " + Configuration.Instance["imgur-token"]);
             return albumImages.data.Select(d => new OriginalImage() { Title = d.title, Url = d.link });
         }
 
@@ -27,7 +27,7 @@ namespace StereoscopyVR.RedditCrawler.Endpoints
                     var settings = new RefitSettings()
                     {
                         //AuthorizationHeaderValueGetter = () => Task.FromResult("Client-ID 123"),
-                        AuthorizationHeaderValueGetter = () => Task.FromResult("Client-ID " + Program.Configuration["imgur-token"]),
+                        AuthorizationHeaderValueGetter = () => Task.FromResult("Client-ID " + Configuration.Instance["imgur-token"]),
                     };
                     _imgurApi = RestService.For<IImgurApi>("https://api.imgur.com/3/");//, settings);
                 }

@@ -1,8 +1,8 @@
-﻿using StereoscopyVR.RedditCrawler.Data;
+﻿using StereoscopyVR.CoreData.Data;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace StereoscopyVR.RedditCrawler.Endpoints
+namespace StereoscopyVR.CoreData.Endpoints
 {
     internal interface IOriginalImageSource
     {
