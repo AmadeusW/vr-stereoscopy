@@ -10,23 +10,32 @@ namespace StereoscopyVR.CoreData.Endpoints
 {
     public class Flickr : IOriginalImageSource
     {
-        public async Task Sample()
+        const string PhotoPageUrlFormat = @"https://www.flickr.com/photos/{0}/{1}";
+        const string AlbumUrlFormat = @"https://www.flickr.com/photos/{0}/albums/{1}";
+        public async Task<IEnumerable<StereoImage>> ScrapeAlbum(string userId, string albumId, string userName)
         {
-            //var id1 = await FlickrApi.GetUserIdByName("amadeusw", Configuration.Instance["flickr-token"]);
-            var id2 = await FlickrApi.GetUserIdByUrl(@"https://www.flickr.com/photos/fotoopa_hs", Configuration.Instance["flickr-token"]);
-            //var photosets = await FlickrApi.GetAlbumsByUser(id2.user.id, Configuration.Instance["flickr-token"]);
-            var photos = await FlickrApi.GetAlbum(id2.user.id, "72157648972433403", Configuration.Instance["flickr-token"]);
-            foreach (var photo in photos.photoset.photo.Take(5))
+            var photos = await FlickrApi.GetAlbum(userId, albumId, Configuration.Instance["flickr-token"]);
+            var result = new List<StereoImage>();
+            foreach (var photo in photos.photoset.photo)
             {
-                var sample = FlickrApi.GetAlbumImages(photo.id, Configuration.Instance["flickr-token"]);
+                Console.WriteLine($"Processing photo {photo.id}");
+                var image = await GetOriginalData(photo.id);
+                result.AddRange(image.Select(n => new StereoImage(
+                    url: new Uri(string.Format(PhotoPageUrlFormat, userName, photo.id)),
+                    imageUrl: new Uri(photo.url_o),
+                    title: photo.title,
+                    link: n.FileName,
+                    uploadDate: default(DateTime)
+                )));
             }
+            return result;
         }
 
         public async Task<IEnumerable<OriginalImage>> GetOriginalData(string id)
         {
             try
             {
-                var albumImages = await FlickrApi.GetAlbumImages(id, Configuration.Instance["flickr-token"]);
+                var albumImages = await FlickrApi.GetImageUrls(id, Configuration.Instance["flickr-token"]);
                 var match = albumImages.sizes.size.FirstOrDefault(n => n.label == "Original");
                 if (match == null)
                 {
@@ -48,7 +57,14 @@ namespace StereoscopyVR.CoreData.Endpoints
             }
         }
 
-
+        public async Task Sample()
+        {
+            throw new NotImplementedException();
+            //var id1 = await FlickrApi.GetUserIdByName("amadeusw", Configuration.Instance["flickr-token"]);
+            //var id2 = await FlickrApi.GetUserIdByUrl(@"https://www.flickr.com/photos/fotoopa_hs", Configuration.Instance["flickr-token"]);
+            //var photosets = await FlickrApi.GetAlbumsByUser(id2.user.id, Configuration.Instance["flickr-token"]);
+            //var photos = await FlickrApi.GetAlbum(id2.user.id, "72157648972433403", Configuration.Instance["flickr-token"]);
+        }
 
         static IFlickrApi _flickrApi;
         static IFlickrApi FlickrApi
@@ -67,12 +83,12 @@ namespace StereoscopyVR.CoreData.Endpoints
     public interface IFlickrApi
     {
         [Get("/rest?method=flickr.photos.getSizes&api_key={api_key}&photo_id={photo_id}&format=json&nojsoncallback=1")]
-        Task<FlickrGetSizesResponse> GetAlbumImages(string photo_id, string api_key);
+        Task<FlickrGetSizesResponse> GetImageUrls(string photo_id, string api_key);
 
         [Get("/rest?method=flickr.urls.lookupUser&api_key={api_key}&url={url}&format=json&nojsoncallback=1")]
         Task<FlickrUserResponse> GetUserIdByUrl(string url, string api_key);
 
-        [Get("/rest?method=flickr.photosets.getPhotos&api_key={api_key}&photoset_id={albumId}&user_id={userId}&format=json&nojsoncallback=1")]
+        [Get("/rest?method=flickr.photosets.getPhotos&api_key={api_key}&photoset_id={albumId}&user_id={userId}&extras=date_uploaded,media,path_alias,url_o,license&format=json&nojsoncallback=1")]
         Task<FlickrGetPhotosResponse> GetAlbum(string userId, string albumId, string api_key);
 
         // helper methods not actively used
@@ -116,6 +132,12 @@ namespace StereoscopyVR.CoreData.Endpoints
     {
         public string id { get; set; }
         public string secret { get; set; }
+        public string title { get; set; }
+        public string date_uploaded { get; set; }
+        public string media { get; set; }
+        public string path_alias { get; set; }
+        public string url_o { get; set; }
+        public string license { get; set; }
     }
 
     public class FlickrGetSizesResponse
