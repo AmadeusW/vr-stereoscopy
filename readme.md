@@ -33,6 +33,6 @@ See stereoscopic *cross view* images in VR
 * Resizes images to achieve dimensions that are a power of 2, uploads images to CDN to prevent CORS issues.
 
 ## Credits:
+- Photographers
 - [oscarmarinmiro/aframe-stereo-component](https://github.com/oscarmarinmiro/aframe-stereo-component)
 - [aframevr/aframe](https://github.com/aframevr/aframe)
-- Currently all available photos are my own.
