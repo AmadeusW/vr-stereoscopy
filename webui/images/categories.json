@@ -2,7 +2,9 @@
     "categories": [
         { "DisplayName": "Japan", "Description": "Stereo memories from the trip", "Thumbnail": "Japan/cherry blossom", "ImagePathPrefix": "Japan/", "Feed": "Japan/posts.json" },
         { "DisplayName": "1920s", "Description": "Classic stereograms found on Reddit", "Thumbnail": "1920s/f0StAi6", "ImagePathPrefix": "1920s/", "Feed": "1920s/posts.json" },
-        { "DisplayName": "Cascadia", "Description": "Pacific Northwest, in stereo", "Thumbnail": "Cascadia/road", "ImagePathPrefix": "Cascadia/", "Feed": "Cascadia/posts.json" },
+        { "DisplayName": "Cascadia", "Description": "Pacific Northwest, in stereo", "Thumbnail": "Cascadia/road", "ImagePathPrefix": "Cascadia/", "Feed": "Cascadia/posts.json" }
+    ],
+    "unavailable": [
         { "DisplayName": "Insects", "Description": "3D insects in flight, 2015. ©Frank", "Thumbnail": "Insects/19759681599_a42e6a80cf_o", "ImagePathPrefix": "Insects2015/", "Feed": "Insects2015/posts.json" },
         { "DisplayName": "Reddit favs 2017 - work in progress", "Description": "Top pictures from May. TODO: move pictures from other months and sanitize", "Thumbnail": "201705/69ov7p", "ImagePathPrefix": "201705/", "Feed": "201705/posts.json" },
         { "DisplayName": "Reddit favs 2016 - work in progress", "Description": "Top 50 of 2016", "Thumbnail": "2016/425ue6", "ImagePathPrefix": "2016/", "Feed": "2016/posts.json" }
