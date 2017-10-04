@@ -7,17 +7,17 @@ See stereoscopic *cross view* images in VR
 
 ## How to use it:
 
-* Open in [compatible web browser](https://github.com/AmadeusW/vr-stereoscopy/issues/8)
-* Click on the gallery
-* VR will start automatically and gallery will remain visible on the monitor
+* [Open me](http://amadeusw.com/vr-stereoscopy/webui/) in [compatible web browser](https://github.com/AmadeusW/vr-stereoscopy/issues/8)
+* Click on a gallery
+ * VR will start automatically and gallery will remain visible on the main monitor
 * Click on the _VR Stereoscopy_ title to see another gallery
 
 #### Controls in VR:
 
-* Next: `Controller buttons` `N`, `space`
-* Previous: `other controller button`, `P`
+* Next: `Controller buttons`, `N`, `space`
+* Previous: `Controller buttons`, `P`
 * Slideshow: `T`
-* Quit: `Esc`
+* Quit VR: `Esc`
 
 #### Dev controls:
 
