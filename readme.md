@@ -1,5 +1,5 @@
 # Virtual Reality Cross View
-See stereoscopic *cross view* images in VR
+See stereoscopic images in VR - *cross view without crossing your eyes* - built with [A-Frame](https://github.com/aframevr/aframe)
 
 * [Check it out](http://amadeusw.com/vr-stereoscopy/webui/)
 * [Source code](https://github.com/AmadeusW/vr-stereoscopy/)
